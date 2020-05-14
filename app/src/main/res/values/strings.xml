@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TsinghuaDaily</string>
+    <string name="testButton1">显示默认对话框</string>
+    <string name="testButton2">显示UI库对话框</string>
+</resources>
