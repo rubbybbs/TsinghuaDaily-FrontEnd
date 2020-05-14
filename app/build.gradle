@@ -35,3 +35,25 @@ dependencies {
     // Import Tencent QMUI
     implementation 'com.qmuiteam:qmui:2.0.0-alpha08'
 }
+
+buildscript {
+    repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    }
+}
+
+allprojects {
+    repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    }
+}
+
+android {
+    useLibrary 'org.apache.http.legacy'
+}
+
+repositories {
+    maven {
+        url'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+}
