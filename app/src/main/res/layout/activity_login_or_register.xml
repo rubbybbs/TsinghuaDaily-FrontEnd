@@ -34,8 +34,8 @@
         app:met_baseColor="@color/qmui_config_color_gray_3"
         app:met_floatingLabel="highlight"
         app:met_floatingLabelText="证件号"
-        app:met_iconLeft="@drawable/icon_username"
-        app:met_iconPadding="10dp"
+        app:met_iconLeft="@drawable/icon_username_1"
+        app:met_iconPadding="7dp"
         app:met_primaryColor="@color/colorTsinghuaPurple" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
@@ -55,8 +55,8 @@
         app:met_baseColor="@color/qmui_config_color_gray_3"
         app:met_floatingLabel="highlight"
         app:met_floatingLabelText="密码"
-        app:met_iconLeft="@drawable/icon_password"
-        app:met_iconPadding="10dp"
+        app:met_iconLeft="@drawable/icon_password_1"
+        app:met_iconPadding="7dp"
         app:met_primaryColor="@color/colorTsinghuaPurple" />
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
