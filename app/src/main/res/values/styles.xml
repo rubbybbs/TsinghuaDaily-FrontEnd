@@ -8,8 +8,20 @@
 <!--        <item name="colorAccent">@color/colorAccent</item>-->
 <!--    </style>-->
 
-    <style name="AppTheme" parent="QMUI.Compat">
+    <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
+        
+        <!-- Android Theme-->
+        
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorTsinghuaPurple</item>
 
+        <!--QMUI Theme-->
+        <item name="qmui_dialog_negative_action_text_color">@color/colorTsinghuaPurple</item>
+        <item name="qmui_dialog_positive_action_text_color">@color/colorTsinghuaPurple</item>
+        <item name="qmui_skin_support_round_btn_border_color">@color/colorTsinghuaPurple</item>
+        <item name="qmui_skin_support_round_btn_text_color">@color/colorTsinghuaPurple</item>
+
+        
     </style>
 
 </resources>
