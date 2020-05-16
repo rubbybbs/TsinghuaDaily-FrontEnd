@@ -11,8 +11,7 @@
     <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
         
         <!-- Android Theme-->
-        
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorTsinghuaPurple</item>
         <item name="colorAccent">@color/colorTsinghuaPurple</item>
 
         <!--QMUI Theme-->
