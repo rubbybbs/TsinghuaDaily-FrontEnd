@@ -44,8 +44,6 @@ import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TabScrollableFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class TabScrollableFragment extends QMUIFragment {
     @SuppressWarnings("FieldCanBeLocal") private final int TAB_COUNT = 4;
@@ -147,8 +145,9 @@ public class TabScrollableFragment extends QMUIFragment {
         mContentViewPager.setAdapter(mPagerAdapter);
         mContentViewPager.setCurrentItem(mDestPage.getPosition(), false);
         QMUITabBuilder tabBuilder = mTabSegment.tabBuilder();
+        String title[]={"学校","院系","社团","学科"};
         for (int i = 0; i < mCurrentItemCount; i++) {
-            mTabSegment.addTab(tabBuilder.setText("Item " + (i + 1)).build(getContext()));
+            mTabSegment.addTab(tabBuilder.setText(title[i]).build(getContext()));
         }
         int space = QMUIDisplayHelper.dp2px(getContext(), 16);
         mTabSegment.setIndicator(new QMUITabIndicator(
@@ -190,7 +189,7 @@ public class TabScrollableFragment extends QMUIFragment {
             TextView textView = new TextView(getContext());
             textView.setGravity(Gravity.CENTER);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            textView.setTextColor(ContextCompat.getColor(getContext(), Integer.parseInt("#C0000000")));
+            textView.setTextColor(0x000000);
             textView.setText("这是第 " + (page.getPosition() + 1) + " 个 Item 的内容区");
             view = textView;
             mPageMap.put(page, view);

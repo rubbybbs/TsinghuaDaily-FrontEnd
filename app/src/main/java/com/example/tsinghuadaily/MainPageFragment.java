@@ -26,8 +26,6 @@ import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MainPageFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class MainPageFragment extends QMUIFragment {
     @BindView(R.id.pager)
