@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/rubby/Desktop/TsinghuaDaily-FrontEnd/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-h480dp-land-v13/values-h480dp-land-v13.xml",
+            "outputFile": "D:\\temp\\temp for github\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-h480dp-land-v13\\values-h480dp-land-v13.xml",
             "map": [
                 {
-                    "source": "/Users/rubby/.gradle/caches/transforms-2/files-2.1/79a170075e08f1fd8e2c5a7880a00fb5/material-1.1.0/res/values-h480dp-land-v13/values-h480dp-land-v13.xml",
+                    "source": "C:\\Users\\DELL\\.gradle\\caches\\transforms-2\\files-2.1\\79a170075e08f1fd8e2c5a7880a00fb5\\material-1.1.0\\res\\values-h480dp-land-v13\\values-h480dp-land-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",

@@ -29,6 +29,13 @@ anim design_bottom_sheet_slide_in
 anim design_bottom_sheet_slide_out
 anim design_snackbar_in
 anim design_snackbar_out
+anim fragment_close_enter
+anim fragment_close_exit
+anim fragment_fade_enter
+anim fragment_fade_exit
+anim fragment_fast_out_extra_slow_in
+anim fragment_open_enter
+anim fragment_open_exit
 anim grow_from_bottom
 anim grow_from_bottomleft_to_topright
 anim grow_from_bottomright_to_topleft
@@ -38,6 +45,8 @@ anim grow_from_topright_to_bottomleft
 anim mtrl_bottom_sheet_slide_in
 anim mtrl_bottom_sheet_slide_out
 anim mtrl_card_lowers_interpolator
+anim scale_enter
+anim scale_exit
 anim scale_in_center
 anim scale_out_center
 anim shrink_from_bottom
@@ -46,6 +55,14 @@ anim shrink_from_bottomright_to_topleft
 anim shrink_from_top
 anim shrink_from_topleft_to_bottomright
 anim shrink_from_topright_to_bottomleft
+anim slide_in_left
+anim slide_in_right
+anim slide_out_left
+anim slide_out_right
+anim slide_still
+anim swipe_back_enter
+anim swipe_back_exit
+anim swipe_back_exit_still
 animator design_appbar_state_list_animator
 animator design_fab_hide_motion_spec
 animator design_fab_show_motion_spec
@@ -77,6 +94,7 @@ attr QMUITabSegmentStyle
 attr QMUITipNewStyle
 attr QMUITipPointStyle
 attr QMUITopBarStyle
+attr SwipeBackLayoutStyle
 attr actionBarDivider
 attr actionBarItemBackground
 attr actionBarPopupTheme
@@ -1026,6 +1044,10 @@ attr searchViewStyle
 attr seekBarStyle
 attr selectableItemBackground
 attr selectableItemBackgroundBorderless
+attr shadow_bottom
+attr shadow_left
+attr shadow_right
+attr shadow_top
 attr shapeAppearance
 attr shapeAppearanceLargeComponent
 attr shapeAppearanceMediumComponent
@@ -1367,6 +1389,7 @@ color mtrl_textinput_focused_box_stroke_color
 color mtrl_textinput_hovered_box_stroke_color
 color notification_action_color_filter
 color notification_icon_bg_color
+color notification_material_background_media_default_color
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -1780,6 +1803,10 @@ dimen qmui_tab_segment_text_size
 dimen qmui_tab_sign_count_view_min_size
 dimen qmui_tab_sign_count_view_min_size_with_text
 dimen qmui_tips_point_size
+dimen subtitle_corner_radius
+dimen subtitle_outline_width
+dimen subtitle_shadow_offset
+dimen subtitle_shadow_radius
 dimen test_mtrl_calendar_day_cornerSize
 dimen tooltip_corner_radius
 dimen tooltip_horizontal_padding
@@ -1964,6 +1991,10 @@ drawable qmui_switch_thumb_checked
 drawable qmui_switch_track
 drawable qmui_switch_track_checked
 drawable qmui_tips_point
+drawable shadow_bottom
+drawable shadow_left
+drawable shadow_right
+drawable shadow_top
 drawable temp_logo
 drawable test_custom_background
 drawable tooltip_frame_dark
@@ -2013,6 +2044,7 @@ id accessibility_custom_action_6
 id accessibility_custom_action_7
 id accessibility_custom_action_8
 id accessibility_custom_action_9
+id action0
 id action_bar
 id action_bar_activity_content
 id action_bar_container
@@ -2048,6 +2080,7 @@ id button2
 id buttonPanel
 id button_getverifycode
 id button_register
+id cancel_action
 id cancel_button
 id center
 id center_horizontal
@@ -2098,6 +2131,7 @@ id empty_view_detail
 id empty_view_loading
 id empty_view_title
 id end
+id end_padder
 id enterAlways
 id enterAlwaysCollapsed
 id exitUntilCollapsed
@@ -2112,6 +2146,7 @@ id filter_chip
 id fitToContents
 id fixed
 id forever
+id fragment_container_view_tag
 id ghost_view
 id ghost_view_holder
 id gone
@@ -2151,6 +2186,7 @@ id line3
 id listMode
 id list_item
 id masked
+id media_actions
 id message
 id middle
 id mini
@@ -2206,6 +2242,10 @@ id percent
 id pin
 id progress_circular
 id progress_horizontal
+id qmui_activity_fragment_container_id
+id qmui_arch_reused_layout
+id qmui_arch_swipe_layout_in_back
+id qmui_arch_swipe_offset_helper
 id qmui_bottom_sheet_cancel
 id qmui_bottom_sheet_title
 id qmui_click_debounce_action
@@ -2216,6 +2256,7 @@ id qmui_dialog_edit_right_icon
 id qmui_dialog_operator_layout_id
 id qmui_dialog_title_id
 id qmui_do_not_intercept_keyboard_inset
+id qmui_nav_fragment_container_id
 id qmui_popup_close_btn_id
 id qmui_skin_adapter
 id qmui_skin_current
@@ -2267,6 +2308,7 @@ id snackbar_text
 id snap
 id snapMargins
 id spacer
+id special_effects_controller_view_tag
 id split_action_bar
 id spread
 id spread_inside
@@ -2275,6 +2317,7 @@ id src_in
 id src_over
 id standard
 id start
+id status_bar_latest_event_content
 id stretch
 id submenuarrow
 id submit_area
@@ -2327,7 +2370,9 @@ id up
 id useLogo
 id vertical
 id view_offset_helper
+id view_tree_lifecycle_owner
 id visible
+id visible_removing_fragment_view_tag
 id withText
 id wrap
 id wrap_content
@@ -2350,6 +2395,7 @@ integer mtrl_card_anim_delay_ms
 integer mtrl_card_anim_duration_ms
 integer mtrl_chip_anim_duration
 integer mtrl_tab_indicator_anim_duration_ms
+integer qmui_anim_duration
 integer show_password_duration
 integer status_bar_notification_info_maxnum
 interpolator btn_checkbox_checked_mtrl_animation_interpolator_0
@@ -2443,8 +2489,17 @@ layout mtrl_picker_text_input_date
 layout mtrl_picker_text_input_date_range
 layout notification_action
 layout notification_action_tombstone
+layout notification_media_action
+layout notification_media_cancel_action
+layout notification_template_big_media
+layout notification_template_big_media_custom
+layout notification_template_big_media_narrow
+layout notification_template_big_media_narrow_custom
 layout notification_template_custom_big
 layout notification_template_icon_group
+layout notification_template_lines_media
+layout notification_template_media
+layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
 layout qmui_bottom_sheet_dialog
@@ -2916,6 +2971,7 @@ style ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Year
 style ShapeAppearanceOverlay_MaterialComponents_TextInputLayout_FilledBox
 style ShapeAppearanceOverlay_TopLeftCut
 style ShapeAppearanceOverlay_TopRightDifferentCornerSize
+style SwipeBackLayout
 style Test_ShapeAppearanceOverlay_MaterialComponents_MaterialCalendar_Day
 style Test_Theme_MaterialComponents_MaterialCalendar
 style Test_Widget_MaterialComponents_MaterialCalendar
@@ -2977,9 +3033,14 @@ style TextAppearance_AppCompat_Widget_Switch
 style TextAppearance_AppCompat_Widget_TextView_SpinnerItem
 style TextAppearance_Compat_Notification
 style TextAppearance_Compat_Notification_Info
+style TextAppearance_Compat_Notification_Info_Media
 style TextAppearance_Compat_Notification_Line2
+style TextAppearance_Compat_Notification_Line2_Media
+style TextAppearance_Compat_Notification_Media
 style TextAppearance_Compat_Notification_Time
+style TextAppearance_Compat_Notification_Time_Media
 style TextAppearance_Compat_Notification_Title
+style TextAppearance_Compat_Notification_Title_Media
 style TextAppearance_Design_CollapsingToolbar_Expanded
 style TextAppearance_Design_Counter
 style TextAppearance_Design_Counter_Overflow
@@ -3352,6 +3413,8 @@ styleable FlowLayout itemSpacing lineSpacing
 styleable FontFamily fontProviderAuthority fontProviderCerts fontProviderFetchStrategy fontProviderFetchTimeout fontProviderPackage fontProviderQuery
 styleable FontFamilyFont android_font android_fontWeight android_fontStyle android_ttcIndex android_fontVariationSettings font fontStyle fontVariationSettings fontWeight ttcIndex
 styleable ForegroundLinearLayout android_foreground android_foregroundGravity foregroundInsidePadding
+styleable Fragment android_name android_id android_tag
+styleable FragmentContainerView android_name android_tag
 styleable GradientColor android_startColor android_endColor android_type android_centerX android_centerY android_gradientRadius android_tileMode android_centerColor android_startX android_startY android_endX android_endY
 styleable GradientColorItem android_color android_offset
 styleable LinearConstraintLayout android_orientation
@@ -3425,6 +3488,7 @@ styleable SnackbarLayout android_maxWidth actionTextColorAlpha animationMode bac
 styleable Spinner android_entries android_popupBackground android_prompt android_dropDownWidth popupTheme
 styleable StateListDrawable android_dither android_visible android_variablePadding android_constantSize android_enterFadeDuration android_exitFadeDuration
 styleable StateListDrawableItem android_drawable
+styleable SwipeBackLayout shadow_bottom shadow_left shadow_right shadow_top
 styleable SwitchCompat android_textOn android_textOff android_thumb showText splitTrack switchMinWidth switchPadding switchTextAppearance thumbTextPadding thumbTint thumbTintMode track trackTint trackTintMode
 styleable SwitchMaterial useMaterialThemeColors
 styleable TabItem android_icon android_layout android_text

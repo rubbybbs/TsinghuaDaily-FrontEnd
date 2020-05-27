@@ -28,17 +28,29 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // Import Tencent QMUI
     implementation 'com.qmuiteam:qmui:2.0.0-alpha08'
+    implementation "com.qmuiteam:arch:2.0.0-alpha08"
+    annotationProcessor "com.qmuiteam:arch-compiler:2.0.0-alpha08"
 
     // Import MaterialEditText
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-}
 
+    //Import butterKnife
+    implementation "com.jakewharton:butterknife:10.1.0"
+    annotationProcessor "com.jakewharton:butterknife-compiler:10.1.0"
+}
+android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
 buildscript {
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
