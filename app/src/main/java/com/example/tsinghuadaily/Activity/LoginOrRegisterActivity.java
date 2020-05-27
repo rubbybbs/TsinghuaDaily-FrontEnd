@@ -1,4 +1,4 @@
-package com.example.tsinghuadaily;
+package com.example.tsinghuadaily.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
 public class LoginOrRegisterActivity extends AppCompatActivity {

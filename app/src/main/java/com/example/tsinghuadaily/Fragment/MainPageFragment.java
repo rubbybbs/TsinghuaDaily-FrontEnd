@@ -1,23 +1,14 @@
-package com.example.tsinghuadaily;
-
-import android.os.Bundle;
+package com.example.tsinghuadaily.Fragment;
 
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.content.Context;
-import android.content.Intent;
 import android.widget.FrameLayout;
 
+import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter;
-import com.qmuiteam.qmui.arch.SwipeBackLayout;
-import com.qmuiteam.qmui.util.QMUIDisplayHelper;
-import com.qmuiteam.qmui.util.QMUIViewHelper;
-import com.qmuiteam.qmui.widget.QMUITopBar;
-import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment;
 

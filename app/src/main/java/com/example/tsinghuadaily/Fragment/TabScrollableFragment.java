@@ -1,4 +1,4 @@
-package com.example.tsinghuadaily;
+package com.example.tsinghuadaily.Fragment;
 
 import android.os.Bundle;
 
@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter;
 import com.qmuiteam.qmui.arch.SwipeBackLayout;

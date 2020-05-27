@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    tools:context=".Activity.RegisterActivity">
 
     <com.qmuiteam.qmui.widget.QMUITopBar
         android:id="@+id/topbar"

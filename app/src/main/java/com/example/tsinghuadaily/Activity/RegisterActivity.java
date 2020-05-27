@@ -1,10 +1,11 @@
-package com.example.tsinghuadaily;
+package com.example.tsinghuadaily.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
