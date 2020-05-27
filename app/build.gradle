@@ -38,12 +38,13 @@ dependencies {
     implementation "com.qmuiteam:arch:2.0.0-alpha08"
     annotationProcessor "com.qmuiteam:arch-compiler:2.0.0-alpha08"
 
-    // Import MaterialEditText
-    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
-
     //Import butterKnife
     implementation "com.jakewharton:butterknife:10.1.0"
     annotationProcessor "com.jakewharton:butterknife-compiler:10.1.0"
+
+    //Import Third-Party UI Widget
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'  // Import MaterialEditText
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
 }
 android {
     compileOptions {

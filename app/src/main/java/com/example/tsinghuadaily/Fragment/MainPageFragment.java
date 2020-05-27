@@ -38,9 +38,13 @@ public class MainPageFragment extends QMUIFragment {
             public QMUIFragment createFragment(int position) {
                 switch (position) {
                     case 0:
+                        return new TabScrollableFragment();
                     case 1:
+                        return new TabScrollableFragment();
                     case 2:
+                       return new MessageFragment();
                     case 3:
+                        return new TabScrollableFragment();
                     default:
                         return new TabScrollableFragment();
                 }
