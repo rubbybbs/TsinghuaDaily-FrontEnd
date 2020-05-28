@@ -5,21 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment.TabScrollableFragment">
-
-    <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/pullRefresh"
-        android:background="@color/qmui_config_color_background">
+        android:layout_height="match_parent">
+        <com.qmuiteam.qmui.widget.QMUITopBar
+            android:id="@+id/topbarMessagePage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTsinghuaPurple"
+            android:fitsSystemWindows="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_topbar_title_color="@color/qmui_config_color_white" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleListMessage"
+        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp" />
+            android:id="@+id/pullRefresh"
+            android:layout_below="@id/topbarMessagePage"
+            android:background="@color/qmui_config_color_background">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleListMessage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp" />
 
 
-    </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+
+    </RelativeLayout>
+
 
 
 

@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.arch.QMUIFragment;
+import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
 import java.lang.reflect.Array;
@@ -35,6 +37,8 @@ public class MessageFragment extends QMUIFragment {
     RecyclerView MessageRecycleList;
     @BindView(R.id.pullRefresh)
     QMUIPullRefreshLayout PullRefreshLayout;
+    @BindView(R.id.topbarMessagePage)
+    QMUITopBar mTopBar;
 
     private ArrayList<String> testData;
 
@@ -52,6 +56,7 @@ public class MessageFragment extends QMUIFragment {
         View rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_message, null);
         ButterKnife.bind(this, rootView);
 
+        initTopBar();
         initTestData();
         initRecyleView();
 
@@ -65,7 +70,14 @@ public class MessageFragment extends QMUIFragment {
             testData.add("this is test message" + i);
     }
 
+    private void initTopBar() {
+        mTopBar.setTitle("消息列表");
+    }
+
+
     private void initRecyleView() {
+
+
         LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         MessageRecycleList.setLayoutManager(llm);
         adapter = new MessageListAdapter(getContext(), testData, this);
