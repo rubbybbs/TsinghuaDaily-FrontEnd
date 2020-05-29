@@ -33,6 +33,8 @@ import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
+import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
+import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder;
 import com.qmuiteam.qmui.widget.tab.QMUITabIndicator;
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment;
@@ -187,15 +189,65 @@ public class TabScrollableFragment extends QMUIFragment {
     private View getPageView(ContentPage page) {
         View view = mPageMap.get(page);
         if (view == null) {
-            TextView textView = new TextView(getContext());
-            textView.setGravity(Gravity.CENTER);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            textView.setTextColor(0x000000);
-            textView.setText("这是第 " + (page.getPosition() + 1) + " 个 Item 的内容区");
-            view = textView;
+            QMUIGroupListView listView = new QMUIGroupListView(getContext());
+            initGroupListView(listView);
+            view = listView;
             mPageMap.put(page, view);
         }
         return view;
+    }
+
+    private void initGroupListView(QMUIGroupListView mGroupListView) {
+        int height = QMUIDisplayHelper.dp2px(getContext(), 56);
+
+        QMUICommonListItemView itemWithDetailBelowWithChevronWithIcon = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                "Item 7",
+                "在标题下方的详细信息",
+                QMUICommonListItemView.VERTICAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                height);
+
+        QMUICommonListItemView itemRedPoint = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                "Item 7",
+                "在标题下方的详细信息",
+                QMUICommonListItemView.VERTICAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                height);
+        itemRedPoint.setTipPosition(QMUICommonListItemView.TIP_POSITION_RIGHT);
+        itemRedPoint.showRedDot(true);
+
+
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v instanceof QMUICommonListItemView) {
+                    CharSequence text = ((QMUICommonListItemView) v).getText();
+                    Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
+                    if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
+                        ((QMUICommonListItemView) v).getSwitch().toggle();
+                    }
+                }
+            }
+        };
+
+
+        int size = QMUIDisplayHelper.dp2px(getContext(), 20);
+        QMUIGroupListView.newSection(getContext())
+                .setTitle("Section 1: 默认样式")
+                .setDescription("Section 1 的描述")
+                .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+                .addItemView(itemWithDetailBelowWithChevronWithIcon, onClickListener)
+                .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
+                .addTo(mGroupListView);
+
+        QMUIGroupListView.newSection(getContext())
+                .setTitle("Section 2: 红点/new 提示")
+                .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+                .addItemView(itemRedPoint, onClickListener)
+                .setOnlyShowStartEndSeparator(true)
+                .addTo(mGroupListView);
     }
 
     public enum ContentPage {
