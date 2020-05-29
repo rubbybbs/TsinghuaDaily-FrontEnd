@@ -26,5 +26,8 @@
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorTsinghuaPurple"
+        app:qmui_topbar_title_color="@color/qmui_config_color_white"
+        app:qmui_topbar_image_btn_height="24dp"
         android:fitsSystemWindows="true"/>
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
