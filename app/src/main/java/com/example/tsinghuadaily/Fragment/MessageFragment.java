@@ -1,6 +1,7 @@
 package com.example.tsinghuadaily.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.DrawableRes;
@@ -16,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tsinghuadaily.Activity.ChatActivity;
+import com.example.tsinghuadaily.Activity.MainPageActivity;
 import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -113,7 +116,9 @@ class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ((MessageDigestViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Click User: Admin" + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ChatActivity.class);
+                intent.putExtra("CONTACT_NAME", ((MessageDigestViewHolder) holder).txtName.getText().toString().trim());
+                context.startActivity(intent);
             }
         });
     }

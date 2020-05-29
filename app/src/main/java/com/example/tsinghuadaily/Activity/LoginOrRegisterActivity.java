@@ -3,6 +3,7 @@ package com.example.tsinghuadaily.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -12,7 +13,7 @@ import android.view.View;
 import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
-public class LoginOrRegisterActivity extends AppCompatActivity {
+public class LoginOrRegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private QMUIRoundButton LoginBtn, RegisterBtn;
 
@@ -24,11 +25,28 @@ public class LoginOrRegisterActivity extends AppCompatActivity {
         // 设置按钮点击效果
         LoginBtn = (QMUIRoundButton)findViewById(R.id.LoginBtn);
         RegisterBtn = (QMUIRoundButton)findViewById(R.id.RegisterBtn);
-
         LoginBtn.setChangeAlphaWhenPress(true);
         RegisterBtn.setChangeAlphaWhenPress(true);
+        // 设置按钮监听函数
+        LoginBtn.setOnClickListener(this);
+        RegisterBtn.setOnClickListener(this);
+
+
     }
 
 
-
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.LoginBtn) {
+            Intent intent = new Intent();
+            intent.setClass(LoginOrRegisterActivity.this, MainPageActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else if (v.getId() == R.id.RegisterBtn) {
+            Intent intent = new Intent();
+            intent.setClass(LoginOrRegisterActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        }
+    }
 }

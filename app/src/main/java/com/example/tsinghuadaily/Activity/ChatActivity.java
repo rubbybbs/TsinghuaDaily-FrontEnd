@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        Intent intent = getIntent();
+        contact = intent.getStringExtra("CONTACT_NAME");
+
+
         mTopBar = findViewById(R.id.topbarChatPage);
         messageRecylerView = findViewById(R.id.recyclerChat);
         sendBtn = findViewById(R.id.btnSend);
@@ -70,13 +75,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void initTopBar() {
-        mTopBar.setTitle("user");
- //     mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        mTopBar.setTitle(contact);
+        mTopBar.addLeftBackImageButton().setOnClickListener(v -> finish());
     }
 
     private void initTestData() {
