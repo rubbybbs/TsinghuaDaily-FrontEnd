@@ -1,7 +1,5 @@
 package com.example.tsinghuadaily.Fragment;
 
-import android.os.Bundle;
-
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -11,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.tsinghuadaily.R;
+import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
-import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 
@@ -21,29 +19,18 @@ import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ArticleListFragment#newInstance} factory method to
+ * Use the {@link ArticleListFragmentTest#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ArticleListFragment extends Fragment {
+public class ArticleListFragmentTest extends QMUIFragment {
 
     @BindView(R.id.articleListView)
     QMUIGroupListView mGroupListView;
 
-    public ArticleListFragment() {
-        // Required empty public constructor
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView() {
         // Inflate the layout for this fragment
-        View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_article_list, container, false);
+        View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_article_list, null);
         ButterKnife.bind(this, root);
 
         initGroupListView();
@@ -82,6 +69,9 @@ public class ArticleListFragment extends Fragment {
                     if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
                         ((QMUICommonListItemView) v).getSwitch().toggle();
                     }
+
+                    startFragment(new ArticleDetailFragment());
+
                 }
             }
         };

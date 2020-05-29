@@ -148,7 +148,7 @@ public class TabScrollableFragment extends QMUIFragment {
         mContentViewPager.setAdapter(mPagerAdapter);
         mContentViewPager.setCurrentItem(mDestPage.getPosition(), false);
         QMUITabBuilder tabBuilder = mTabSegment.tabBuilder();
-        String title[]={"学校","院系","社团","学科"};
+        String title[]={"      学校      ","      院系      ","      社团      ","      学科      "};
         for (int i = 0; i < mCurrentItemCount; i++) {
             mTabSegment.addTab(tabBuilder.setText(title[i]).build(getContext()));
         }
@@ -202,7 +202,23 @@ public class TabScrollableFragment extends QMUIFragment {
 
         QMUICommonListItemView itemWithDetailBelowWithChevronWithIcon = mGroupListView.createItemView(
                 ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                "Item 7",
+                "标题 1",
+                "在标题下方的详细信息",
+                QMUICommonListItemView.VERTICAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                height);
+
+        QMUICommonListItemView item2 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                "标题 2",
+                "在标题下方的详细信息",
+                QMUICommonListItemView.VERTICAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                height);
+
+        QMUICommonListItemView item3 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                "标题 3",
                 "在标题下方的详细信息",
                 QMUICommonListItemView.VERTICAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
@@ -210,7 +226,7 @@ public class TabScrollableFragment extends QMUIFragment {
 
         QMUICommonListItemView itemRedPoint = mGroupListView.createItemView(
                 ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                "Item 7",
+                "标题 4",
                 "在标题下方的详细信息",
                 QMUICommonListItemView.VERTICAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
@@ -218,6 +234,24 @@ public class TabScrollableFragment extends QMUIFragment {
         itemRedPoint.setTipPosition(QMUICommonListItemView.TIP_POSITION_RIGHT);
         itemRedPoint.showRedDot(true);
 
+        QMUICommonListItemView item5 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                "标题 5",
+                "在标题下方的详细信息",
+                QMUICommonListItemView.VERTICAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                height);
+
+        QMUICommonListItemView item6 = mGroupListView.createItemView(
+                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                "标题 6",
+                "在标题下方的很长很长很长很长很长很长很长很长很长很长很长很长很长的详细信息",
+                QMUICommonListItemView.VERTICAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        int paddingVer = QMUIDisplayHelper.dp2px(getContext(), 12);
+        item6.setPadding(item6.getPaddingLeft(), paddingVer,
+                item6.getPaddingRight(), paddingVer);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -228,6 +262,9 @@ public class TabScrollableFragment extends QMUIFragment {
                     if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
                         ((QMUICommonListItemView) v).getSwitch().toggle();
                     }
+
+                    ArticleDetailFragment fragment = new ArticleDetailFragment();
+                    startFragment(fragment);
                 }
             }
         };
@@ -239,6 +276,8 @@ public class TabScrollableFragment extends QMUIFragment {
                 .setDescription("Section 1 的描述")
                 .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
                 .addItemView(itemWithDetailBelowWithChevronWithIcon, onClickListener)
+                .addItemView(item2, onClickListener)
+                .addItemView(item3, onClickListener)
                 .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
                 .addTo(mGroupListView);
 
@@ -246,6 +285,8 @@ public class TabScrollableFragment extends QMUIFragment {
                 .setTitle("Section 2: 红点/new 提示")
                 .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
                 .addItemView(itemRedPoint, onClickListener)
+                .addItemView(item5, onClickListener)
+                .addItemView(item6, onClickListener)
                 .setOnlyShowStartEndSeparator(true)
                 .addTo(mGroupListView);
     }

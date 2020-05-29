@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.tsinghuadaily.R;
+import com.example.tsinghuadaily.base.BaseFragment;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainPageFragment extends QMUIFragment {
+public class MainPageFragment extends BaseFragment {
     @BindView(R.id.pager)
     QMUIViewPager mViewPager;
     @BindView(R.id.tabs)
