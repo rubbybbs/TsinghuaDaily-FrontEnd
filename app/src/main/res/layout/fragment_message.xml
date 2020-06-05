@@ -8,14 +8,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.qmuiteam.qmui.widget.QMUITopBar
+        <com.qmuiteam.qmui.widget.QMUITopBarLayout
             android:id="@+id/topbarMessagePage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorTsinghuaPurple"
-            android:fitsSystemWindows="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:qmui_topbar_title_color="@color/qmui_config_color_white" />
+            app:qmui_topbar_title_color="@color/qmui_config_color_white"
+            android:fitsSystemWindows="true" />
 
         <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
             android:layout_width="match_parent"

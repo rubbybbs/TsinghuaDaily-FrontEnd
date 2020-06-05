@@ -25,6 +25,7 @@ import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.base.BaseFragmentActivity;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
+import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 import com.qmuiteam.qmui.arch.SwipeBackLayout;
 import com.qmuiteam.qmui.arch.annotation.DefaultFirstFragment;
 import com.qmuiteam.qmui.arch.annotation.FirstFragments;
@@ -48,6 +49,8 @@ public class MainPageActivity extends BaseFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 初始化QMUISwipeBackActicityManager,防止崩溃
+        QMUISwipeBackActivityManager.init(this.getApplication());
 
     }
 

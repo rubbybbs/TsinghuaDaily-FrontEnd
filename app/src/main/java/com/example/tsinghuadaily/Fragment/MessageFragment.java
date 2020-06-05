@@ -21,6 +21,7 @@ import com.example.tsinghuadaily.Activity.ChatActivity;
 import com.example.tsinghuadaily.Activity.MainPageActivity;
 import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.arch.QMUIFragment;
+import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
@@ -41,7 +42,7 @@ public class MessageFragment extends QMUIFragment {
     @BindView(R.id.pullRefresh)
     QMUIPullRefreshLayout PullRefreshLayout;
     @BindView(R.id.topbarMessagePage)
-    QMUITopBar mTopBar;
+    QMUITopBarLayout mTopBar;
 
     private ArrayList<String> testData;
 
@@ -74,7 +75,20 @@ public class MessageFragment extends QMUIFragment {
     }
 
     private void initTopBar() {
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popBackStack();
+            }
+        });
+
         mTopBar.setTitle("消息列表");
+        mTopBar.addRightTextButton("搜索", QMUIViewHelper.generateViewId())
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                });
     }
 
 
