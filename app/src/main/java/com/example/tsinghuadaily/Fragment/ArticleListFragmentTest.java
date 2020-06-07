@@ -19,8 +19,6 @@ import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ArticleListFragmentTest#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class ArticleListFragmentTest extends QMUIFragment {
 
@@ -29,7 +27,7 @@ public class ArticleListFragmentTest extends QMUIFragment {
 
     @Override
     public View onCreateView() {
-        // Inflate the list_item_user_info for this fragment
+        // Inflate the layout for this fragment
         View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_article_list, null);
         ButterKnife.bind(this, root);
 
