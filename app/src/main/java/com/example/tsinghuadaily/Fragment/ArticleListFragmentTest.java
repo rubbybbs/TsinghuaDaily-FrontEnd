@@ -29,7 +29,7 @@ public class ArticleListFragmentTest extends QMUIFragment {
 
     @Override
     public View onCreateView() {
-        // Inflate the layout for this fragment
+        // Inflate the list_item_user_info for this fragment
         View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_article_list, null);
         ButterKnife.bind(this, root);
 
