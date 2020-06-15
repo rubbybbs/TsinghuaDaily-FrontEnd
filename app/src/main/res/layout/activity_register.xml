@@ -54,84 +54,87 @@
                     android:textColor="?attr/qmui_config_color_gray_1"
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--账号输入框-->
+
                 <EditText
-                    android:id="@+id/edittext_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill"
-                    android:background="@drawable/qmui_divider_bottom_bitmap"
-                    android:hint="请输入2到20位字符"
-                    android:maxLength="20"
-                    android:textColor="?attr/qmui_config_color_gray_5"
-                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                android:id="@+id/edittext_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:hint="请输入2到20位字符"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:singleLine="true" android:cursorVisible="true"
+                android:textColor="?attr/qmui_config_color_gray_5"
+                android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
                 <!--手机号-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/qmui_list_item_height"
-                    android:background="@drawable/qmui_s_list_item_bg_1"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/inner_components_spacing"
-                    android:paddingRight="@dimen/inner_components_spacing"
-                    android:text="手机号"
-                    android:textColor="?attr/qmui_config_color_gray_1"
-                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                <!--手机号输入框-->
-                <EditText
-                    android:id="@+id/edittext_phonenumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill"
-                    android:background="@drawable/qmui_divider_bottom_bitmap"
-                    android:hint="请输入11位手机号"
-                    android:inputType="phone"
-                    android:maxLength="11"
-                    android:textColor="?attr/qmui_config_color_gray_5"
-                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
-                <!--验证码-->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/qmui_list_item_height"
-                    android:background="@drawable/qmui_s_list_item_bg_1"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/inner_components_spacing"
-                    android:paddingRight="@dimen/inner_components_spacing"
-                    android:text="验证码"
-                    android:textColor="?attr/qmui_config_color_gray_1"
-                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                <!--验证码输入框-->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <!--验证码输入框-->
-                    <EditText
-                        android:id="@+id/edittext_verifycode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:background="@drawable/qmui_divider_bottom_bitmap"
-                        android:hint="4位数字验证码"
-                        android:inputType="number"
-                        android:maxLength="4"
-                        android:textColor="?attr/qmui_config_color_gray_5"
-                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="@dimen/qmui_list_item_height"-->
+<!--                    android:background="@drawable/qmui_s_list_item_bg_1"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:paddingLeft="@dimen/inner_components_spacing"-->
+<!--                    android:paddingRight="@dimen/inner_components_spacing"-->
+<!--                    android:text="手机号"-->
+<!--                    android:textColor="?attr/qmui_config_color_gray_1"-->
+<!--                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />-->
+<!--                &lt;!&ndash;手机号输入框&ndash;&gt;-->
+<!--                <EditText-->
+<!--                    android:id="@+id/edittext_phonenumber"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="fill"-->
+<!--                    android:background="@drawable/qmui_divider_bottom_bitmap"-->
+<!--                    android:hint="请输入11位手机号"-->
+<!--                    android:inputType="phone"-->
+<!--                    android:maxLength="11"-->
+<!--                    android:textColor="?attr/qmui_config_color_gray_5"-->
+<!--                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />-->
+<!--                &lt;!&ndash;验证码&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="@dimen/qmui_list_item_height"-->
+<!--                    android:background="@drawable/qmui_s_list_item_bg_1"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:paddingLeft="@dimen/inner_components_spacing"-->
+<!--                    android:paddingRight="@dimen/inner_components_spacing"-->
+<!--                    android:text="验证码"-->
+<!--                    android:textColor="?attr/qmui_config_color_gray_1"-->
+<!--                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />-->
+<!--                &lt;!&ndash;验证码输入框&ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="fill"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:orientation="horizontal">-->
+<!--                    &lt;!&ndash;验证码输入框&ndash;&gt;-->
+<!--                    <EditText-->
+<!--                        android:id="@+id/edittext_verifycode"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_weight="2"-->
+<!--                        android:background="@drawable/qmui_divider_bottom_bitmap"-->
+<!--                        android:hint="4位数字验证码"-->
+<!--                        android:inputType="number"-->
+<!--                        android:maxLength="4"-->
+<!--                        android:textColor="?attr/qmui_config_color_gray_5"-->
+<!--                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />-->
 
-                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+<!--                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton-->
 
-                        android:id="@+id/button_getverifycode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:text="获取验证码"
-                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size"
-                        app:qmui_radius="4dp" />
-                </LinearLayout>
+<!--                        android:id="@+id/button_getverifycode"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="10dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:clickable="true"-->
+<!--                        android:gravity="center"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:text="获取验证码"-->
+<!--                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size"-->
+<!--                        app:qmui_radius="4dp" />-->
+<!--                </LinearLayout>-->
                 <!--密码-->
                 <TextView
                     android:layout_width="wrap_content"
@@ -150,10 +153,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
-                    android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:hint="请输入6到20位密码"
                     android:inputType="textPassword"
                     android:maxLength="20"
+                    android:maxLines="1"
+                    android:cursorVisible="true"
                     android:textColor="@color/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
 
@@ -174,10 +178,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="fill"
-                    android:background="@drawable/qmui_divider_bottom_bitmap"
                     android:hint="请重复输入的密码"
                     android:inputType="textPassword"
                     android:maxLength="20"
+                    android:maxLines="1"
+                    android:cursorVisible="true"
                     android:textColor="@color/qmui_config_color_gray_5"
                     android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
 

@@ -38,8 +38,6 @@
         android:layout_marginTop="76dp"
         android:layout_marginEnd="56dp"
         android:hint="请输入用户名"
-        android:inputType="number"
-
         android:maxLines="1"
         android:singleLine="true"
         android:textSize="14sp"
