@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.example.tsinghuadaily.utils.OkHttpUtils;
@@ -59,7 +60,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 super.handleMessage(msg);
                 Bundle data = msg.getData();
                 String val = data.getString("requestRes");
-                Log.i("1", val);
+                JSONObject obj = JSONObject.parseObject(val);
+                if (obj.get("code").equals(200))
+                {
+                    Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else
+                {
+                    String errorMsg = obj.get("msg").toString();
+                    dialogShower(4, errorMsg);
+
+                }
             }
         };
 
@@ -91,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return 0;
     }
 
-    private void dialogShower(int code) {
+    private void dialogShower(int code, String msg) {
         switch (code) {
             case 1:
                 new QMUIDialog.MessageDialogBuilder(this).setTitle("错误").setMessage("用户名长度需在3-20个字符之间！").addAction("确定", new QMUIDialogAction.ActionListener() {
@@ -117,6 +129,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                 }).show();
                 break;
+            case 4:
+                new QMUIDialog.MessageDialogBuilder(this).setTitle("错误").setMessage(msg).addAction("确定", new QMUIDialogAction.ActionListener() {
+                    @Override
+                    public void onClick(QMUIDialog dialog, int index) {
+                        dialog.dismiss();
+                    }
+                }).show();
             default:
                 break;
         }
@@ -129,12 +148,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             int code = editValidator();
             if(code != 0)
             {
-                dialogShower(code);
+                dialogShower(code, "");
                 return;
             }
             Map<String, String> params = new HashMap<>();
-            params.put("username", "mzp");
-            params.put("password", "mzp");
+            params.put("username", usernameEdit.getText().toString());
+            params.put("password", pwdEdit.getText().toString());
 
             new Thread(new Runnable() {
                 @Override
@@ -147,7 +166,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     handler.sendMessage(msg);
                 }
             }).start();
-            Toast.makeText(this.getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
         }
     }
 }
