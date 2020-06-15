@@ -1,22 +1,34 @@
 package com.example.tsinghuadaily.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tsinghuadaily.R;
+import com.example.tsinghuadaily.utils.OkHttpUtil;
+import com.example.tsinghuadaily.utils.OkHttpUtils;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.OkHttpClient;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     QMUITopBar topBar;
@@ -25,8 +37,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText usernameEdit;
     EditText pwdEdit;
     EditText repeatPwdEdit;
+    Handler handler;
 
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +50,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         usernameEdit = (EditText) findViewById(R.id.edittext_name);
         pwdEdit = (EditText)findViewById(R.id.edittext_password);
         repeatPwdEdit = (EditText)findViewById(R.id.edittext_password_ensure);
-        // getVerifyBtn.setChangeAlphaWhenPress(true);
         registerBtn.setChangeAlphaWhenPress(true);
         registerBtn.setOnClickListener(this);
         initTopBar();
-        //initEditValidator();
+        handler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                String val = data.getString("requestRes");
+                Log.i("1", val);
+            }
+        };
+
 
     }
 
@@ -110,6 +132,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 dialogShower(code);
                 return;
             }
+            Map<String, String> params = new HashMap<>();
+            params.put("username", "mzp");
+            params.put("password", "mzp");
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String res = OkHttpUtil.postForm("http://175.24.61.249:8080/user/register", params);
+                    Message msg = new Message();
+                    Bundle data = new Bundle();
+                    data.putString("requestRes", res);
+                    msg.setData(data);
+                    handler.sendMessage(msg);
+                }
+            }).start();
             Toast.makeText(this.getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
         }
     }
