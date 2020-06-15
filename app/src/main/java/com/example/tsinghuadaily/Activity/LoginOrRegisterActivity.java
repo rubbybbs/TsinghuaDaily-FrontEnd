@@ -1,5 +1,6 @@
 package com.example.tsinghuadaily.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -9,6 +10,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -34,6 +36,18 @@ public class LoginOrRegisterActivity extends AppCompatActivity implements View.O
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                if (resultCode == 1)
+                    Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -46,7 +60,7 @@ public class LoginOrRegisterActivity extends AppCompatActivity implements View.O
         else if (v.getId() == R.id.RegisterBtn) {
             Intent intent = new Intent();
             intent.setClass(LoginOrRegisterActivity.this, RegisterActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
         }
     }
 }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         registerBtn.setChangeAlphaWhenPress(true);
         registerBtn.setOnClickListener(this);
         initTopBar();
+        setResult(0);
         handler = new Handler() {
             @Override
             public void handleMessage(@NonNull Message msg) {
@@ -63,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 JSONObject obj = JSONObject.parseObject(val);
                 if (obj.get("code").equals(200))
                 {
-                    Toast.makeText(getApplicationContext(), "注册成功", Toast.LENGTH_SHORT).show();
+                    setResult(1);
                     finish();
                 }
                 else
