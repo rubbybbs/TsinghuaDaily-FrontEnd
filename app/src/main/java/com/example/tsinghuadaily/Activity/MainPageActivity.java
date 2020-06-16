@@ -2,27 +2,30 @@ package com.example.tsinghuadaily.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentTransaction;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.MotionEvent;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.example.tsinghuadaily.Fragment.ArticleDetailFragment;
 import com.example.tsinghuadaily.Fragment.MainPageFragment;
 import com.example.tsinghuadaily.Fragment.MessageFragment;
-import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.base.BaseFragmentActivity;
+import com.example.tsinghuadaily.services.WebSocketService;
+import com.example.tsinghuadaily.utils.JWebSocketClient;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity;
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
@@ -30,12 +33,9 @@ import com.qmuiteam.qmui.arch.SwipeBackLayout;
 import com.qmuiteam.qmui.arch.annotation.DefaultFirstFragment;
 import com.qmuiteam.qmui.arch.annotation.FirstFragments;
 import com.qmuiteam.qmui.arch.annotation.LatestVisitRecord;
-import com.qmuiteam.qmui.skin.QMUISkinHelper;
-import com.qmuiteam.qmui.skin.QMUISkinValueBuilder;
-import com.qmuiteam.qmui.util.QMUIDisplayHelper;
-import com.qmuiteam.qmui.util.QMUIResHelper;
-import com.qmuiteam.qmui.util.QMUIViewOffsetHelper;
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @FirstFragments(
         value = {
@@ -46,6 +46,7 @@ import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
 @DefaultFirstFragment(MainPageFragment.class)
 @LatestVisitRecord
 public class MainPageActivity extends BaseFragmentActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,4 +118,8 @@ public class MainPageActivity extends BaseFragmentActivity {
             return fragmentContainer;
         }
     }
+
+
+
+
 }

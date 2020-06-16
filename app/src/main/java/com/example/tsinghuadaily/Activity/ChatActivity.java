@@ -5,9 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +22,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.models.messageTest;
+import com.example.tsinghuadaily.services.WebSocketService;
+import com.example.tsinghuadaily.utils.JWebSocketClient;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -47,6 +56,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private String contact;
 
 
+    // WebSocket使用
+    private Context mContext;
+    private JWebSocketClient client;
+    private WebSocketService.JWebSocketClientBinder binder;
+    private WebSocketService WSService;
+    private ChatMessageReceiver chatMessageReceiver;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +88,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         messageRecylerView.setLayoutManager(linearLayoutManager);
         adapter = new ListMessageAdapter(this, testlist);
         messageRecylerView.setAdapter(adapter);
+
+        mContext = ChatActivity.this;
+        startWebSocketService();
+        bindService();
+        doRegisterReceiver();
+
+
+
     }
 
 
@@ -96,13 +121,66 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             if (msg.length() > 0)
             {
                 messageEdit.setText("");
+                JSONObject obj = new JSONObject();
+                obj.put("content", msg);
+                obj.put("to", "chatbot002");
+                String sendMsg = obj.toJSONString();
+                if (client != null && client.isOpen())
+                    WSService.sendMsg(sendMsg);
                 testlist.add(new messageTest(msg, 0));
                 adapter.notifyDataSetChanged();
                 messageRecylerView.smoothScrollToPosition(testlist.size());
             }
         }
     }
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            Log.e("MainActivity", "服务与活动成功绑定");
+            binder = (WebSocketService.JWebSocketClientBinder) iBinder;
+            WSService = binder.getService();
+            client = WSService.client;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            Log.e("MainActivity", "服务与活动成功断开");
+        }
+    };
+
+    private class ChatMessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String message=intent.getStringExtra("message");
+            Log.e("ChatActivity", message);
+        }
+    }
+
+    private void bindService() {
+        Intent bindIntent = new Intent(mContext, WebSocketService.class);
+        bindService(bindIntent, serviceConnection, BIND_AUTO_CREATE);
+    }
+
+    private void startWebSocketService() {
+        Intent intent = new Intent(mContext, WebSocketService.class);
+        intent.putExtra("uid", "28");
+        startService(intent);
+    }
+
+    private void doRegisterReceiver() {
+        chatMessageReceiver = new ChatMessageReceiver();
+        IntentFilter filter = new IntentFilter("com.xch.servicecallback.content");
+        registerReceiver(chatMessageReceiver, filter);
+    }
+
 }
+
+
+
+
+
 
 class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
