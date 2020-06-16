@@ -240,6 +240,10 @@ attr chipStrokeColor
 attr chipStrokeWidth
 attr chipStyle
 attr chipSurfaceColor
+attr civ_border_color
+attr civ_border_overlay
+attr civ_border_width
+attr civ_fill_color
 attr closeIcon
 attr closeIconEnabled
 attr closeIconEndPadding
@@ -1536,6 +1540,8 @@ dimen abc_text_size_subtitle_material_toolbar
 dimen abc_text_size_title_material
 dimen abc_text_size_title_material_toolbar
 dimen action_bar_size
+dimen activity_horizontal_margin
+dimen activity_vertical_margin
 dimen appcompat_dialog_background_inset
 dimen bottom_ellipsis_height
 dimen bottom_text_size
@@ -1549,6 +1555,7 @@ dimen compat_button_padding_vertical_material
 dimen compat_control_corner_material
 dimen compat_notification_large_icon_max_height
 dimen compat_notification_large_icon_max_width
+dimen custom_tab_layout_height
 dimen default_dimension
 dimen default_padding_bottom
 dimen default_padding_top
@@ -1600,6 +1607,8 @@ dimen design_tab_text_size_2line
 dimen design_textinput_caption_translate_y
 dimen disabled_alpha_material_dark
 dimen disabled_alpha_material_light
+dimen fab_margin
+dimen fab_size_normal
 dimen fastscroll_default_thickness
 dimen fastscroll_margin
 dimen fastscroll_minimum_range
@@ -1807,7 +1816,11 @@ dimen subtitle_corner_radius
 dimen subtitle_outline_width
 dimen subtitle_shadow_offset
 dimen subtitle_shadow_radius
+dimen tab_label
+dimen tab_max_width
+dimen tab_padding_bottom
 dimen test_mtrl_calendar_day_cornerSize
+dimen text_size
 dimen tooltip_corner_radius
 dimen tooltip_horizontal_padding
 dimen tooltip_margin
@@ -1904,6 +1917,7 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable border_edittext
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -1912,6 +1926,7 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable default_avata
 drawable design_bottom_navigation_item_background
 drawable design_fab_background
 drawable design_ic_visibility
@@ -1933,6 +1948,10 @@ drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable icon_password
 drawable icon_password_1
+drawable icon_reset
+drawable icon_send
+drawable icon_signout
+drawable icon_user
 drawable icon_username
 drawable icon_username_1
 drawable met_ic_clear
@@ -1991,6 +2010,8 @@ drawable qmui_switch_thumb_checked
 drawable qmui_switch_track
 drawable qmui_switch_track_checked
 drawable qmui_tips_point
+drawable round_corner_1
+drawable round_corner_2
 drawable shadow_bottom
 drawable shadow_left
 drawable shadow_right
@@ -2068,6 +2089,7 @@ id add
 id alertTitle
 id all
 id always
+id articleListView
 id async
 id auto
 id barrier
@@ -2075,10 +2097,8 @@ id beginning
 id blocking
 id bottom
 id bottom_sheet
-id button
-id button2
+id btnSend
 id buttonPanel
-id button_getverifycode
 id button_register
 id cancel_action
 id cancel_button
@@ -2096,6 +2116,7 @@ id clear_text
 id clip_horizontal
 id clip_vertical
 id collapseActionView
+id config_item
 id confirm_button
 id container
 id content
@@ -2119,13 +2140,11 @@ id direct
 id disableHome
 id disposable
 id dropdown_menu
-id editText
+id editWriteMessage
 id edit_query
 id edittext_name
 id edittext_password
 id edittext_password_ensure
-id edittext_phonenumber
-id edittext_verifycode
 id empty_view_button
 id empty_view_detail
 id empty_view_loading
@@ -2147,6 +2166,8 @@ id fitToContents
 id fixed
 id forever
 id fragment_container_view_tag
+id friendAvatar
+id friendMessageItem
 id ghost_view
 id ghost_view_holder
 id gone
@@ -2167,13 +2188,17 @@ id home
 id homeAsUp
 id horizontal
 id icon
+id icon_avata
 id icon_group
 id idEdit
 id ifRoom
 id image
 id imageView
+id img_avatar
+id img_icon
 id incompressible
 id info
+id info_recyler_view
 id invisible
 id italic
 id item_touch_helper_previous_elevation
@@ -2181,6 +2206,7 @@ id labeled
 id largeLabel
 id left
 id left_center
+id line
 id line1
 id line3
 id listMode
@@ -2197,6 +2223,8 @@ id month_navigation_fragment_toggle
 id month_navigation_next
 id month_navigation_previous
 id month_title
+id msgContentFriend
+id msgContentUser
 id mtrl_calendar_day_selector_frame
 id mtrl_calendar_days_of_week
 id mtrl_calendar_frame
@@ -2242,6 +2270,8 @@ id percent
 id pin
 id progress_circular
 id progress_horizontal
+id pullRefresh
+id pull_to_refresh
 id qmui_activity_fragment_container_id
 id qmui_arch_reused_layout
 id qmui_arch_swipe_layout_in_back
@@ -2270,6 +2300,8 @@ id qmui_view_can_not_cache_tag
 id qmui_view_offset_helper
 id qmui_window_inset_keyboard_area_consumer
 id radio
+id recycleListMessage
+id recyclerChat
 id right
 id right_icon
 id right_side
@@ -2354,13 +2386,22 @@ id title_template
 id top
 id topPanel
 id topbar
+id topbarChatPage
+id topbarInfoPage
 id topbarMainPage
+id topbarMessagePage
 id touch_outside
 id transition_current_scene
 id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id tv_detail
+id tv_title
+id tv_username
+id txtMessage
+id txtName
+id txtTime
 id type_circle
 id type_rect
 id unchecked
@@ -2368,6 +2409,9 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id userAvatar
+id userAvatarInfo
+id userMessageItem
 id vertical
 id view_offset_helper
 id view_tree_lifecycle_owner
@@ -2437,6 +2481,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_chat
 layout activity_login_or_register
 layout activity_main
 layout activity_main_page
@@ -2457,8 +2502,16 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout fragment_article_detail
+layout fragment_article_list
 layout fragment_main_page
+layout fragment_message
 layout fragment_tab_scrollable
+layout fragment_user_info
+layout item_message_digest
+layout item_message_friend
+layout item_message_user
+layout list_item_user_info
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title
@@ -3395,6 +3448,7 @@ styleable ButtonBarLayout allowStacking
 styleable CardView android_minWidth android_minHeight cardBackgroundColor cardCornerRadius cardElevation cardMaxElevation cardPreventCornerOverlap cardUseCompatPadding contentPadding contentPaddingBottom contentPaddingLeft contentPaddingRight contentPaddingTop
 styleable Chip android_textAppearance android_textColor android_ellipsize android_maxWidth android_text android_checkable checkedIcon checkedIconEnabled checkedIconVisible chipBackgroundColor chipCornerRadius chipEndPadding chipIcon chipIconEnabled chipIconSize chipIconTint chipIconVisible chipMinHeight chipMinTouchTargetSize chipStartPadding chipStrokeColor chipStrokeWidth chipSurfaceColor closeIcon closeIconEnabled closeIconEndPadding closeIconSize closeIconStartPadding closeIconTint closeIconVisible ensureMinTouchTargetSize hideMotionSpec iconEndPadding iconStartPadding rippleColor shapeAppearance shapeAppearanceOverlay showMotionSpec textEndPadding textStartPadding
 styleable ChipGroup checkedChip chipSpacing chipSpacingHorizontal chipSpacingVertical singleLine singleSelection
+styleable CircleImageView civ_border_color civ_border_overlay civ_border_width civ_fill_color
 styleable CollapsingToolbarLayout collapsedTitleGravity collapsedTitleTextAppearance contentScrim expandedTitleGravity expandedTitleMargin expandedTitleMarginBottom expandedTitleMarginEnd expandedTitleMarginStart expandedTitleMarginTop expandedTitleTextAppearance scrimAnimationDuration scrimVisibleHeightTrigger statusBarScrim title titleEnabled toolbarId
 styleable CollapsingToolbarLayout_Layout layout_collapseMode layout_collapseParallaxMultiplier
 styleable ColorStateListItem android_color android_alpha alpha
@@ -3501,6 +3555,7 @@ styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
+xml network_security_config
 xml standalone_badge
 xml standalone_badge_gravity_bottom_end
 xml standalone_badge_gravity_bottom_start
