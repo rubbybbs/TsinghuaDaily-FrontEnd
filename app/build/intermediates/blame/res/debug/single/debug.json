@@ -56,12 +56,12 @@
         "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_launcher_background.png"
     },
     {
-        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_message_friend.xml.flat",
-        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\item_message_friend.xml"
-    },
-    {
         "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable_border_edittext.xml.flat",
         "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\drawable\\border_edittext.xml"
+    },
+    {
+        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_message_friend.xml.flat",
+        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\item_message_friend.xml"
     },
     {
         "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_message.xml.flat",

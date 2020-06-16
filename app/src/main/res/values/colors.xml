@@ -8,6 +8,7 @@
 
 <!--    color for EditText-->
     <color name="EditText_Basecolor">#0056d3</color>
+    <color name="chatText_color">#0B1816</color>
 
 
 

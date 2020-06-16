@@ -56,6 +56,9 @@ dependencies {
 
     //Import StringUtils
     implementation 'org.apache.commons:commons-lang3:3.7'
+
+    //Import Websocket
+    implementation 'org.java-websocket:Java-WebSocket:1.5.1'
 }
 android {
     compileOptions {
