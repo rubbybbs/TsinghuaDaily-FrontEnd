@@ -90,7 +90,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         messageRecylerView.setAdapter(adapter);
 
         mContext = ChatActivity.this;
-        startWebSocketService();
+        // startWebSocketService();
         bindService();
         doRegisterReceiver();
 
@@ -98,10 +98,22 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 
     private void initTopBar() {
         mTopBar.setTitle(contact);
-        mTopBar.addLeftBackImageButton().setOnClickListener(v -> finish());
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unbindService(serviceConnection);
+                unregisterReceiver(chatMessageReceiver);
+                finish();
+            }
+        });
     }
 
     private void initTestData() {
@@ -123,7 +135,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 messageEdit.setText("");
                 JSONObject obj = new JSONObject();
                 obj.put("content", msg);
-                obj.put("to", "chatbot002");
+                obj.put("to", 29);
                 String sendMsg = obj.toJSONString();
                 if (client != null && client.isOpen())
                     WSService.sendMsg(sendMsg);
@@ -137,7 +149,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            Log.e("MainActivity", "服务与活动成功绑定");
+            Log.e("ChatActivity", "服务与活动成功绑定");
             binder = (WebSocketService.JWebSocketClientBinder) iBinder;
             WSService = binder.getService();
             client = WSService.client;
@@ -145,7 +157,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-            Log.e("MainActivity", "服务与活动成功断开");
+            Log.e("ChatActivity", "服务与活动成功断开");
         }
     };
 
@@ -163,11 +175,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         bindService(bindIntent, serviceConnection, BIND_AUTO_CREATE);
     }
 
-    private void startWebSocketService() {
-        Intent intent = new Intent(mContext, WebSocketService.class);
-        intent.putExtra("uid", "28");
-        startService(intent);
-    }
+
 
     private void doRegisterReceiver() {
         chatMessageReceiver = new ChatMessageReceiver();
@@ -176,11 +184,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 }
-
-
-
-
-
 
 class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

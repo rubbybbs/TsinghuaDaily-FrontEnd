@@ -118,7 +118,6 @@ public class WebSocketService extends Service {
                 intent.setAction("com.xch.servicecallback.content");
                 intent.putExtra("message", message);
                 sendBroadcast(intent);
-                checkLockAndShowNotification(message);
             }
 
             @Override
@@ -163,45 +162,8 @@ public class WebSocketService extends Service {
         }
     }
 
-    private void checkLockAndShowNotification(String content) {
-        //管理锁屏的一个服务
-        KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-        if (km.inKeyguardRestrictedInputMode()) {//锁屏
-            //获取电源管理器对象
-            PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
-            if (!pm.isScreenOn()) {
-                @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP |
-                        PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "bright");
-                wl.acquire();  //点亮屏幕
-                wl.release();  //任务结束后释放
-            }
-            sendNotification(content);
-        } else {
-            sendNotification(content);
-        }
-    }
 
 
-    private void sendNotification(String content) {
-        Intent intent = new Intent();
-        intent.setClass(this, MainPageActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationManager notifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notification = new NotificationCompat.Builder(this)
-                .setAutoCancel(true)
-                // 设置该通知优先级
-                .setPriority(Notification.PRIORITY_MAX)
-                .setSmallIcon(R.drawable.default_avata)
-                .setContentTitle("服务器")
-                .setContentText(content)
-                .setVisibility(VISIBILITY_PUBLIC)
-                .setWhen(System.currentTimeMillis())
-                // 向通知添加声音、闪灯和振动效果
-                .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_ALL | Notification.DEFAULT_SOUND)
-                .setContentIntent(pendingIntent)
-                .build();
-        notifyManager.notify(1, notification);//id要保证唯一
-    }
 
 
     //    -------------------------------------websocket心跳检测------------------------------------------------
