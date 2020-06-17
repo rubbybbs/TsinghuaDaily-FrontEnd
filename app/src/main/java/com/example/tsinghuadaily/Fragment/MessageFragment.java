@@ -211,7 +211,8 @@ class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ChatActivity.class);
                 //intent.putExtra("CONTACT_NAME", ((MessageDigestViewHolder) holder).txtName.getText().toString().trim());
-                intent.putExtra("CONTACT_NAME", "chatbot002");
+                intent.putExtra("CONTACT_NAME", ((MessageDigestViewHolder) holder).txtName.getText().toString().trim());
+                intent.putExtra("CONTACT_UID", msgDigest.get(position).uid);
                 context.startActivity(intent);
             }
         });
