@@ -3,6 +3,7 @@ package com.example.tsinghuadaily.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentContainerView;
+import androidx.lifecycle.LiveData;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -23,6 +25,7 @@ import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.tsinghuadaily.Database.AppDatabase;
 import com.example.tsinghuadaily.Fragment.ArticleDetailFragment;
 import com.example.tsinghuadaily.Fragment.MainPageFragment;
 import com.example.tsinghuadaily.Fragment.MessageFragment;
@@ -60,16 +63,18 @@ public class MainPageActivity extends BaseFragmentActivity {
     private WebSocketService WSService;
     private MainPageActivity.ChatMessageReceiver chatMessageReceiver;
 
-    // 聊天记录
-    private HashMap<String, ArrayList<ChatMessage>> chatHistoryMap;     // uid -> chatHistory
+    AppDatabase db;
+
+    private int UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 初始化QMUISwipeBackActicityManager,防止崩溃
         QMUISwipeBackActivityManager.init(this.getApplication());
+        UID = 28;
         initChatLog();
-
+        db = AppDatabase.getInstance(getApplicationContext());
         mContext = MainPageActivity.this;
         startWebSocketService();
         bindService();
@@ -177,18 +182,30 @@ public class MainPageActivity extends BaseFragmentActivity {
             if (obj.containsKey("messages"))
             {
                 JSONArray msgList = (JSONArray) obj.get("messages");
-                Log.e("MainPageActivity", "msgList Size" + msgList.size());
                 for (int i = 0; i < msgList.size(); i++)
                 {
                     JSONObject o = (JSONObject) msgList.get(i);
                     String content = o.get("content").toString();
-                    int rid = (int) o.get("receiver_id");
                     String time = o.get("send_time").toString();
-                    String sender = o.get("sender_id").toString();
+                    int sender = (int) o.get("sender_id");
+                    new InsertChatMsgTask(sender, 0, content, time).execute();
                 }
+
             }
             else
             {
+                String content = obj.get("content").toString();
+                String time = obj.get("send_time").toString();
+                int sender = (int) obj.get("sender_id");
+                if (sender == UID)
+                {
+                    int to = (int) obj.get("to");
+                    new InsertChatMsgTask(to, 1, content, time).execute();
+                }
+                else
+                {
+                    new InsertChatMsgTask(sender, 0, content, time).execute();
+                }
 
             }
         }
@@ -213,5 +230,29 @@ public class MainPageActivity extends BaseFragmentActivity {
         IntentFilter filter = new IntentFilter("com.xch.servicecallback.content");
         registerReceiver(chatMessageReceiver, filter);
     }
+
+    private class InsertChatMsgTask extends AsyncTask<Void, Void, Void> {
+        int sender;
+        int isMeSend;
+        String content;
+        String time;
+
+        public InsertChatMsgTask(final int sender, final int isMeSend, final String content, final String time) {
+            this.sender = sender;
+            this.isMeSend = isMeSend;
+            this.content = content;
+            this.time = time;
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            db.chatMsgDao().insert(new ChatMessage(sender, isMeSend, content, time));
+            return null;
+        }
+    }
+
+
+
 
 }
