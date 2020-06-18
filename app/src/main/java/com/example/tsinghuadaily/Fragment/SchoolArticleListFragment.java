@@ -9,8 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.tsinghuadaily.R;
+import com.example.tsinghuadaily.base.BaseFragment;
+import com.example.tsinghuadaily.utils.Widget;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 
@@ -20,10 +24,13 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArticleListFragmentTest extends QMUIFragment {
+@Widget(widgetClass = SchoolArticleListFragment.class, iconRes = R.mipmap.ic_launcher)
+public class SchoolArticleListFragment extends BaseFragment {
 
     @BindView(R.id.articleListView)
     QMUIGroupListView mGroupListView;
+    @BindView(R.id.topbar)
+    QMUITopBarLayout mTopBar;
 
     @Override
     public View onCreateView() {
@@ -31,9 +38,21 @@ public class ArticleListFragmentTest extends QMUIFragment {
         View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_article_list, null);
         ButterKnife.bind(this, root);
 
+        initTopBar();
+
         initGroupListView();
 
         return root;
+    }
+
+    private void initTopBar() {
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popBackStack();
+            }
+        });
+        mTopBar.setTitle("学校文章列表");
     }
 
     private void initGroupListView() {
