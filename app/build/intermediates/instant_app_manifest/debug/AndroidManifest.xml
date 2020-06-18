@@ -9,16 +9,13 @@
         android:minSdkVersion="19"
         android:targetSdkVersion="29" />
     <!-- 网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 解锁屏幕所需权限 -->
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <!-- 申请电源锁所需权限 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!-- 振动权限 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- 使用前台服务权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 解锁屏幕所需权限 -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- 申请电源锁所需权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 振动权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 使用前台服务权限 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="androidx.multidex.MultiDexApplication"
@@ -77,6 +74,15 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.tsinghuadaily.Activity.MainActivity" >
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name="com.example.tsinghuadaily.Activity.ModifyUserInfoActivity" >
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->

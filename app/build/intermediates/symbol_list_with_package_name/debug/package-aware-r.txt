@@ -1935,6 +1935,15 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable ic_baseline_account_circle_24
+drawable ic_baseline_apartment_24
+drawable ic_baseline_assignment_ind_24
+drawable ic_baseline_chat_24
+drawable ic_baseline_create_24
+drawable ic_baseline_lock_24
+drawable ic_baseline_restore_24
+drawable ic_baseline_settings_24
+drawable ic_baseline_settings_power_24
 drawable ic_calendar_black_24dp
 drawable ic_clear_black_24dp
 drawable ic_edit_black_24dp
@@ -2094,6 +2103,7 @@ id always
 id articleListView
 id async
 id auto
+id avatarPreview
 id barrier
 id beginning
 id blocking
@@ -2102,6 +2112,8 @@ id bottom_sheet
 id btnSend
 id buttonPanel
 id button_register
+id button_submit_modification
+id button_uploadAvatar
 id cancel_action
 id cancel_button
 id center
@@ -2147,6 +2159,7 @@ id edit_query
 id edittext_name
 id edittext_password
 id edittext_password_ensure
+id edittext_status
 id empty_view_button
 id empty_view_detail
 id empty_view_loading
@@ -2488,6 +2501,7 @@ layout activity_chat
 layout activity_login_or_register
 layout activity_main
 layout activity_main_page
+layout activity_modify_user_info
 layout activity_register
 layout custom_dialog
 layout design_bottom_navigation_item

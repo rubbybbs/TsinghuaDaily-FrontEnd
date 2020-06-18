@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -66,6 +67,7 @@ public class MainPageActivity extends BaseFragmentActivity {
     AppDatabase db;
 
     private int UID;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,12 @@ public class MainPageActivity extends BaseFragmentActivity {
         // 初始化QMUISwipeBackActicityManager,防止崩溃
         QMUISwipeBackActivityManager.init(this.getApplication());
         UID = 28;
+        username = "chatbot001";
+        SharedPreferences.Editor editor = getSharedPreferences("userdata",  MODE_PRIVATE).edit();
+        editor.putString("username", username);
+        editor.putInt("uid", UID);
+        editor.apply();
+
         initChatLog();
         db = AppDatabase.getInstance(getApplicationContext());
         mContext = MainPageActivity.this;
@@ -153,7 +161,6 @@ public class MainPageActivity extends BaseFragmentActivity {
         File chatLogDir = new File(filePath + "ChatLog");
         while (!chatLogDir.isDirectory())
             chatLogDir.mkdir();
-
     }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {
