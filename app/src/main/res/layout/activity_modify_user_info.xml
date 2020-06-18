@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/qmui_config_color_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".Activity.RegisterActivity">
+
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorTsinghuaPurple"
+        app:qmui_topbar_title_color="@color/qmui_config_color_white"
+        app:qmui_topbar_image_btn_height="24dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/qmui_config_color_white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--注册标题文字-->
+            <!--边框分割细线-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/qmui_s_list_item_bg_1" />
+            <!--账户、手机号、密码输入框-->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/qmui_config_color_white"
+                android:columnCount="2"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+                <!--账号-->
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="127dp"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/inner_components_spacing"
+                    android:paddingRight="@dimen/inner_components_spacing"
+                    android:text="头像"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--验证码输入框-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <!--验证码输入框-->
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/avatarPreview"
+                        android:layout_width="116dp"
+                        android:layout_height="96dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/default_avata" />
+
+                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+
+                        android:id="@+id/button_uploadAvatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="上传头像"
+                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size"
+                        app:qmui_radius="4dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="90dp"
+                    android:layout_height="@dimen/qmui_list_item_height"
+                    android:layout_gravity="fill_horizontal"
+                    android:background="@drawable/qmui_s_list_item_bg_1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/inner_components_spacing"
+                    android:paddingRight="@dimen/inner_components_spacing"
+                    android:text="个性签名"
+                    android:textColor="?attr/qmui_config_color_gray_1"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                <!--账号输入框-->
+
+                <EditText
+                    android:id="@+id/edittext_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill"
+                    android:hint="请输入你的个性签名"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:singleLine="true" android:cursorVisible="true"
+                    android:textColor="?attr/qmui_config_color_gray_5"
+                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
+                <!--手机号-->
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="@dimen/qmui_list_item_height"-->
+                <!--                    android:background="@drawable/qmui_s_list_item_bg_1"-->
+                <!--                    android:gravity="center_vertical"-->
+                <!--                    android:paddingLeft="@dimen/inner_components_spacing"-->
+                <!--                    android:paddingRight="@dimen/inner_components_spacing"-->
+                <!--                    android:text="手机号"-->
+                <!--                    android:textColor="?attr/qmui_config_color_gray_1"-->
+                <!--                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />-->
+                <!--                &lt;!&ndash;手机号输入框&ndash;&gt;-->
+                <!--                <EditText-->
+                <!--                    android:id="@+id/edittext_phonenumber"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="fill"-->
+                <!--                    android:background="@drawable/qmui_divider_bottom_bitmap"-->
+                <!--                    android:hint="请输入11位手机号"-->
+                <!--                    android:inputType="phone"-->
+                <!--                    android:maxLength="11"-->
+                <!--                    android:textColor="?attr/qmui_config_color_gray_5"-->
+                <!--                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />-->
+                <!--                &lt;!&ndash;验证码&ndash;&gt;-->
+
+                <!--密码-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="@dimen/qmui_list_item_height"-->
+<!--                    android:layout_gravity="fill_horizontal"-->
+<!--                    android:background="@drawable/qmui_s_list_item_bg_1"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:paddingLeft="@dimen/inner_components_spacing"-->
+<!--                    android:paddingRight="@dimen/inner_components_spacing"-->
+<!--                    android:text="密码"-->
+<!--                    android:textColor="?attr/qmui_config_color_gray_1"-->
+<!--                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />-->
+<!--                &lt;!&ndash;密码输入框&ndash;&gt;-->
+<!--                <EditText-->
+<!--                    android:id="@+id/edittext_password"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="fill"-->
+<!--                    android:hint="请输入6到20位密码"-->
+<!--                    android:inputType="textPassword"-->
+<!--                    android:maxLength="20"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:cursorVisible="true"-->
+<!--                    android:textColor="@color/qmui_config_color_gray_5"-->
+<!--                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="@dimen/qmui_list_item_height"-->
+<!--                    android:layout_gravity="fill_horizontal"-->
+<!--                    android:background="@drawable/qmui_s_list_item_bg_1"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:paddingLeft="@dimen/inner_components_spacing"-->
+<!--                    android:paddingRight="@dimen/inner_components_spacing"-->
+<!--                    android:text="密码确认"-->
+<!--                    android:textColor="?attr/qmui_config_color_gray_1"-->
+<!--                    android:textSize="?attr/qmui_common_list_item_title_h_text_size" />-->
+<!--                &lt;!&ndash;密码输入框&ndash;&gt;-->
+<!--                <EditText-->
+<!--                    android:id="@+id/edittext_password_ensure"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="fill"-->
+<!--                    android:hint="请重复输入的密码"-->
+<!--                    android:inputType="textPassword"-->
+<!--                    android:maxLength="20"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:cursorVisible="true"-->
+<!--                    android:textColor="@color/qmui_config_color_gray_5"-->
+<!--                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />-->
+
+
+            </GridLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/qmui_config_color_white"
+                android:orientation="horizontal"
+                android:padding="@dimen/inner_components_spacing">
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/qmui_config_color_white"
+                android:orientation="horizontal"
+                android:padding="@dimen/inner_components_spacing">
+
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/button_submit_modification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="提交修改"
+                    android:textSize="?attr/qmui_common_list_item_title_h_text_size"
+                    app:qmui_isRadiusAdjustBounds="true" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/userAvatarInfo"
             android:layout_below="@id/topbarInfoPage"
-            android:background="@color/qmui_config_color_gray_8"
+            android:background="@color/qmui_config_color_gray_9"
             android:orientation="vertical">
 
             <ImageView
