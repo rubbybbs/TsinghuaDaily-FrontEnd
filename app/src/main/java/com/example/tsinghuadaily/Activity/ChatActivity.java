@@ -165,7 +165,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        unbindService(serviceConnection);
     }
 
     private void initBitmap() {
@@ -177,6 +177,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             }
             else
                 selfAvatar = BitmapFactory.decodeResource(getResources(), R.drawable.default_avata);
+            byte[] bytes = getIntent().getByteArrayExtra("CONTACT_AVATAR");
+            if (bytes == null) {
+                contactAvatar = BitmapFactory.decodeResource(getResources(), R.drawable.default_avata);
+            }
+            else {
+                contactAvatar = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -187,7 +194,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                unbindService(serviceConnection);
+                //unbindService(serviceConnection);
                 //unregisterReceiver(chatMessageReceiver);
                 finish();
             }
@@ -301,6 +308,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 ((UserMessageItemHolder) holder).time.setText(sdf.format(stmp));
             }
             else if (holder instanceof FriendMessageItemHolder) {
+                ((FriendMessageItemHolder) holder).avatar.setImageBitmap(contactAvatar);
                 ((FriendMessageItemHolder) holder).msg.setText(list.get(position).content);
                 ((FriendMessageItemHolder) holder).time.setText(sdf.format(stmp));
             }
