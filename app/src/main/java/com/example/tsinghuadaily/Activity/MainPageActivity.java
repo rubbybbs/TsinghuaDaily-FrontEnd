@@ -79,7 +79,7 @@ public class MainPageActivity extends BaseFragmentActivity {
         username = preferences.getString("username", "");
 
 
-        initChatLog();
+        initUserLocalData();
         db = AppDatabase.getInstance(getApplicationContext(), UID);
         mContext = MainPageActivity.this;
         startWebSocketService();
@@ -152,13 +152,17 @@ public class MainPageActivity extends BaseFragmentActivity {
     }
 
 
-    private void initChatLog() {
+    private void initUserLocalData() {
         File filesDir = getFilesDir();
+        while (!filesDir.isDirectory())
+            filesDir.mkdir();
         String filePath = filesDir.getAbsolutePath();
-        String sepa = File.pathSeparator;
-        File chatLogDir = new File(filePath + "ChatLog");
-        while (!chatLogDir.isDirectory())
-            chatLogDir.mkdir();
+        File avatarDir = new File(filePath + "/Avatar");
+        while (!avatarDir.isDirectory())
+            avatarDir.mkdir();
+        File userAvatarDir = new File(filePath + "/Avatar/" + UID);
+        while (!userAvatarDir.isDirectory())
+            userAvatarDir.mkdir();
     }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {

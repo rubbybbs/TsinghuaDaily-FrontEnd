@@ -14,6 +14,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -41,6 +43,8 @@ import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -68,6 +72,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     private String contact;
     private int contact_uid;
+    private int UID;
+
+    private Bitmap selfAvatar;
+    private Bitmap contactAvatar;
 
     private boolean startFlag;
 
@@ -90,6 +98,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = getIntent();
         contact = intent.getStringExtra("CONTACT_NAME");
         contact_uid = intent.getIntExtra("CONTACT_UID", 0);
+        UID = getSharedPreferences("userdata", MODE_PRIVATE).getInt("uid", 0);
         startFlag = true;
         msgList = new ArrayList<>();
 
@@ -97,6 +106,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         messageRecylerView = findViewById(R.id.recyclerChat);
         sendBtn = findViewById(R.id.btnSend);
         messageEdit = findViewById(R.id.editWriteMessage);
+        initBitmap();
 
         //initTestData();
         initTopBar();
@@ -156,6 +166,20 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
 
+    }
+
+    private void initBitmap() {
+        try {
+            File f = new File(getFilesDir().getAbsolutePath() + "/Avatar/" + UID, "avatar.png");
+            if (f.exists()) {
+                FileInputStream fis = new FileInputStream(f);
+                selfAvatar = BitmapFactory.decodeStream(fis);
+            }
+            else
+                selfAvatar = BitmapFactory.decodeResource(getResources(), R.drawable.default_avata);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initTopBar() {
@@ -237,86 +261,94 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 //        registerReceiver(chatMessageReceiver, filter);
 //    }
 
+
+
+
+    class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        private Context context;
+        private List<ChatMessage> list;
+        private DateFormat sdf;
+
+        public ListMessageAdapter(Context context, List<ChatMessage> list) {
+            this.context = context;
+            this.list = list;
+            this.sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        }
+
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            if (viewType == ChatActivity.VIEW_TYPE_USER_MSG)
+            {
+                View view = LayoutInflater.from(context).inflate(R.layout.item_message_user, parent, false);
+                return new UserMessageItemHolder(view);
+            }
+            else if (viewType == ChatActivity.VIEW_TYPE_FRIEND_MSG)
+            {
+                View view = LayoutInflater.from(context).inflate(R.layout.item_message_friend, parent, false);
+                return new FriendMessageItemHolder(view);
+            }
+            return null;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            Timestamp stmp = new Timestamp(list.get(position).time);
+            if (holder instanceof UserMessageItemHolder) {
+                ((UserMessageItemHolder) holder).avatar.setImageBitmap(selfAvatar);
+                ((UserMessageItemHolder) holder).msg.setText(list.get(position).content);
+                ((UserMessageItemHolder) holder).time.setText(sdf.format(stmp));
+            }
+            else if (holder instanceof FriendMessageItemHolder) {
+                ((FriendMessageItemHolder) holder).msg.setText(list.get(position).content);
+                ((FriendMessageItemHolder) holder).time.setText(sdf.format(stmp));
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return list.get(position).isMeSend == ChatActivity.VIEW_TYPE_USER_MSG ? ChatActivity.VIEW_TYPE_USER_MSG : ChatActivity.VIEW_TYPE_FRIEND_MSG;
+        }
+    }
+
+
+
+    class UserMessageItemHolder extends RecyclerView.ViewHolder {
+
+        public TextView msg;
+        public CircleImageView avatar;
+        public TextView time;
+
+        public UserMessageItemHolder(@NonNull View itemView) {
+            super(itemView);
+            msg = (TextView) itemView.findViewById(R.id.msgContentUser);
+            avatar = (CircleImageView) itemView.findViewById(R.id.userAvatar);
+            time = (TextView) itemView.findViewById(R.id.textSendTime);
+
+        }
+    }
+
+    class FriendMessageItemHolder extends RecyclerView.ViewHolder {
+        public TextView msg;
+        public CircleImageView avatar;
+        public TextView time;
+
+        public FriendMessageItemHolder(@NonNull View itemView) {
+            super(itemView);
+            msg = (TextView) itemView.findViewById(R.id.msgContentFriend);
+            avatar = (CircleImageView) itemView.findViewById(R.id.friendAvatar);
+            time = (TextView) itemView.findViewById(R.id.textSendTime);
+        }
+    }
+
+
+
 }
 
-class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
-    private List<ChatMessage> list;
-    private DateFormat sdf;
-
-    public ListMessageAdapter(Context context, List<ChatMessage> list) {
-        this.context = context;
-        this.list = list;
-        this.sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-    }
-
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == ChatActivity.VIEW_TYPE_USER_MSG)
-        {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_message_user, parent, false);
-            return new UserMessageItemHolder(view);
-        }
-        else if (viewType == ChatActivity.VIEW_TYPE_FRIEND_MSG)
-        {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_message_friend, parent, false);
-            return new FriendMessageItemHolder(view);
-        }
-        return null;
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Timestamp stmp = new Timestamp(list.get(position).time);
-        if (holder instanceof UserMessageItemHolder) {
-            ((UserMessageItemHolder) holder).msg.setText(list.get(position).content);
-            ((UserMessageItemHolder) holder).time.setText(sdf.format(stmp));
-        }
-        else if (holder instanceof FriendMessageItemHolder) {
-            ((FriendMessageItemHolder) holder).msg.setText(list.get(position).content);
-            ((FriendMessageItemHolder) holder).time.setText(sdf.format(stmp));
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return list.get(position).isMeSend == ChatActivity.VIEW_TYPE_USER_MSG ? ChatActivity.VIEW_TYPE_USER_MSG : ChatActivity.VIEW_TYPE_FRIEND_MSG;
-    }
-}
-
-
-
-class UserMessageItemHolder extends RecyclerView.ViewHolder {
-
-    public TextView msg;
-    public CircleImageView avatar;
-    public TextView time;
-
-    public UserMessageItemHolder(@NonNull View itemView) {
-        super(itemView);
-        msg = (TextView) itemView.findViewById(R.id.msgContentUser);
-        avatar = (CircleImageView) itemView.findViewById(R.id.userAvatar);
-        time = (TextView) itemView.findViewById(R.id.textSendTime);
-
-    }
-}
-
-class FriendMessageItemHolder extends RecyclerView.ViewHolder {
-    public TextView msg;
-    public CircleImageView avatar;
-    public TextView time;
-
-    public FriendMessageItemHolder(@NonNull View itemView) {
-        super(itemView);
-        msg = (TextView) itemView.findViewById(R.id.msgContentFriend);
-        avatar = (CircleImageView) itemView.findViewById(R.id.friendAvatar);
-        time = (TextView) itemView.findViewById(R.id.textSendTime);
-    }
-}

@@ -2,7 +2,6 @@
 package com.example.tsinghuadaily.Fragment;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.CallSuper;
 import androidx.annotation.UiThread;
@@ -11,6 +10,7 @@ import butterknife.Unbinder;
 import butterknife.internal.Utils;
 import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import de.hdodenhof.circleimageview.CircleImageView;
 import java.lang.IllegalStateException;
 import java.lang.Override;
 
@@ -21,10 +21,11 @@ public class UserInfoFragment_ViewBinding implements Unbinder {
   public UserInfoFragment_ViewBinding(UserInfoFragment target, View source) {
     this.target = target;
 
-    target.avatar = Utils.findRequiredViewAsType(source, R.id.img_avatar, "field 'avatar'", ImageView.class);
+    target.avatar = Utils.findRequiredViewAsType(source, R.id.img_avatar, "field 'avatar'", CircleImageView.class);
     target.tvUsername = Utils.findRequiredViewAsType(source, R.id.tv_username, "field 'tvUsername'", TextView.class);
     target.mTopBar = Utils.findRequiredViewAsType(source, R.id.topbarInfoPage, "field 'mTopBar'", QMUITopBarLayout.class);
     target.userInfoRecylerView = Utils.findRequiredViewAsType(source, R.id.info_recyler_view, "field 'userInfoRecylerView'", RecyclerView.class);
+    target.tvStatus = Utils.findRequiredViewAsType(source, R.id.tv_status, "field 'tvStatus'", TextView.class);
   }
 
   @Override
@@ -38,5 +39,6 @@ public class UserInfoFragment_ViewBinding implements Unbinder {
     target.tvUsername = null;
     target.mTopBar = null;
     target.userInfoRecylerView = null;
+    target.tvStatus = null;
   }
 }

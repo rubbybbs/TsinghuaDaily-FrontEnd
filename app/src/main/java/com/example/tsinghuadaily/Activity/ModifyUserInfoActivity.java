@@ -35,6 +35,7 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -55,6 +56,8 @@ public class ModifyUserInfoActivity extends AppCompatActivity implements View.On
     private static final int PICK_AVATAR = 226;
     public static final int EXTERNAL_STORAGE_REQ_CODE = 10 ;
 
+    private int UID;
+
     private byte[] tempAvatar;
 
     @SuppressLint("HandlerLeak")
@@ -62,6 +65,7 @@ public class ModifyUserInfoActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_user_info);
+        UID = getSharedPreferences("userdata", MODE_PRIVATE).getInt("uid", 0);
         topBar = (QMUITopBar)findViewById(R.id.topbar);
         uploadImageBtn = (QMUIRoundButton)findViewById(R.id.button_uploadAvatar);
         submitBtn = (QMUIRoundButton)findViewById(R.id.button_submit_modification);
@@ -72,6 +76,7 @@ public class ModifyUserInfoActivity extends AppCompatActivity implements View.On
         submitBtn.setChangeAlphaWhenPress(true);
         submitBtn.setOnClickListener(this);
         initTopBar();
+        initAvatar();
         int permission = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
@@ -119,8 +124,8 @@ public class ModifyUserInfoActivity extends AppCompatActivity implements View.On
                             Toast.makeText(getApplicationContext(), "修改信息失败，请重试", Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            //TODO: 持久化修改后的头像，跳转回个人信息页面。
-                            Log.e("ModifyUserInfoActivity", requestRes);
+                            //跳转回个人信息页面。
+                            finish();
                         }
                         break;
                     default:
@@ -129,6 +134,21 @@ public class ModifyUserInfoActivity extends AppCompatActivity implements View.On
                 return;
             }
         };
+
+    }
+
+    private void initAvatar() {
+        try {
+            File f = new File(getFilesDir().getAbsolutePath() + "/Avatar/" + UID, "avatar.png");
+            if (f.exists()) {
+                FileInputStream fis = new FileInputStream(f);
+                avatarPreview.setImageBitmap(BitmapFactory.decodeStream(fis));
+            }
+            else
+                avatarPreview.setImageResource(R.drawable.default_avata);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

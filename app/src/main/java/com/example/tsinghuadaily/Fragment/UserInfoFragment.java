@@ -1,8 +1,13 @@
 package com.example.tsinghuadaily.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,23 +17,39 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.tsinghuadaily.Activity.LoginOrRegisterActivity;
+import com.example.tsinghuadaily.Activity.MainPageActivity;
+import com.example.tsinghuadaily.Activity.ModifyUserInfoActivity;
+import com.example.tsinghuadaily.Activity.RegisterActivity;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.models.UserConfiguration;
 import com.example.tsinghuadaily.models.UserInfo;
+import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,19 +62,24 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserInfoFragment extends QMUIFragment {
 
     @BindView(R.id.img_avatar)
-    ImageView avatar;
+    CircleImageView avatar;
     @BindView(R.id.tv_username)
     TextView tvUsername;
     @BindView(R.id.topbarInfoPage)
     QMUITopBarLayout mTopBar;
     @BindView(R.id.info_recyler_view)
     RecyclerView userInfoRecylerView;
+    @BindView(R.id.tv_status)
+    TextView tvStatus;
 
     private UserInfoListAdapter adapter;
 
     private int UID;
     private String username;
     private boolean isVerified;
+    private String status;
+
+    Handler handler;
 
     private List<UserConfiguration> userInfoList;
 
@@ -68,6 +94,7 @@ public class UserInfoFragment extends QMUIFragment {
     }
 
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected View onCreateView() {
         View rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_user_info, null);
@@ -77,14 +104,101 @@ public class UserInfoFragment extends QMUIFragment {
         UID = preferences.getInt("uid", 0);
         username = preferences.getString("username", "");
         isVerified = false;
+        status = "";
         userInfoList = new ArrayList<>();
         initInfoList();
-
+        initAvatar();
         initTopBar();
         tvUsername.setText(username);
         initRecylerView();
 
+        handler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                int eventType = data.getInt("eventType", -1);
+                switch (eventType) {
+                    case 0:
+                        String res = data.getString("requestRes");
+                        JSONObject obj = JSONObject.parseObject(res);
+                        if (obj.containsKey("code") && obj.get("code").toString().equals("200"))
+                        {
+                            JSONObject info = obj.getJSONObject("info");
+                            if (info.containsKey("avatar")) {
+                                String avatar_getter = info.get("avatar").toString();
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String baseUrl = "http://175.24.61.249:8080/media/get?";
+                                        byte[] bytes = OkHttpUtil.downloadMedia(baseUrl + avatar_getter);
+                                        Message msg1 = new Message();
+                                        Bundle data1 = new Bundle();
+                                        data1.putByteArray("requestRes", bytes);
+                                        data1.putInt("eventType", 1);
+                                        msg1.setData(data1);
+                                        handler.sendMessage(msg1);
+                                    }
+                                }).start();
+                            }
+                            if (info.containsKey("status")) {
+                                status = info.get("status").toString();
+                                tvStatus.setText(status);
+                            }
+                            else
+                                tvStatus.setText("未设置个性签名");
+                        }
+                        else
+                            Toast.makeText(getContext(), "请求失败，请重启APP", Toast.LENGTH_SHORT);
+                        break;
+                    case 1:
+                        byte[] tempAvatar = data.getByteArray("requestRes");
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(tempAvatar, 0, tempAvatar.length);
+                        avatar.setImageBitmap(bitmap);
+                        // 持久化头像至内部存储
+                        File f = new File(getActivity().getFilesDir().getAbsolutePath() + "/Avatar/" + UID, "avatar.png");
+                        while (f.exists())
+                            f.delete();
+                        try {
+                            FileOutputStream out = new FileOutputStream(f);
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+                            out.flush();
+                            out.close();
+                         } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        };
+
         return rootView;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new GetInfoTask().execute();
+    }
+
+    private class GetInfoTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String baseurl = "http://175.24.61.249:8080/user/get-info?user_id=";
+            String res = OkHttpUtil.get(baseurl + UID);
+            Message msg = new Message();
+            Bundle data = new Bundle();
+            data.putInt("eventType", 0);
+            data.putString("requestRes", res);
+            msg.setData(data);
+            handler.sendMessage(msg);
+            return null;
+        }
     }
 
     private void initTopBar() {
@@ -96,6 +210,21 @@ public class UserInfoFragment extends QMUIFragment {
         });
 
         mTopBar.setTitle("个人信息");
+    }
+
+    private void initAvatar() {
+        try {
+            File f = new File(getActivity().getFilesDir().getAbsolutePath() + "/Avatar/" + UID, "avatar.png");
+            if (f.exists()) {
+                FileInputStream fis = new FileInputStream(f);
+                avatar.setImageBitmap(BitmapFactory.decodeStream(fis));
+            }
+            else
+                avatar.setImageResource(R.drawable.default_avata);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initRecylerView() {
@@ -148,6 +277,16 @@ class UserInfoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ((UserInfoViewHolder) holder).icon.setBackgroundResource(config.getIcon());
         ((UserInfoViewHolder) holder).label.setText(config.getLabel());
         ((UserInfoViewHolder) holder).value.setText(config.getValue());
+        ((UserInfoViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (config.getLabel().equals("修改个人信息")) {
+                    Intent intent = new Intent();
+                    intent.setClass(context, ModifyUserInfoActivity.class);
+                    context.startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
