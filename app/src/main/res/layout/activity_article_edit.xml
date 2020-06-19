@@ -30,9 +30,8 @@
             android:focusableInTouchMode="true">
 
             <TextView
-                android:layout_width="90dp"
+                android:layout_width="50dp"
                 android:layout_height="@dimen/qmui_list_item_height"
-                android:layout_gravity="fill_horizontal"
                 android:background="@drawable/qmui_s_list_item_bg_1"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/inner_components_spacing"
@@ -40,7 +39,7 @@
                 android:text="标题"
                 android:textColor="?attr/qmui_config_color_gray_1"
                 android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-            <!--账号输入框-->
+
 
             <EditText
                 android:id="@+id/edittext_topic"
@@ -48,6 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="fill"
                 android:hint="请输入你的标题"
+                android:paddingLeft="@dimen/inner_components_spacing"
+                android:paddingRight="@dimen/inner_components_spacing"
                 android:maxLength="20"
                 android:maxLines="1"
                 android:singleLine="true" android:cursorVisible="true"
@@ -55,30 +56,79 @@
                 android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
 
 
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="@dimen/qmui_list_item_height"-->
+<!--                android:layout_gravity="fill_horizontal"-->
+<!--                android:background="@drawable/qmui_s_list_item_bg_1"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:paddingLeft="@dimen/inner_components_spacing"-->
+<!--                android:paddingRight="@dimen/inner_components_spacing"-->
+<!--                android:text="摘要"-->
+<!--                android:textColor="?attr/qmui_config_color_gray_1"-->
+<!--                android:textSize="?attr/qmui_common_list_item_title_h_text_size" />-->
+
+
+<!--            <EditText-->
+<!--                android:id="@+id/edittext_describe"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="fill"-->
+<!--                android:hint="请输入摘要"-->
+<!--                android:paddingLeft="@dimen/inner_components_spacing"-->
+<!--                android:paddingRight="@dimen/inner_components_spacing"-->
+<!--                android:maxLength="20"-->
+<!--                android:maxLines="1"-->
+<!--                android:singleLine="true" android:cursorVisible="true"-->
+<!--                android:textColor="?attr/qmui_config_color_gray_5"-->
+<!--                android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />-->
+
             <TextView
-                android:layout_width="90dp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/qmui_list_item_height"
                 android:layout_gravity="fill_horizontal"
                 android:background="@drawable/qmui_s_list_item_bg_1"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/inner_components_spacing"
                 android:paddingRight="@dimen/inner_components_spacing"
-                android:text="摘要"
+                android:text="分级"
                 android:textColor="?attr/qmui_config_color_gray_1"
                 android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-            <!--账号输入框-->
 
-            <EditText
-                android:id="@+id/edittext_describe"
+            <RadioGroup
+                android:id="@+id/rg_level"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="fill"
-                android:hint="请输入摘要"
-                android:maxLength="20"
-                android:maxLines="1"
-                android:singleLine="true" android:cursorVisible="true"
-                android:textColor="?attr/qmui_config_color_gray_5"
-                android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                android:layout_height="@dimen/qmui_list_item_height"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/rb_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/qmui_list_item_height"
+                    android:text="All"
+                    android:textSize="16sp"
+                    />
+                <RadioButton
+                    android:id="@+id/rb_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/qmui_list_item_height"
+                    android:text="Staff"
+                    android:textSize="16sp"
+                    />
+                <RadioButton
+                    android:id="@+id/rb_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/qmui_list_item_height"
+                    android:text="Member"
+                    android:textSize="16sp"
+                    />
+                <RadioButton
+                    android:id="@+id/rb_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/qmui_list_item_height"
+                    android:text="MemberStaff"
+                    android:textSize="16sp"
+                    />
+            </RadioGroup>
 
         </GridLayout>
 

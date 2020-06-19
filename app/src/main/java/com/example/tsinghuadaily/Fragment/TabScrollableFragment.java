@@ -149,7 +149,7 @@ public class TabScrollableFragment extends QMUIFragment {
         mContentViewPager.setAdapter(mPagerAdapter);
         mContentViewPager.setCurrentItem(mDestPage.getPosition(), false);
         QMUITabBuilder tabBuilder = mTabSegment.tabBuilder();
-        String title[]={"      学校      ","      院系      ","      社团      ","      学科      "};
+        String title[]={"      关注      ","      学校      ","      院系      ","      社团      "};
         for (int i = 0; i < mCurrentItemCount; i++) {
             mTabSegment.addTab(tabBuilder.setText(title[i]).build(getContext()));
         }

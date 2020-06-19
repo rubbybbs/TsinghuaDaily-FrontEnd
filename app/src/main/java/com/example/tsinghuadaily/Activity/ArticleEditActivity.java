@@ -1,7 +1,9 @@
 package com.example.tsinghuadaily.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chinalwb.are.AREditText;
 import com.chinalwb.are.spans.AreImageSpan;
 import com.chinalwb.are.strategies.ImageStrategy;
@@ -31,25 +33,39 @@ import com.chinalwb.are.styles.toolitems.ARE_ToolItem_Video;
 import com.chinalwb.are.styles.toolitems.IARE_ToolItem;
 import com.chinalwb.are.styles.toolitems.styles.ARE_Style_Image;
 import com.example.tsinghuadaily.R;
+import com.example.tsinghuadaily.services.WebSocketService;
 import com.example.tsinghuadaily.utils.ArticleUtils;
+import com.example.tsinghuadaily.utils.JWebSocketClient;
+import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -127,10 +143,33 @@ public class ArticleEditActivity extends AppCompatActivity {
 
     EditText mDescribeText;
 
+    String readerText;
+
     QMUITopBar mTopBar;
 
+    RadioGroup mRadioGroup;
 
-    private boolean scrollerAtEnd;
+    private int UID;
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            Bundle data = msg.getData();
+            String val = data.getString("requestRes");
+            JSONObject obj = JSONObject.parseObject(val);
+            if (obj.get("code").equals(200))
+            {
+                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            else
+            {
+                String errorMsg = obj.get("msg").toString();
+                Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     private ImageStrategy imageStrategy = new DImageStrategy();
 
@@ -163,6 +202,21 @@ public class ArticleEditActivity extends AppCompatActivity {
 
         initToolbar();
         initTopBar();
+
+        mTopicText = this.findViewById(R.id.edittext_topic);
+        //mDescribeText = this.findViewById(R.id.edittext_describe);
+        mRadioGroup = this.findViewById(R.id.rg_level);
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton radioButton = radioGroup.findViewById(i);
+                readerText = radioButton.getText().toString();
+                Toast.makeText(getApplicationContext(), readerText, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        UID = getSharedPreferences("userdata", MODE_PRIVATE).getInt("uid", 0);
+
     }
 
     private void initTopBar() {
@@ -172,7 +226,7 @@ public class ArticleEditActivity extends AppCompatActivity {
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 退出该activity
+                finish();
             }
         });
         mTopBar.setTitle("分类");
@@ -183,6 +237,25 @@ public class ArticleEditActivity extends AppCompatActivity {
                         //TODO 发送给服务器
                         String html = mEditText.getHtml();
                         Toast.makeText(getApplicationContext(), html, Toast.LENGTH_LONG).show();
+                        Map<String, String> params = new HashMap<>();
+                        params.put("title", mTopicText.getText().toString());
+                        params.put("author", String.valueOf(UID));
+                        params.put("content", html);
+                        params.put("reader", readerText);
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String res = OkHttpUtil.postForm("http://175.24.61.249:8080/user/register", params);
+                                Message msg = new Message();
+                                Bundle data = new Bundle();
+                                data.putString("requestRes", res);
+                                msg.setData(data);
+                                handler.sendMessage(msg);
+                            }
+                        }).start();
+
+                        //finish();
                     }
                 });
     }

@@ -2316,7 +2316,6 @@ id dot
 id dropdown_menu
 id editWriteMessage
 id edit_query
-id edittext_describe
 id edittext_name
 id edittext_password
 id edittext_password_ensure
@@ -2482,9 +2481,14 @@ id qmui_view_can_not_cache_tag
 id qmui_view_offset_helper
 id qmui_window_inset_keyboard_area_consumer
 id radio
+id rb_1
+id rb_2
+id rb_3
+id rb_4
 id recycleListMessage
 id recyclerChat
 id recyclerView
+id rg_level
 id right
 id right_icon
 id right_side
@@ -2611,6 +2615,7 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id tv_detail
+id tv_status
 id tv_title
 id tv_username
 id txtMessage
