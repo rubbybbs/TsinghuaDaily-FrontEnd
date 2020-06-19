@@ -1,50 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.ArticleEditActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".Activity.ArticleEditActivity"
+    android:orientation="vertical">
 
-    <ScrollView
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/topbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottombar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@android:color/white">
-
-        <com.chinalwb.are.AREditText
-            android:id="@+id/arEditText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="top|left"
-            android:hint="Your EditText goes here"
-            android:textSize="50sp" />
-    </ScrollView>
+        android:layout_height="60dp"
+        android:background="@color/colorTsinghuaPurple"
+        app:qmui_topbar_title_color="@color/qmui_config_color_white"
+        app:qmui_topbar_image_btn_height="24dp"/>
 
     <LinearLayout
-        android:id="@+id/bottombar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:weightSum="1000">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.chinalwb.are.styles.toolbar.ARE_ToolbarDefault
-            android:id="@+id/areToolbar"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="900"
-            android:background="@color/colorPrimary"
-            android:gravity="center_vertical" />
-
-        <View
-            android:layout_width="0dp"
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:background="@color/colorPrimaryDark" />
+            android:background="@color/qmui_config_color_white"
+            android:columnCount="2"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="@dimen/qmui_list_item_height"
+                android:layout_gravity="fill_horizontal"
+                android:background="@drawable/qmui_s_list_item_bg_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/inner_components_spacing"
+                android:paddingRight="@dimen/inner_components_spacing"
+                android:text="标题"
+                android:textColor="?attr/qmui_config_color_gray_1"
+                android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+            <!--账号输入框-->
+
+            <EditText
+                android:id="@+id/edittext_topic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:hint="请输入你的标题"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:singleLine="true" android:cursorVisible="true"
+                android:textColor="?attr/qmui_config_color_gray_5"
+                android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="@dimen/qmui_list_item_height"
+                android:layout_gravity="fill_horizontal"
+                android:background="@drawable/qmui_s_list_item_bg_1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/inner_components_spacing"
+                android:paddingRight="@dimen/inner_components_spacing"
+                android:text="摘要"
+                android:textColor="?attr/qmui_config_color_gray_1"
+                android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+            <!--账号输入框-->
+
+            <EditText
+                android:id="@+id/edittext_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:hint="请输入摘要"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:singleLine="true" android:cursorVisible="true"
+                android:textColor="?attr/qmui_config_color_gray_5"
+                android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
+        </GridLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <com.chinalwb.are.styles.toolbar.ARE_ToolbarDefault
+                android:id="@+id/areToolbar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1000"
+                android:background="@color/colorPrimary"
+                android:gravity="center_vertical" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
+
+            <com.chinalwb.are.AREditText
+                android:id="@+id/arEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|start"
+                android:hint="Your EditText goes here"
+                android:textSize="50sp" />
+        </ScrollView>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

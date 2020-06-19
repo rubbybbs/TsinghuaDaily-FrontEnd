@@ -32,6 +32,9 @@ import com.chinalwb.are.styles.toolitems.IARE_ToolItem;
 import com.chinalwb.are.styles.toolitems.styles.ARE_Style_Image;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.utils.ArticleUtils;
+import com.qmuiteam.qmui.util.QMUIViewHelper;
+import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -42,13 +45,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
+import butterknife.BindView;
+
 import static android.os.AsyncTask.THREAD_POOL_EXECUTOR;
 
-class DemoImageStrategy implements ImageStrategy {
+class DImageStrategy implements ImageStrategy {
     @Override
     public void uploadAndInsertImage(Uri uri, ARE_Style_Image areStyleImage) {
         new UploadImageTask(areStyleImage).executeOnExecutor(THREAD_POOL_EXECUTOR, uri);
@@ -112,13 +119,20 @@ class DemoImageStrategy implements ImageStrategy {
 
 public class ArticleEditActivity extends AppCompatActivity {
 
-    private IARE_Toolbar mToolbar;
+    IARE_Toolbar mToolbar;
 
-    private AREditText mEditText;
+    AREditText mEditText;
+
+    EditText mTopicText;
+
+    EditText mDescribeText;
+
+    QMUITopBar mTopBar;
+
 
     private boolean scrollerAtEnd;
 
-    private ImageStrategy imageStrategy = new DemoImageStrategy();
+    private ImageStrategy imageStrategy = new DImageStrategy();
 
     private VideoStrategy mVideoStrategy = new VideoStrategy() {
         @Override
@@ -148,6 +162,29 @@ public class ArticleEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_article_edit);
 
         initToolbar();
+        initTopBar();
+    }
+
+    private void initTopBar() {
+        if (mTopBar == null) {
+            mTopBar = this.findViewById(R.id.topbar);
+        }
+        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 退出该activity
+            }
+        });
+        mTopBar.setTitle("分类");
+        mTopBar.addRightTextButton("C", QMUIViewHelper.generateViewId())
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO 发送给服务器
+                        String html = mEditText.getHtml();
+                        Toast.makeText(getApplicationContext(), html, Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
     private void initToolbar() {
@@ -198,7 +235,6 @@ public class ArticleEditActivity extends AppCompatActivity {
         mEditText.setToolbar(mToolbar);
         mEditText.setImageStrategy(imageStrategy);
         mEditText.setVideoStrategy(mVideoStrategy);
-
 
         setHtml();
     }

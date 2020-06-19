@@ -1935,6 +1935,7 @@ drawable abc_vector_test
 drawable aligncenter
 drawable alignleft
 drawable alignright
+drawable arrow_right
 drawable at
 drawable at_1
 drawable at_10
@@ -2264,7 +2265,6 @@ id beginning
 id blocking
 id bottom
 id bottom_sheet
-id bottombar
 id btnSend
 id buttonPanel
 id button_register
@@ -2316,10 +2316,12 @@ id dot
 id dropdown_menu
 id editWriteMessage
 id edit_query
+id edittext_describe
 id edittext_name
 id edittext_password
 id edittext_password_ensure
 id edittext_status
+id edittext_topic
 id emojiPanelId
 id empty_view_button
 id empty_view_detail
@@ -2609,7 +2611,6 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id tv_detail
-id tv_status
 id tv_title
 id tv_username
 id txtMessage
