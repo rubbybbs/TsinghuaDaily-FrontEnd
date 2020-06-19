@@ -136,7 +136,7 @@ public class TabScrollableFragment extends QMUIFragment {
         });
 
         mTopBar.setTitle("主页");
-        mTopBar.addRightTextButton("搜索", QMUIViewHelper.generateViewId())
+        mTopBar.addRightTextButton("+", QMUIViewHelper.generateViewId())
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
