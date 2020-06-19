@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
  * create an instance of this fragment.
  */
 public class GridVarietyFragment extends QMUIFragment {
-    @SuppressWarnings("FieldCanBeLocal") private final int TAB_COUNT = 4;
+    @SuppressWarnings("FieldCanBeLocal") private final int TAB_COUNT = 3;
 
     @BindView(R.id.topbarMainPage)
     QMUITopBarLayout mTopBar;
@@ -137,7 +137,7 @@ public class GridVarietyFragment extends QMUIFragment {
         mContentViewPager.setAdapter(mPagerAdapter);
         mContentViewPager.setCurrentItem(mDestPage.getPosition(), false);
         QMUITabBuilder tabBuilder = mTabSegment.tabBuilder();
-        String title[]={"      学校      ","      院系      ","      社团      ","      学科      "};
+        String title[]={"           学校            ","           院系           ","           社团           "};
         for (int i = 0; i < mCurrentItemCount; i++) {
             mTabSegment.addTab(tabBuilder.setText(title[i]).build(getContext()));
         }

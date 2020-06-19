@@ -2,6 +2,7 @@ package com.example.tsinghuadaily.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chinalwb.are.AREditText;
@@ -41,11 +42,16 @@ import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -63,6 +69,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,17 +79,27 @@ import butterknife.BindView;
 import static android.os.AsyncTask.THREAD_POOL_EXECUTOR;
 
 class DImageStrategy implements ImageStrategy {
+
+    Context mContext;
+
+    public DImageStrategy(Context context) {
+        this.mContext = context;
+    }
+
     @Override
     public void uploadAndInsertImage(Uri uri, ARE_Style_Image areStyleImage) {
-        new UploadImageTask(areStyleImage).executeOnExecutor(THREAD_POOL_EXECUTOR, uri);
+        new UploadImageTask(areStyleImage, mContext).executeOnExecutor(THREAD_POOL_EXECUTOR, uri);
     }
 
     private static class UploadImageTask extends AsyncTask<Uri, Integer, String> {
 
         WeakReference<ARE_Style_Image> areStyleImage;
         private ProgressDialog dialog;
-        UploadImageTask(ARE_Style_Image styleImage) {
+        Context mContext;
+
+        UploadImageTask(ARE_Style_Image styleImage, Context context) {
             this.areStyleImage = new WeakReference<>(styleImage);
+            this.mContext = context;
         }
 
         @Override
@@ -99,18 +116,27 @@ class DImageStrategy implements ImageStrategy {
             }
         }
 
+        @SuppressLint("HandlerLeak")
         @Override
         protected String doInBackground(Uri... uris) {
             if (uris != null && uris.length > 0) {
-                try {
-                    // do upload here ~
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
+                ContentResolver resolver = mContext.getContentResolver();
+                Cursor cursor = resolver.query(uris[0], null, null, null, null);
+
+                if (cursor == null) {
+                    // 未查询到，说明为普通文件，可直接通过URI获取文件路径
+                    String path = uris[0].getPath();
+                    return null;
+                }
+                if (cursor.moveToFirst()) {
+                    // 多媒体文件，从数据库中获取文件的真实路径
+                    String path = cursor.getString(cursor.getColumnIndex("_data"));
+                    File file = new File(path);
+                    String ImageUrl = OkHttpUtil.uploadFile(file);
+                    return ImageUrl;
+                }
                 // Returns the image url on server here
-                return "https://avatars0.githubusercontent.com/u/1758864?s=460&v=4";
             }
             return null;
         }
@@ -151,27 +177,11 @@ public class ArticleEditActivity extends AppCompatActivity {
 
     private int UID;
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            Bundle data = msg.getData();
-            String val = data.getString("requestRes");
-            JSONObject obj = JSONObject.parseObject(val);
-            if (obj.get("code").equals(200))
-            {
-                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-            else
-            {
-                String errorMsg = obj.get("msg").toString();
-                Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
+    Handler handler;
 
-    private ImageStrategy imageStrategy = new DImageStrategy();
+    public static final int EXTERNAL_STORAGE_REQ_CODE = 10 ;
+
+    private ImageStrategy imageStrategy = new DImageStrategy(getApplicationContext());
 
     private VideoStrategy mVideoStrategy = new VideoStrategy() {
         @Override
@@ -195,6 +205,7 @@ public class ArticleEditActivity extends AppCompatActivity {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,6 +213,15 @@ public class ArticleEditActivity extends AppCompatActivity {
 
         initToolbar();
         initTopBar();
+
+        int permission = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // 请求权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    EXTERNAL_STORAGE_REQ_CODE);
+        }
 
         mTopicText = this.findViewById(R.id.edittext_topic);
         //mDescribeText = this.findViewById(R.id.edittext_describe);
@@ -216,7 +236,25 @@ public class ArticleEditActivity extends AppCompatActivity {
         });
 
         UID = getSharedPreferences("userdata", MODE_PRIVATE).getInt("uid", 0);
-
+        handler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                String val = data.getString("requestRes");
+                JSONObject obj = JSONObject.parseObject(val);
+                if (obj.get("code").equals(200))
+                {
+                    Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else
+                {
+                    String errorMsg = obj.get("msg").toString();
+                    Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
     }
 
     private void initTopBar() {
@@ -234,7 +272,6 @@ public class ArticleEditActivity extends AppCompatActivity {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO 发送给服务器
                         String html = mEditText.getHtml();
                         Toast.makeText(getApplicationContext(), html, Toast.LENGTH_LONG).show();
                         Map<String, String> params = new HashMap<>();
@@ -246,7 +283,7 @@ public class ArticleEditActivity extends AppCompatActivity {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                String res = OkHttpUtil.postForm("http://175.24.61.249:8080/user/register", params);
+                                String res = OkHttpUtil.postForm("http://175.24.61.249:8080/article/publish", params);
                                 Message msg = new Message();
                                 Bundle data = new Bundle();
                                 data.putString("requestRes", res);
