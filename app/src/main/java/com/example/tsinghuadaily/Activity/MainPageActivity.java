@@ -240,6 +240,15 @@ public class MainPageActivity extends BaseFragmentActivity {
         registerReceiver(chatMessageReceiver, filter);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(serviceConnection);
+        Intent intent = new Intent(mContext, WebSocketService.class);
+        stopService(intent);
+        unregisterReceiver(chatMessageReceiver);
+    }
+
     private class InsertChatMsgTask extends AsyncTask<Void, Void, Void> {
         int sender;
         int isMeSend;

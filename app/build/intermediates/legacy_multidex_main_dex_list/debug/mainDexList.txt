@@ -229,6 +229,16 @@ com/alibaba/fastjson/support/spring/JSONPResponseBodyAdvice.class
 com/alibaba/fastjson/support/spring/annotation/FastJsonFilter.class
 com/alibaba/fastjson/support/spring/annotation/FastJsonView.class
 com/alibaba/fastjson/support/spring/annotation/ResponseJSONP.class
+com/bumptech/glide/annotation/Excludes.class
+com/bumptech/glide/annotation/GlideExtension.class
+com/bumptech/glide/annotation/GlideModule.class
+com/bumptech/glide/annotation/GlideOption.class
+com/bumptech/glide/annotation/GlideType.class
+com/bumptech/glide/annotation/compiler/Index.class
+com/bumptech/glide/gifdecoder/GifDecoder$GifDecodeStatus.class
+com/bumptech/glide/util/Synthetic.class
+com/example/tsinghuadaily/utils/Group.class
+com/example/tsinghuadaily/utils/Widget.class
 com/google/android/material/appbar/AppBarLayout$LayoutParams$ScrollFlags.class
 com/google/android/material/badge/BadgeDrawable$BadgeGravity.class
 com/google/android/material/bottomappbar/BottomAppBar$FabAlignmentMode.class
