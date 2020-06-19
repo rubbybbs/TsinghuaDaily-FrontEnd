@@ -64,7 +64,7 @@ public class LoginOrRegisterActivity extends AppCompatActivity implements View.O
                 JSONObject obj = JSONObject.parseObject(val);
                 if (obj.get("code").equals(200))
                 {
-                    int UID = Integer.valueOf(obj.get("user_id").toString());
+                    int UID = Integer.valueOf(obj.getJSONObject("info").get("user_id").toString());
                     SharedPreferences.Editor editor = getSharedPreferences("userdata",  MODE_PRIVATE).edit();
                     editor.putString("username", username);
                     editor.putInt("uid", UID);
