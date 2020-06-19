@@ -1,6 +1,7 @@
 package com.example.tsinghuadaily.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -44,10 +45,12 @@ import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
@@ -58,6 +61,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -73,6 +77,7 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import butterknife.BindView;
 
@@ -80,15 +85,9 @@ import static android.os.AsyncTask.THREAD_POOL_EXECUTOR;
 
 class DImageStrategy implements ImageStrategy {
 
-    Context mContext;
-
-    public DImageStrategy(Context context) {
-        this.mContext = context;
-    }
-
     @Override
     public void uploadAndInsertImage(Uri uri, ARE_Style_Image areStyleImage) {
-        new UploadImageTask(areStyleImage, mContext).executeOnExecutor(THREAD_POOL_EXECUTOR, uri);
+        new UploadImageTask(areStyleImage).executeOnExecutor(THREAD_POOL_EXECUTOR, uri);
     }
 
     private static class UploadImageTask extends AsyncTask<Uri, Integer, String> {
@@ -96,18 +95,33 @@ class DImageStrategy implements ImageStrategy {
         WeakReference<ARE_Style_Image> areStyleImage;
         private ProgressDialog dialog;
         Context mContext;
+        public static final int EXTERNAL_STORAGE_REQ_CODE = 10 ;
 
-        UploadImageTask(ARE_Style_Image styleImage, Context context) {
+        UploadImageTask(ARE_Style_Image styleImage) {
             this.areStyleImage = new WeakReference<>(styleImage);
-            this.mContext = context;
+        }
+
+        @Nullable
+        public static Activity findActivity(Context context) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            if (context instanceof ContextWrapper) {
+                ContextWrapper wrapper = (ContextWrapper) context;
+                return findActivity(wrapper.getBaseContext());
+            } else {
+                return null;
+            }
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            mContext = areStyleImage.get().getEditText().getContext();
+
             if (dialog == null) {
                 dialog = ProgressDialog.show(
-                        areStyleImage.get().getEditText().getContext(),
+                        mContext,
                         "",
                         "Uploading image. Please wait...",
                         true);
@@ -123,17 +137,17 @@ class DImageStrategy implements ImageStrategy {
 
                 ContentResolver resolver = mContext.getContentResolver();
                 Cursor cursor = resolver.query(uris[0], null, null, null, null);
-
+                String path = uris[0].getPath();
                 if (cursor == null) {
                     // 未查询到，说明为普通文件，可直接通过URI获取文件路径
-                    String path = uris[0].getPath();
                     return null;
                 }
                 if (cursor.moveToFirst()) {
                     // 多媒体文件，从数据库中获取文件的真实路径
-                    String path = cursor.getString(cursor.getColumnIndex("_data"));
+                    path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
                     File file = new File(path);
-                    String ImageUrl = OkHttpUtil.uploadFile(file);
+                    Random random = new Random(System.currentTimeMillis());
+                    String ImageUrl = OkHttpUtil.uploadFile(file,  String.valueOf(random.nextInt(100000)) + ".png");
                     return ImageUrl;
                 }
                 // Returns the image url on server here
@@ -181,29 +195,9 @@ public class ArticleEditActivity extends AppCompatActivity {
 
     public static final int EXTERNAL_STORAGE_REQ_CODE = 10 ;
 
-    private ImageStrategy imageStrategy = new DImageStrategy(getApplicationContext());
+    private ImageStrategy imageStrategy;
 
-    private VideoStrategy mVideoStrategy = new VideoStrategy() {
-        @Override
-        public String uploadVideo(Uri uri) {
-            try {
-                Thread.sleep(3000); // Do upload here
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "http://www.xx.com/x.mp4";
-        }
-
-        @Override
-        public String uploadVideo(String videoPath) {
-            try {
-                Thread.sleep(3000);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "http://www.xx.com/x.mp4";
-        }
-    };
+    private VideoStrategy mVideoStrategy;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -343,6 +337,30 @@ public class ArticleEditActivity extends AppCompatActivity {
 
         mEditText = this.findViewById(R.id.arEditText);
         mEditText.setToolbar(mToolbar);
+
+        imageStrategy = new DImageStrategy();
+        mVideoStrategy = new VideoStrategy() {
+            @Override
+            public String uploadVideo(Uri uri) {
+                try {
+                    Thread.sleep(3000); // Do upload here
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return "http://www.xx.com/x.mp4";
+            }
+
+            @Override
+            public String uploadVideo(String videoPath) {
+                try {
+                    Thread.sleep(3000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return "http://www.xx.com/x.mp4";
+            }
+        };
+
         mEditText.setImageStrategy(imageStrategy);
         mEditText.setVideoStrategy(mVideoStrategy);
 

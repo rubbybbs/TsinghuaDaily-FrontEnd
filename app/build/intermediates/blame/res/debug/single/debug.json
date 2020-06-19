@@ -140,6 +140,10 @@
         "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_baseline_settings_power_24.png"
     },
     {
+        "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_submit_auth.xml.flat",
+        "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\activity_submit_auth.xml"
+    },
+    {
         "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_baseline_create_24.xml.flat",
         "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_baseline_create_24.xml"
     },
