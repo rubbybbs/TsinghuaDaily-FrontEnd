@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.tsinghuadaily.Activity.ArticleEditActivity;
 import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter;
@@ -183,7 +184,8 @@ public class TabScrollableFragment extends QMUIFragment {
     }
 
     private void research() {
-
+        Intent intent = new Intent(getActivity(), ArticleEditActivity.class);
+        startActivity(intent);
     }
 
     private View getPageView(ContentPage page) {

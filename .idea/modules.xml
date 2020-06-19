@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TsinghuaDaily.iml" filepath="$PROJECT_DIR$/TsinghuaDaily.iml" group="TsinghuaDaily" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="TsinghuaDaily/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/are/are.iml" filepath="$PROJECT_DIR$/.idea/modules/are/are.iml" group="TsinghuaDaily/are" />
     </modules>
   </component>
 </project>

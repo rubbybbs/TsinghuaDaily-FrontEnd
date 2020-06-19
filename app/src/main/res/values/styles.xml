@@ -9,7 +9,7 @@
 <!--    </style>-->
 
     <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
-        
+
         <!-- Android Theme-->
         <item name="colorPrimaryDark">@color/colorTsinghuaPurple</item>
         <item name="colorAccent">@color/colorTsinghuaPurple</item>
@@ -20,7 +20,7 @@
         <item name="qmui_skin_support_round_btn_border_color">@color/colorTsinghuaPurple</item>
         <item name="qmui_skin_support_round_btn_text_color">@color/colorTsinghuaPurple</item>
 
-        
+
     </style>
 
     <style name="chat_item_send_layout">
