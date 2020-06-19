@@ -125,11 +125,11 @@ public class LoginOrRegisterActivity extends AppCompatActivity implements View.O
 
     private int editValidator(String username, String pwd) {
         // Return Value: 1:UserName Length, 2: Password Length, 3: Password not match, 0: normal
-        if (username.length() < 3 || username.length() > 20)
+        if (username.length() < 2 || username.length() > 20)
         {
             return 1;
         }
-        if (pwd.length() < 6 || pwd.length() > 20)
+        if (pwd.length() < 2 || pwd.length() > 20)
         {
             return 2;
         }
