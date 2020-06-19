@@ -41,7 +41,7 @@ public class MainPageFragment extends BaseFragment {
                     case 0:
                         return new TabScrollableFragment();
                     case 1:
-                        return new TabScrollableFragment();
+                        return new GridVarietyFragment();
                     case 2:
                        return new MessageFragment();
                     case 3:

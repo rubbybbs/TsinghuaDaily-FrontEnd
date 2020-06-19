@@ -1,2 +1,3 @@
+include ':are'
 rootProject.name='TsinghuaDaily'
 include ':app'
