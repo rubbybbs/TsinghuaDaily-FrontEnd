@@ -19,7 +19,7 @@ public class ChatMessageForOneContactViewModel extends AndroidViewModel {
 
     public ChatMessageForOneContactViewModel(@NonNull Application application, int uid) {
         super(application);
-        db = AppDatabase.getInstance(application);
+        db = AppDatabase.getInstance(application, uid);
         liveDataChatMessage = db.chatMsgDao().getChatHistoryByUID(uid);
     }
 

@@ -30,7 +30,10 @@ import com.example.tsinghuadaily.Activity.ChatActivity;
 import com.example.tsinghuadaily.Activity.MainPageActivity;
 import com.example.tsinghuadaily.Database.AppDatabase;
 import com.example.tsinghuadaily.R;
+import com.example.tsinghuadaily.ViewModel.ChatDigestVMFactory;
+import com.example.tsinghuadaily.ViewModel.ChatMessageForOneContactViewModel;
 import com.example.tsinghuadaily.ViewModel.ChatMesssageDigestViewModel;
+import com.example.tsinghuadaily.ViewModel.VMFactory;
 import com.example.tsinghuadaily.models.ChatMessage;
 import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.qmuiteam.qmui.arch.QMUIFragment;
@@ -73,6 +76,8 @@ public class MessageFragment extends QMUIFragment {
     AppDatabase db;
     Handler handler;
 
+    int UID;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +91,9 @@ public class MessageFragment extends QMUIFragment {
         View rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_message, null);
         ButterKnife.bind(this, rootView);
         initTopBar();
-        db = AppDatabase.getInstance(getActivity().getApplicationContext());
+        PullRefreshLayout.setEnabled(false);
+        UID = getActivity().getSharedPreferences("userdata", Context.MODE_PRIVATE).getInt("uid", 0);
+        db = AppDatabase.getInstance(getActivity().getApplicationContext(), UID);
         msgDigest = new ArrayList<>();
         uidUsernameMap = new HashMap<>();
         initRecyleView();
@@ -109,7 +116,7 @@ public class MessageFragment extends QMUIFragment {
                 }
             }
         };
-        ChatMesssageDigestViewModel chatMsgDigestModel = new ViewModelProvider(this).get(ChatMesssageDigestViewModel.class);
+        ChatMesssageDigestViewModel chatMsgDigestModel = new ViewModelProvider(this, new ChatDigestVMFactory(getActivity().getApplication(), UID)).get(ChatMesssageDigestViewModel.class);
         chatMsgDigestModel.getLiveDataChatMsgDigest().observe(getViewLifecycleOwner(), new Observer<List<ChatMessage>>() {
             @Override
             public void onChanged(List<ChatMessage> chatMessages) {

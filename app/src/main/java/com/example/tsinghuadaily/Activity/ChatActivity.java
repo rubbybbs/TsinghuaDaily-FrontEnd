@@ -68,7 +68,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     private String contact;
     private int contact_uid;
-    private int self_uid;
 
     private boolean startFlag;
 
@@ -91,8 +90,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = getIntent();
         contact = intent.getStringExtra("CONTACT_NAME");
         contact_uid = intent.getIntExtra("CONTACT_UID", 0);
-        //TODO: 与登录模块对接
-        self_uid = 28;
         startFlag = true;
         msgList = new ArrayList<>();
 
