@@ -2268,10 +2268,8 @@ id bottom_sheet
 id btnSend
 id buttonPanel
 id button_register
-id button_submit_auth
 id button_submit_modification
 id button_uploadAvatar
-id button_uploadIDCard
 id cancel_action
 id cancel_button
 id center
@@ -2318,9 +2316,6 @@ id dot
 id dropdown_menu
 id editWriteMessage
 id edit_query
-id edittext_ID
-id edittext_department
-id edittext_describe
 id edittext_name
 id edittext_password
 id edittext_password_ensure
@@ -2374,7 +2369,6 @@ id horizontal
 id icon
 id icon_avata
 id icon_group
-id idCard
 id idEdit
 id ifRoom
 id image
@@ -2487,9 +2481,14 @@ id qmui_view_can_not_cache_tag
 id qmui_view_offset_helper
 id qmui_window_inset_keyboard_area_consumer
 id radio
+id rb_1
+id rb_2
+id rb_3
+id rb_4
 id recycleListMessage
 id recyclerChat
 id recyclerView
+id rg_level
 id right
 id right_icon
 id right_side
@@ -2569,7 +2568,6 @@ id standard
 id start
 id status_bar_latest_event_content
 id stretch
-id studentRB
 id submenuarrow
 id submit_area
 id switcher
@@ -2584,7 +2582,6 @@ id tag_screen_reader_focusable
 id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
-id teacherRB
 id test_checkbox_android_button_tint
 id test_checkbox_app_button_tint
 id text
@@ -2713,7 +2710,6 @@ layout activity_main
 layout activity_main_page
 layout activity_modify_user_info
 layout activity_register
-layout activity_submit_auth
 layout are_activity_at_picker
 layout are_adapter_at_item_view
 layout are_color_picker
