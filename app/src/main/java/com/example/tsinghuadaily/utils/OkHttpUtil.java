@@ -129,13 +129,13 @@ public class OkHttpUtil {
         return null;
     }
 
-    public static String uploadFile(File file) {
+    public static String uploadFile(File file, String filename) {
         try {
             MediaType contentType = MediaType.parse("application/octet-stream");
             RequestBody filebody = RequestBody.create(contentType, file); // 上传文件的请求体
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("file", "avatar.png", filebody)
+                    .addFormDataPart("file", filename, filebody)
                     .build();
             Request request = new Request.Builder()
                     .url("http://175.24.61.249:8080/media/upload") // 上传地址

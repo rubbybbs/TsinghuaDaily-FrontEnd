@@ -34,6 +34,7 @@ import com.example.tsinghuadaily.Activity.LoginOrRegisterActivity;
 import com.example.tsinghuadaily.Activity.MainPageActivity;
 import com.example.tsinghuadaily.Activity.ModifyUserInfoActivity;
 import com.example.tsinghuadaily.Activity.RegisterActivity;
+import com.example.tsinghuadaily.Activity.SubmitAuthActivity;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.models.UserConfiguration;
 import com.example.tsinghuadaily.models.UserInfo;
@@ -76,7 +77,7 @@ public class UserInfoFragment extends QMUIFragment {
 
     private int UID;
     private String username;
-    private boolean isVerified;
+    private int isVerified;
     private String status;
 
     Handler handler;
@@ -103,7 +104,7 @@ public class UserInfoFragment extends QMUIFragment {
         SharedPreferences preferences = getActivity().getSharedPreferences("userdata", Context.MODE_PRIVATE);
         UID = preferences.getInt("uid", 0);
         username = preferences.getString("username", "");
-        isVerified = false;
+        isVerified = -1;
         status = "";
         userInfoList = new ArrayList<>();
         initInfoList();
@@ -147,6 +148,9 @@ public class UserInfoFragment extends QMUIFragment {
                             }
                             else
                                 tvStatus.setText("未设置个性签名");
+                            isVerified = (int)info.get("verified");
+                            initInfoList();
+                            adapter.notifyDataSetChanged();
                         }
                         else
                             Toast.makeText(getContext(), "请求失败，请重启APP", Toast.LENGTH_SHORT);
@@ -238,7 +242,7 @@ public class UserInfoFragment extends QMUIFragment {
 
     private void initInfoList() {
         userInfoList.clear();
-        if (!isVerified)
+        if (isVerified == 0)
         {
 
             UserConfiguration auth = new UserConfiguration("账号认证", "", R.drawable.ic_baseline_account_circle_24);
@@ -249,60 +253,79 @@ public class UserInfoFragment extends QMUIFragment {
             userInfoList.add(logout);
 
         }
-    }
-}
-
-class UserInfoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    private Context context;
-    private List<UserConfiguration> userInfoList;
-    private UserInfoFragment fragment;
-
-    public UserInfoListAdapter(Context context, List<UserConfiguration> userInfoList, UserInfoFragment fragment) {
-        this.context = context;
-        this.fragment = fragment;
-        this.userInfoList = userInfoList;
+        else if (isVerified == 1) {
+            UserConfiguration auth = new UserConfiguration("账号认证", "请等待管理员审核认证", R.drawable.ic_baseline_account_circle_24);
+            userInfoList.add(auth);
+            UserConfiguration resetPwd = new UserConfiguration("修改个人信息", "", R.drawable.ic_baseline_settings_24);
+            userInfoList.add(resetPwd);
+            UserConfiguration logout = new UserConfiguration("退出登录", "", R.drawable.ic_baseline_settings_power_24);
+            userInfoList.add(logout);
+        }
     }
 
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_user_info, parent, false);
-        return new UserInfoViewHolder(context, view);
-    }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        UserConfiguration config = userInfoList.get(position);
-        ((UserInfoViewHolder) holder).icon.setBackgroundResource(config.getIcon());
-        ((UserInfoViewHolder) holder).label.setText(config.getLabel());
-        ((UserInfoViewHolder) holder).value.setText(config.getValue());
-        ((UserInfoViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (config.getLabel().equals("修改个人信息")) {
-                    Intent intent = new Intent();
-                    intent.setClass(context, ModifyUserInfoActivity.class);
-                    context.startActivity(intent);
+    class UserInfoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        private Context context;
+        private List<UserConfiguration> userInfoList;
+        private UserInfoFragment fragment;
+
+        public UserInfoListAdapter(Context context, List<UserConfiguration> userInfoList, UserInfoFragment fragment) {
+            this.context = context;
+            this.fragment = fragment;
+            this.userInfoList = userInfoList;
+        }
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context).inflate(R.layout.list_item_user_info, parent, false);
+            return new UserInfoViewHolder(context, view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            UserConfiguration config = userInfoList.get(position);
+            ((UserInfoViewHolder) holder).icon.setBackgroundResource(config.getIcon());
+            ((UserInfoViewHolder) holder).label.setText(config.getLabel());
+            ((UserInfoViewHolder) holder).value.setText(config.getValue());
+            ((UserInfoViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (config.getLabel().equals("修改个人信息")) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, ModifyUserInfoActivity.class);
+                        context.startActivity(intent);
+                    }
+                    else if (config.getLabel().equals("账号认证")) {
+                        if (isVerified == 0 || isVerified == 3)
+                        {
+                            Intent intent = new Intent();
+                            intent.setClass(context, SubmitAuthActivity.class);
+                            context.startActivity(intent);
+                        }
+                    }
                 }
-            }
-        });
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return userInfoList.size();
+        }
     }
 
-    @Override
-    public int getItemCount() {
-        return userInfoList.size();
+    class UserInfoViewHolder extends RecyclerView.ViewHolder {
+        public TextView label, value;
+        public ImageView icon;
+        private Context context;
+        UserInfoViewHolder(Context context, View itemView) {
+            super(itemView);
+            label =  (TextView) itemView.findViewById(R.id.tv_title);
+            value = (TextView) itemView.findViewById(R.id.tv_detail);
+            icon = (ImageView) itemView.findViewById(R.id.img_icon);
+        }
     }
+
 }
 
-class UserInfoViewHolder extends RecyclerView.ViewHolder {
-    public TextView label, value;
-    public ImageView icon;
-    private Context context;
-    UserInfoViewHolder(Context context, View itemView) {
-        super(itemView);
-        label =  (TextView) itemView.findViewById(R.id.tv_title);
-        value = (TextView) itemView.findViewById(R.id.tv_detail);
-        icon = (ImageView) itemView.findViewById(R.id.img_icon);
-    }
-}
