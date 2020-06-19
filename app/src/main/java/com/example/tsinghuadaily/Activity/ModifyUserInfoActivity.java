@@ -129,7 +129,6 @@ public class ModifyUserInfoActivity extends AppCompatActivity implements View.On
                 return;
             }
         };
-        new LoginTask().execute();
 
     }
 
@@ -213,17 +212,7 @@ public class ModifyUserInfoActivity extends AppCompatActivity implements View.On
         }
     }
 
-    private class LoginTask extends AsyncTask<Void, Void, Void> {
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Map<String, String> params = new HashMap<>();
-            params.put("username", "chatbot001");
-            params.put("password", "123456");
-            String res = OkHttpUtil.postForm("http://175.24.61.249:8080/user/login", params);
-            return null;
-        }
-    }
 }
 
 

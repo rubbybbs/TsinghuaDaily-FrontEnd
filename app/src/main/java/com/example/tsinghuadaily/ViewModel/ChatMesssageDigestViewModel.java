@@ -16,9 +16,9 @@ public class ChatMesssageDigestViewModel extends AndroidViewModel {
     private AppDatabase db;
     private LiveData<List<ChatMessage>> liveDataChatMsgDigest;
 
-    public ChatMesssageDigestViewModel(@NonNull Application application) {
+    public ChatMesssageDigestViewModel(@NonNull Application application, int uid) {
         super(application);
-        db = AppDatabase.getInstance(application);
+        db = AppDatabase.getInstance(application, uid);
         liveDataChatMsgDigest = db.chatMsgDao().getChatDigest();
     }
 

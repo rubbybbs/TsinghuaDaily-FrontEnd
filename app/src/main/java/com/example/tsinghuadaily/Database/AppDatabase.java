@@ -18,24 +18,24 @@ import java.util.List;
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase sInstance;
 
-    private static final String DATABASE_NAME = "tsinghua-daily-db";
+    private static final String DATABASE_NAME_PREFIX = "tsinghua-daily-db";
 
     public abstract ChatMessageDao chatMsgDao();
 
 
-    public static AppDatabase getInstance(final Context context) {
+    public static AppDatabase getInstance(final Context context, int uid) {
         if (sInstance == null) {
             synchronized (AppDatabase.class) {
                 if (sInstance == null) {
-                    sInstance = buildDatabase(context.getApplicationContext());
+                    sInstance = buildDatabase(context.getApplicationContext(), uid);
                 }
             }
         }
         return sInstance;
     }
 
-    private static AppDatabase buildDatabase(final Context appContext) {
-        return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME)
+    private static AppDatabase buildDatabase(final Context appContext, int uid) {
+        return Room.databaseBuilder(appContext, AppDatabase.class, DATABASE_NAME_PREFIX + uid)
                 .fallbackToDestructiveMigration()
                 .build();
     }

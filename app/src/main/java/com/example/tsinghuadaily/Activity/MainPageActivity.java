@@ -74,15 +74,13 @@ public class MainPageActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         // 初始化QMUISwipeBackActicityManager,防止崩溃
         QMUISwipeBackActivityManager.init(this.getApplication());
-        UID = 28;
-        username = "chatbot001";
-        SharedPreferences.Editor editor = getSharedPreferences("userdata",  MODE_PRIVATE).edit();
-        editor.putString("username", username);
-        editor.putInt("uid", UID);
-        editor.apply();
+        SharedPreferences preferences = getSharedPreferences("userdata", MODE_PRIVATE);
+        UID = preferences.getInt("uid", 0);
+        username = preferences.getString("username", "");
+
 
         initChatLog();
-        db = AppDatabase.getInstance(getApplicationContext());
+        db = AppDatabase.getInstance(getApplicationContext(), UID);
         mContext = MainPageActivity.this;
         startWebSocketService();
         bindService();
@@ -221,7 +219,7 @@ public class MainPageActivity extends BaseFragmentActivity {
 
     private void startWebSocketService() {
         Intent intent = new Intent(mContext, WebSocketService.class);
-        intent.putExtra("uid", "28");
+        intent.putExtra("uid", String.valueOf(UID));
         startService(intent);
     }
 
