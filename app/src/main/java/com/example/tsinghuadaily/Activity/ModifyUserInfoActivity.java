@@ -216,7 +216,7 @@ public class ModifyUserInfoActivity extends AppCompatActivity implements View.On
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String res = OkHttpUtil.uploadFile(avatarFile);
+                        String res = OkHttpUtil.uploadFile(avatarFile, "avatar.png");
                         Message msg = new Message();
                         Bundle data = new Bundle();
                         data.putString("requestRes", res);

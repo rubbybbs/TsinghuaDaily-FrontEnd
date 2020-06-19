@@ -180,6 +180,10 @@
         "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\fragment_article_detail.xml"
     },
     {
+        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_submit_auth.xml.flat",
+        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\activity_submit_auth.xml"
+    },
+    {
         "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_message_user.xml.flat",
         "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\item_message_user.xml"
     },
