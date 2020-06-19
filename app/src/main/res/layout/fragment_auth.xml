@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.TabScrollableFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topbarAuthPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTsinghuaPurple"
+            app:qmui_topbar_title_color="@color/qmui_config_color_white"
+            android:fitsSystemWindows="true" />
+
+        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/pullRefresh"
+            android:layout_below="@id/topbarAuthPage"
+            android:background="@color/qmui_config_color_background">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleListAuth"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp" />
+
+
+        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+
+    </RelativeLayout>
+
+
+
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

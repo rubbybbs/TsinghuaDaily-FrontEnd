@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    card_view:cardBackgroundColor="@color/cardview_light_background"
+    card_view:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/icon_avata"
+            android:layout_width="66dp"
+            android:layout_height="115dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity=""
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+
+                <LinearLayout
+                    android:layout_width="190dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:divider="@drawable/qmui_divider"
+                    android:dividerPadding="2dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/qmui_s_list_item_bg_1"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:layout_marginTop="5dp"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/inner_components_spacing"
+                        android:paddingRight="@dimen/inner_components_spacing"
+                        android:text="用户名："
+                        android:textColor="?attr/qmui_config_color_gray_1"
+                        android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/qmui_s_list_item_bg_1"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/inner_components_spacing"
+                        android:paddingRight="@dimen/inner_components_spacing"
+                        android:text="证件号："
+                        android:textColor="?attr/qmui_config_color_gray_1"
+                        android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/qmui_s_list_item_bg_1"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/inner_components_spacing"
+                        android:paddingRight="@dimen/inner_components_spacing"
+                        android:text="单位：计算机科学与计数系"
+                        android:textColor="?attr/qmui_config_color_gray_1"
+                        android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/qmui_s_list_item_bg_1"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:paddingLeft="@dimen/inner_components_spacing"
+                        android:paddingRight="@dimen/inner_components_spacing"
+                        android:text="身份："
+                        android:textColor="?attr/qmui_config_color_gray_1"
+                        android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+
+                        android:id="@+id/button_authAccept"
+                        app:qmui_radius="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="接受"
+                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
+                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+
+                        android:id="@+id/button_authRefuse"
+                        app:qmui_radius="4dp"
+                        card_view:qmui_borderColor="@color/qmui_config_color_red"
+                        android:textColor="@color/qmui_config_color_red"
+                        android:shadowColor="@color/qmui_config_color_red"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="拒绝"
+                        android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+
+                </LinearLayout>
+
+                <!--                <TextView-->
+<!--                    android:id="@+id/txtName"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:textAppearance="?android:attr/textAppearanceMedium" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/txtTime"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="3"-->
+<!--                    android:gravity="center_vertical|right"-->
+<!--                    android:paddingRight="10dp"-->
+<!--                    android:textAppearance="?android:attr/textAppearanceSmall" />-->
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

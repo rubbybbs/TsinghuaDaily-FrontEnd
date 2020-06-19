@@ -65,9 +65,11 @@ public class LoginOrRegisterActivity extends AppCompatActivity implements View.O
                 if (obj.get("code").equals(200))
                 {
                     int UID = Integer.valueOf(obj.getJSONObject("info").get("user_id").toString());
+                    boolean authority = Boolean.valueOf(obj.getJSONObject("info").get("admin").toString());
                     SharedPreferences.Editor editor = getSharedPreferences("userdata",  MODE_PRIVATE).edit();
                     editor.putString("username", username);
                     editor.putInt("uid", UID);
+                    editor.putBoolean("authority", authority);
                     editor.apply();
                     Intent intent = new Intent();
                     intent.setClass(LoginOrRegisterActivity.this, MainPageActivity.class);
