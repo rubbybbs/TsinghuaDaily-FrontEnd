@@ -1,4 +1,6 @@
-package com.example.tsinghuadaily.Fragment;
+package com.example.tsinghuadaily.Fragment.Variety;
+
+import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -8,13 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.tsinghuadaily.Fragment.ArticleDetailFragment;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.base.BaseFragment;
 import com.example.tsinghuadaily.utils.Widget;
-import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
-import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 
@@ -24,8 +25,9 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-@Widget(widgetClass = SchoolArticleListFragment.class, iconRes = R.mipmap.ic_launcher)
-public class SchoolArticleListFragment extends BaseFragment {
+
+@Widget(widgetClass = CorporationArticleFragment.class, iconRes = R.mipmap.ic_launcher)
+public class CorporationArticleFragment extends BaseFragment {
 
     @BindView(R.id.articleListView)
     QMUIGroupListView mGroupListView;
@@ -35,7 +37,7 @@ public class SchoolArticleListFragment extends BaseFragment {
     @Override
     public View onCreateView() {
         // Inflate the layout for this fragment
-        View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_article_list, null);
+        View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_school_article_list, null);
         ButterKnife.bind(this, root);
 
         initTopBar();
@@ -60,7 +62,7 @@ public class SchoolArticleListFragment extends BaseFragment {
 
         QMUICommonListItemView itemWithDetailBelowWithChevronWithIcon = mGroupListView.createItemView(
                 ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                "Item 7",
+                "Item 1",
                 "在标题下方的详细信息",
                 QMUICommonListItemView.VERTICAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
@@ -68,7 +70,7 @@ public class SchoolArticleListFragment extends BaseFragment {
 
         QMUICommonListItemView itemRedPoint = mGroupListView.createItemView(
                 ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                "Item 7",
+                "Item 2",
                 "在标题下方的详细信息",
                 QMUICommonListItemView.VERTICAL,
                 QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,

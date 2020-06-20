@@ -39,6 +39,7 @@ import com.example.tsinghuadaily.services.WebSocketService;
 import com.example.tsinghuadaily.utils.ArticleUtils;
 import com.example.tsinghuadaily.utils.JWebSocketClient;
 import com.example.tsinghuadaily.utils.OkHttpUtil;
+import com.example.tsinghuadaily.utils.UriUtils;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -135,22 +136,33 @@ class DImageStrategy implements ImageStrategy {
         protected String doInBackground(Uri... uris) {
             if (uris != null && uris.length > 0) {
 
-                ContentResolver resolver = mContext.getContentResolver();
-                Cursor cursor = resolver.query(uris[0], null, null, null, null);
-                String path = uris[0].getPath();
-                if (cursor == null) {
-                    // 未查询到，说明为普通文件，可直接通过URI获取文件路径
-                    return null;
-                }
-                if (cursor.moveToFirst()) {
-                    // 多媒体文件，从数据库中获取文件的真实路径
-                    path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
-                    File file = new File(path);
-                    Random random = new Random(System.currentTimeMillis());
-                    String ImageUrl = OkHttpUtil.uploadFile(file,  String.valueOf(random.nextInt(100000)) + ".png");
-                    return ImageUrl;
-                }
+//                ContentResolver resolver = mContext.getContentResolver();
+//                Cursor cursor = resolver.query(uris[0], null, null, null, null);
+//                String path = uris[0].getPath();
+//                if (cursor == null) {
+//                    // 未查询到，说明为普通文件，可直接通过URI获取文件路径
+//                    return null;
+//                }
+//                if (cursor.moveToFirst()) {
+//                    // 多媒体文件，从数据库中获取文件的真实路径
+//                    path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
+//                    cursor.close();
+//                    File file = new File(path);
+//                    Random random = new Random(System.currentTimeMillis());
+//                    String msg = OkHttpUtil.uploadFile(file,  String.valueOf(random.nextInt(100000)) + ".png");
+//                    String ImageUrl = msg.split("\"")[5];
+//                    String baseUrl = "http://175.24.61.249:8080/media/get?";
+//                    return baseUrl+ImageUrl;
+//                }
                 // Returns the image url on server here
+
+                String path = UriUtils.getPath(mContext, uris[0]);
+                File file = new File(path);
+                Random random = new Random(System.currentTimeMillis());
+                String msg = OkHttpUtil.uploadFile(file,  String.valueOf(random.nextInt(1000000)) + ".png");
+                String videoUrl = msg.split("\"")[5];
+                String baseUrl = "http://175.24.61.249:8080/media/get?";
+                return baseUrl+videoUrl;
             }
             return null;
         }
@@ -170,6 +182,39 @@ class DImageStrategy implements ImageStrategy {
                 areStyleImage.get().insertImage(s, AreImageSpan.ImageType.URL);
             }
         }
+    }
+}
+
+class DVideoStrategy implements VideoStrategy {
+    Context mContext;
+
+    public DVideoStrategy(Context context){
+        mContext = context;
+    }
+
+    @Override
+    public String uploadVideo(Uri uri) {
+        if (uri != null) {
+            String path = UriUtils.getPath(mContext, uri);
+            File file = new File(path);
+            Random random = new Random(System.currentTimeMillis());
+            String msg = OkHttpUtil.uploadFile(file,  String.valueOf(random.nextInt(1000000)) + ".mp4");
+            String videoUrl = msg.split("\"")[5];
+            String baseUrl = "http://175.24.61.249:8080/media/get?";
+            return baseUrl+videoUrl;
+        }
+        return null;
+
+    }
+
+    @Override
+    public String uploadVideo(String videoPath) {
+        File file = new File(videoPath);
+        Random random = new Random(System.currentTimeMillis());
+        String msg = OkHttpUtil.uploadFile(file,  String.valueOf(random.nextInt(1000000)) + ".mp4");
+        String videoUrl = msg.split("\"")[5];
+        String baseUrl = "http://175.24.61.249:8080/media/get?";
+        return baseUrl+videoUrl;
     }
 }
 
@@ -230,6 +275,8 @@ public class ArticleEditActivity extends AppCompatActivity {
         });
 
         UID = getSharedPreferences("userdata", MODE_PRIVATE).getInt("uid", 0);
+
+        //保存文章
         handler = new Handler() {
             @Override
             public void handleMessage(@NonNull Message msg) {
@@ -286,9 +333,20 @@ public class ArticleEditActivity extends AppCompatActivity {
                             }
                         }).start();
 
-                        //finish();
                     }
                 });
+        mTopBar.addRightTextButton("P", QMUIViewHelper.generateViewId())
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String html = mEditText.getHtml();
+                        Intent intent = new Intent(getApplication(), ArticleDetailActivity.class);
+                        intent.putExtra("html_text", html);
+                        startActivity(intent);
+                    }
+                }
+
+        );
     }
 
     private void initToolbar() {
@@ -339,27 +397,7 @@ public class ArticleEditActivity extends AppCompatActivity {
         mEditText.setToolbar(mToolbar);
 
         imageStrategy = new DImageStrategy();
-        mVideoStrategy = new VideoStrategy() {
-            @Override
-            public String uploadVideo(Uri uri) {
-                try {
-                    Thread.sleep(3000); // Do upload here
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return "http://www.xx.com/x.mp4";
-            }
-
-            @Override
-            public String uploadVideo(String videoPath) {
-                try {
-                    Thread.sleep(3000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return "http://www.xx.com/x.mp4";
-            }
-        };
+        mVideoStrategy = new DVideoStrategy(getApplicationContext());
 
         mEditText.setImageStrategy(imageStrategy);
         mEditText.setVideoStrategy(mVideoStrategy);
@@ -372,29 +410,29 @@ public class ArticleEditActivity extends AppCompatActivity {
         mEditText.fromHtml(html);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int menuId = item.getItemId();
-        if (menuId == com.chinalwb.are.R.id.action_save) {
-            String html = this.mEditText.getHtml();
-            ArticleUtils.saveHtml(this, html);
-            return true;
-        }
-        if (menuId == R.id.action_show_tv) {
-            String html = this.mEditText.getHtml();
-//            Intent intent = new Intent(this, TextViewActivity.class);
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int menuId = item.getItemId();
+//        if (menuId == com.chinalwb.are.R.id.action_save) {
+//            String html = this.mEditText.getHtml();
+//            ArticleUtils.saveHtml(this, html);
+//            return true;
+//        }
+//        if (menuId == R.id.action_show_tv) {
+//            String html = this.mEditText.getHtml();
+//            Intent intent = new Intent(this, ArticleDetailActivity.class);
 //            intent.putExtra("html_text", html);
 //            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     @Override

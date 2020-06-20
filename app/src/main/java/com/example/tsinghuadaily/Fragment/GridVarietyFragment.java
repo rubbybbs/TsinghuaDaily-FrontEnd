@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.tsinghuadaily.Fragment.varietyDivided.HomeController;
+import com.example.tsinghuadaily.Fragment.varietyDivided.HomeCorporationController;
+import com.example.tsinghuadaily.Fragment.varietyDivided.HomeDepartmentController;
 import com.example.tsinghuadaily.Fragment.varietyDivided.HomeSchoolController;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.base.BaseFragment;
@@ -184,6 +186,14 @@ public class GridVarietyFragment extends QMUIFragment {
         HomeController homeSchoolsController = new HomeSchoolController(getActivity());
         homeSchoolsController.setHomeControlListener(listener);
         mPages.put(ContentPage.Item1, homeSchoolsController);
+
+        HomeController homeDepartmentsController = new HomeDepartmentController(getActivity());
+        homeSchoolsController.setHomeControlListener(listener);
+        mPages.put(ContentPage.Item2, homeDepartmentsController);
+
+        HomeController homeCorporationsController = new HomeCorporationController(getActivity());
+        homeSchoolsController.setHomeControlListener(listener);
+        mPages.put(ContentPage.Item3, homeCorporationsController);
 
         mContentViewPager.setAdapter(mPagerAdapter);
         mTabSegment.setupWithViewPager(mContentViewPager, false);

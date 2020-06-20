@@ -21,6 +21,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chinalwb.are.strategies.defaults.DefaultProfileActivity;
+import com.example.tsinghuadaily.Activity.ArticleDetailActivity;
 import com.example.tsinghuadaily.Activity.ArticleEditActivity;
 import com.example.tsinghuadaily.R;
 import com.qmuiteam.qmui.arch.QMUIFragment;
@@ -128,12 +130,12 @@ public class TabScrollableFragment extends QMUIFragment {
     }
 
     private void initTopBar() {
-        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popBackStack();
-            }
-        });
+//        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                popBackStack();
+//            }
+//        });
 
         mTopBar.setTitle("主页");
         mTopBar.addRightTextButton("+", QMUIViewHelper.generateViewId())
@@ -192,68 +194,15 @@ public class TabScrollableFragment extends QMUIFragment {
         View view = mPageMap.get(page);
         if (view == null) {
             QMUIGroupListView listView = new QMUIGroupListView(getContext());
-            initGroupListView(listView);
+            initGroupListView(listView, page);
             view = listView;
             mPageMap.put(page, view);
         }
         return view;
     }
 
-    private void initGroupListView(QMUIGroupListView mGroupListView) {
-        int height = QMUIDisplayHelper.dp2px(getContext(), 56);
-
-        QMUICommonListItemView itemWithDetailBelowWithChevronWithIcon = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                "标题 1",
-                "在标题下方的详细信息",
-                QMUICommonListItemView.VERTICAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                height);
-
-        QMUICommonListItemView item2 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                "标题 2",
-                "在标题下方的详细信息",
-                QMUICommonListItemView.VERTICAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                height);
-
-        QMUICommonListItemView item3 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                "标题 3",
-                "在标题下方的详细信息",
-                QMUICommonListItemView.VERTICAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                height);
-
-        QMUICommonListItemView itemRedPoint = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                "标题 4",
-                "在标题下方的详细信息",
-                QMUICommonListItemView.VERTICAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                height);
-        itemRedPoint.setTipPosition(QMUICommonListItemView.TIP_POSITION_RIGHT);
-        itemRedPoint.showRedDot(true);
-
-        QMUICommonListItemView item5 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                "标题 5",
-                "在标题下方的详细信息",
-                QMUICommonListItemView.VERTICAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                height);
-
-        QMUICommonListItemView item6 = mGroupListView.createItemView(
-                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                "标题 6",
-                "在标题下方的很长很长很长很长很长很长很长很长很长很长很长很长很长的详细信息",
-                QMUICommonListItemView.VERTICAL,
-                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        int paddingVer = QMUIDisplayHelper.dp2px(getContext(), 12);
-        item6.setPadding(item6.getPaddingLeft(), paddingVer,
-                item6.getPaddingRight(), paddingVer);
+    private void initGroupListView(QMUIGroupListView mGroupListView, ContentPage page) {
+        //todo: 接入接口对不同page进行初始化
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -265,32 +214,235 @@ public class TabScrollableFragment extends QMUIFragment {
                         ((QMUICommonListItemView) v).getSwitch().toggle();
                     }
 
-                    ArticleDetailFragment fragment = new ArticleDetailFragment();
-                    startFragment(fragment);
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), ArticleDetailActivity.class);
+                    getContext().startActivity(intent);
                 }
             }
         };
-
-
         int size = QMUIDisplayHelper.dp2px(getContext(), 20);
-        QMUIGroupListView.newSection(getContext())
-                .setTitle("Section 1: 默认样式")
-                .setDescription("Section 1 的描述")
-                .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
-                .addItemView(itemWithDetailBelowWithChevronWithIcon, onClickListener)
-                .addItemView(item2, onClickListener)
-                .addItemView(item3, onClickListener)
-                .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
-                .addTo(mGroupListView);
+        int height = QMUIDisplayHelper.dp2px(getContext(), 56);
 
-        QMUIGroupListView.newSection(getContext())
-                .setTitle("Section 2: 红点/new 提示")
-                .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
-                .addItemView(itemRedPoint, onClickListener)
-                .addItemView(item5, onClickListener)
-                .addItemView(item6, onClickListener)
-                .setOnlyShowStartEndSeparator(true)
-                .addTo(mGroupListView);
+        switch (page) {
+            case Item1:
+                QMUICommonListItemView item1 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "学校 1",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUICommonListItemView item2 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "院系 2",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUICommonListItemView item3 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "社团 3",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUIGroupListView.newSection(getContext())
+                        .setTitle("Section 1: 关注")
+                        .setDescription("Section 1 的描述")
+                        .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .addItemView(item1, onClickListener)
+                        .addItemView(item2, onClickListener)
+                        .addItemView(item3, onClickListener)
+                        .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
+                        .addTo(mGroupListView);
+                break;
+            case Item2:
+                QMUICommonListItemView item4 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "学校 1",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUICommonListItemView item5 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "学校 2",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUICommonListItemView item6 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "学校 3",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUIGroupListView.newSection(getContext())
+                        .setTitle("Section 2: 学校")
+                        .setDescription("Section 2 的描述")
+                        .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .addItemView(item4, onClickListener)
+                        .addItemView(item5, onClickListener)
+                        .addItemView(item6, onClickListener)
+                        .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
+                        .addTo(mGroupListView);
+
+
+                break;
+            case Item3:
+                QMUICommonListItemView item7 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "院系 1",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUICommonListItemView item8 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "院系 2",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUICommonListItemView item9 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "院系 3",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUIGroupListView.newSection(getContext())
+                        .setTitle("Section 3: 院系")
+                        .setDescription("Section 3 的描述")
+                        .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .addItemView(item7, onClickListener)
+                        .addItemView(item8, onClickListener)
+                        .addItemView(item9, onClickListener)
+                        .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
+                        .addTo(mGroupListView);
+                break;
+            case Item4:
+            default:
+                QMUICommonListItemView item10 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "社团 1",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUICommonListItemView item20 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "社团 2",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUICommonListItemView item30 = mGroupListView.createItemView(
+                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+                        "社团 3",
+                        "在标题下方的详细信息",
+                        QMUICommonListItemView.VERTICAL,
+                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        height);
+
+                QMUIGroupListView.newSection(getContext())
+                        .setTitle("Section 4: 社团")
+                        .setDescription("Section 4 的描述")
+                        .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .addItemView(item10, onClickListener)
+                        .addItemView(item20, onClickListener)
+                        .addItemView(item30, onClickListener)
+                        .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
+                        .addTo(mGroupListView);
+        }
+
+//        int height = QMUIDisplayHelper.dp2px(getContext(), 56);
+//
+//        QMUICommonListItemView itemWithDetailBelowWithChevronWithIcon = mGroupListView.createItemView(
+//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+//                "学校 1",
+//                "在标题下方的详细信息",
+//                QMUICommonListItemView.VERTICAL,
+//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+//                height);
+//
+//        QMUICommonListItemView item2 = mGroupListView.createItemView(
+//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+//                "学校 2",
+//                "在标题下方的详细信息",
+//                QMUICommonListItemView.VERTICAL,
+//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+//                height);
+//
+//        QMUICommonListItemView item3 = mGroupListView.createItemView(
+//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+//                "学校 3",
+//                "在标题下方的详细信息",
+//                QMUICommonListItemView.VERTICAL,
+//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+//                height);
+//
+//        QMUICommonListItemView itemRedPoint = mGroupListView.createItemView(
+//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+//                "院系 1",
+//                "在标题下方的详细信息",
+//                QMUICommonListItemView.VERTICAL,
+//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+//                height);
+//        itemRedPoint.setTipPosition(QMUICommonListItemView.TIP_POSITION_RIGHT);
+//        itemRedPoint.showRedDot(true);
+//
+//        QMUICommonListItemView item5 = mGroupListView.createItemView(
+//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+//                "院系 2",
+//                "在标题下方的详细信息",
+//                QMUICommonListItemView.VERTICAL,
+//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+//                height);
+//
+//        QMUICommonListItemView item6 = mGroupListView.createItemView(
+//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
+//                "院系 3",
+//                "在标题下方的很长很长很长很长很长很长很长很长很长很长很长很长很长的详细信息",
+//                QMUICommonListItemView.VERTICAL,
+//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+//                ViewGroup.LayoutParams.WRAP_CONTENT);
+//        int paddingVer = QMUIDisplayHelper.dp2px(getContext(), 12);
+//        item6.setPadding(item6.getPaddingLeft(), paddingVer,
+//                item6.getPaddingRight(), paddingVer);
+//
+//
+//        int size = QMUIDisplayHelper.dp2px(getContext(), 20);
+//        QMUIGroupListView.newSection(getContext())
+//                .setTitle("Section 1: 默认样式")
+//                .setDescription("Section 1 的描述")
+//                .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+//                .addItemView(itemWithDetailBelowWithChevronWithIcon, onClickListener)
+//                .addItemView(item2, onClickListener)
+//                .addItemView(item3, onClickListener)
+//                .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
+//                .addTo(mGroupListView);
+//
+//        QMUIGroupListView.newSection(getContext())
+//                .setTitle("Section 2: 红点/new 提示")
+//                .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+//                .addItemView(itemRedPoint, onClickListener)
+//                .addItemView(item5, onClickListener)
+//                .addItemView(item6, onClickListener)
+//                .setOnlyShowStartEndSeparator(true)
+//                .addTo(mGroupListView);
     }
 
     public enum ContentPage {

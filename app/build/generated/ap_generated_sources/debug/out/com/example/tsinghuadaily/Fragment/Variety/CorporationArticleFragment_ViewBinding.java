@@ -1,5 +1,5 @@
 // Generated code from Butter Knife. Do not modify!
-package com.example.tsinghuadaily.Fragment;
+package com.example.tsinghuadaily.Fragment.Variety;
 
 import android.view.View;
 import androidx.annotation.CallSuper;
@@ -12,11 +12,11 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import java.lang.IllegalStateException;
 import java.lang.Override;
 
-public class SchoolArticleListFragment_ViewBinding implements Unbinder {
-  private SchoolArticleListFragment target;
+public class CorporationArticleFragment_ViewBinding implements Unbinder {
+  private CorporationArticleFragment target;
 
   @UiThread
-  public SchoolArticleListFragment_ViewBinding(SchoolArticleListFragment target, View source) {
+  public CorporationArticleFragment_ViewBinding(CorporationArticleFragment target, View source) {
     this.target = target;
 
     target.mGroupListView = Utils.findRequiredViewAsType(source, R.id.articleListView, "field 'mGroupListView'", QMUIGroupListView.class);
@@ -26,7 +26,7 @@ public class SchoolArticleListFragment_ViewBinding implements Unbinder {
   @Override
   @CallSuper
   public void unbind() {
-    SchoolArticleListFragment target = this.target;
+    CorporationArticleFragment target = this.target;
     if (target == null) throw new IllegalStateException("Bindings already cleared.");
     this.target = null;
 

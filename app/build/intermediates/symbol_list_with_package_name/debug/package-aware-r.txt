@@ -2169,6 +2169,7 @@ id BOTTOM
 id BOTTOM_END
 id BOTTOM_START
 id CTRL
+id CommentRecyclerView
 id FULL
 id FUNCTION
 id LoginBtn
@@ -2240,6 +2241,7 @@ id alertTitle
 id all
 id always
 id arEditText
+id areTextView
 id areToolbar
 id are_btn_attach_video
 id are_fontsize_preview
@@ -2621,7 +2623,6 @@ id topbarChatPage
 id topbarInfoPage
 id topbarMainPage
 id topbarMessagePage
-id topbarUInfoPage
 id touch_outside
 id transition_current_scene
 id transition_layout_save
@@ -2649,6 +2650,7 @@ id userAvatar
 id userAvatarInfo
 id userMessageItem
 id vertical
+id videoView
 id view_offset_helper
 id view_tree_lifecycle_owner
 id visible
@@ -2718,6 +2720,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_are__video_player
+layout activity_article_detail
 layout activity_article_edit
 layout activity_chat
 layout activity_default_image_preview
@@ -2728,7 +2731,7 @@ layout activity_main_page
 layout activity_modify_user_info
 layout activity_register
 layout activity_submit_auth
-layout activity_user_info
+layout activity_video_preview
 layout are_activity_at_picker
 layout are_adapter_at_item_view
 layout are_color_picker
@@ -2755,11 +2758,13 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_article_detail
-layout fragment_article_list
 layout fragment_auth
+layout fragment_corporation_article
+layout fragment_department_article
 layout fragment_grid_variety
 layout fragment_main_page
 layout fragment_message
+layout fragment_school_article_list
 layout fragment_tab_scrollable
 layout fragment_user_info
 layout item_auth

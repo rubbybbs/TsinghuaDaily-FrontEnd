@@ -1,6 +1,8 @@
 package com.example.tsinghuadaily.Fragment.varietyDivided;
 
-import com.example.tsinghuadaily.Fragment.SchoolArticleListFragment;
+import com.example.tsinghuadaily.Fragment.Variety.CorporationArticleFragment;
+import com.example.tsinghuadaily.Fragment.Variety.DepartmentArticleFragment;
+import com.example.tsinghuadaily.Fragment.Variety.SchoolArticleListFragment;
 import com.example.tsinghuadaily.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -10,12 +12,16 @@ public class VarietyDataManager {
     private static VarietyDataManager _sInstance;
 
     private List<Class<? extends BaseFragment>> mSchoolsNames;
+    private List<Class<? extends BaseFragment>> mDepartmentsNames;
+    private List<Class<? extends BaseFragment>> mCorporationsNames;
 
     private WidgetContainer mWidgetContainer;
 
     public VarietyDataManager() {
         mWidgetContainer = WidgetContainer.getInstance();
         initSchoolsDesc();
+        initDepartmentsDesc();
+        initCorporationsDesc();
     }
 
     public static VarietyDataManager getInstance() {
@@ -26,15 +32,20 @@ public class VarietyDataManager {
     }
 
 
-    /**
-     * School
-     */
     private void initSchoolsDesc() {
         mSchoolsNames = new ArrayList<>();
         mSchoolsNames.add(SchoolArticleListFragment.class);
-
     }
 
+    private void initDepartmentsDesc() {
+        mDepartmentsNames = new ArrayList<>();
+        mDepartmentsNames.add(DepartmentArticleFragment.class);
+    }
+
+    private void initCorporationsDesc() {
+        mCorporationsNames = new ArrayList<>();
+        mCorporationsNames.add(CorporationArticleFragment.class);
+    }
 
     public ItemDescription getDescription(Class<? extends BaseFragment> cls) {
         return mWidgetContainer.get(cls);
@@ -60,6 +71,22 @@ public class VarietyDataManager {
         List<ItemDescription> list = new ArrayList<>();
         for (int i = 0; i < mSchoolsNames.size(); i++) {
             list.add(mWidgetContainer.get(mSchoolsNames.get(i)));
+        }
+        return list;
+    }
+
+    public List<ItemDescription> getDepartmentsDescriptions() {
+        List<ItemDescription> list = new ArrayList<>();
+        for (int i = 0; i < mSchoolsNames.size(); i++) {
+            list.add(mWidgetContainer.get(mDepartmentsNames.get(i)));
+        }
+        return list;
+    }
+
+    public List<ItemDescription> getCorporationsDescriptions() {
+        List<ItemDescription> list = new ArrayList<>();
+        for (int i = 0; i < mSchoolsNames.size(); i++) {
+            list.add(mWidgetContainer.get(mCorporationsNames.get(i)));
         }
         return list;
     }
