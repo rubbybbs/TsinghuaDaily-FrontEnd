@@ -2621,6 +2621,7 @@ id topbarChatPage
 id topbarInfoPage
 id topbarMainPage
 id topbarMessagePage
+id topbarUInfoPage
 id touch_outside
 id transition_current_scene
 id transition_layout_save
@@ -2727,6 +2728,7 @@ layout activity_main_page
 layout activity_modify_user_info
 layout activity_register
 layout activity_submit_auth
+layout activity_user_info
 layout are_activity_at_picker
 layout are_adapter_at_item_view
 layout are_color_picker

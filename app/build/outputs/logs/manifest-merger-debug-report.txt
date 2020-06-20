@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-99:12
-INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-99:12
-INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-99:12
-INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-99:12
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-100:12
+INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-100:12
+INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-100:12
+INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-100:12
 MERGED from [androidx.multidex:multidex:2.0.0] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\38f128dfc8f7df776270ba522014605b\multidex-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-29:12
 MERGED from [com.qmuiteam:qmui:2.0.0-alpha08] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\955847ae004319c380aae551d7e1fc67\jetified-qmui-2.0.0-alpha08\AndroidManifest.xml:2:1-9:12
@@ -58,22 +58,22 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\98280\.gradle\ca
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\28174e475fcfd6ae966ed5772f6694ac\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.github.bumptech.glide:gifdecoder:4.9.0] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\d9d87abec114464a4b1a6216f35a9fd8\jetified-gifdecoder-4.9.0\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\c53a1cf06eec9ec8e2c1fa79d76edf7f\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
-INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-99:12
-INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-99:12
-INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-99:12
+INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-100:12
+INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-100:12
+INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-100:12
 	package
 		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:4:5-40
 		INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-99:12
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-100:12
 		INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml
 	xmlns:tools
 		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-99:12
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:1-100:12
 		INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:2:11-69
@@ -106,7 +106,7 @@ ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidMan
 	android:name
 		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:13:22-78
 application
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:15:5-97:19
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:15:5-98:19
 MERGED from [:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-27:19
 MERGED from [:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-27:19
 MERGED from [com.google.android.material:material:1.1.0] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\081958b85be993b26123dd5b1125e07f\material-1.1.0\AndroidManifest.xml:22:5-20
@@ -143,66 +143,70 @@ MERGED from [com.github.bumptech.glide:gifdecoder:4.9.0] C:\Users\98280\.gradle\
 		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:22:9-40
 	android:networkSecurityConfig
 		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:19:9-69
+activity#com.example.tsinghuadaily.Activity.UserInfoActivity
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:24:9-72
+	android:name
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:24:19-60
 activity#com.example.tsinghuadaily.Activity.SubmitAuthActivity
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:24:9-74
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:25:9-65
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:24:19-62
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:25:19-62
 service#com.example.tsinghuadaily.services.WebSocketService
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:26:9-29:39
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:27:9-30:39
 	android:enabled
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:28:13-35
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:29:13-35
 	android:exported
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:29:13-36
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:30:13-36
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:27:13-54
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:28:13-54
 service#com.example.tsinghuadaily.services.WebSocketService$GrayInnerService
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:30:9-34:39
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:31:9-35:39
 	android:process
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:34:13-36
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:35:13-36
 	android:enabled
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:32:13-35
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:33:13-35
 	android:exported
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:33:13-37
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:34:13-37
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:31:13-71
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:32:13-71
 activity#com.example.tsinghuadaily.Activity.ChatActivity
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:36:9-44:20
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:37:9-45:20
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:36:19-56
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:37:19-56
 activity#com.example.tsinghuadaily.Activity.MainPageActivity
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:45:9-53:20
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:46:9-54:20
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:45:19-60
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:46:19-60
 activity#com.example.tsinghuadaily.Activity.RegisterActivity
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:54:9-62:20
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:55:9-63:20
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:54:19-60
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:55:19-60
 activity#com.example.tsinghuadaily.Activity.LoginOrRegisterActivity
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:63:9-69:20
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:64:9-70:20
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:63:19-67
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:64:19-67
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:64:13-68:29
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:65:13-69:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:65:17-69
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:66:17-69
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:65:25-66
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:66:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:67:17-77
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:68:17-77
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:67:27-74
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:68:27-74
 activity#com.example.tsinghuadaily.Activity.MainActivity
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:70:9-78:20
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:71:9-79:20
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:70:19-56
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:71:19-56
 activity#com.example.tsinghuadaily.Activity.ModifyUserInfoActivity
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:79:9-87:20
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:80:9-88:20
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:79:19-66
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:80:19-66
 activity#com.example.tsinghuadaily.Activity.ArticleEditActivity
-ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:88:9-96:20
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:89:9-97:20
 	android:name
-		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:88:19-63
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:89:19-63
 uses-sdk
 INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml

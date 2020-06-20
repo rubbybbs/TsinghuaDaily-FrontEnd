@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,15 +27,19 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.tsinghuadaily.Activity.ChatActivity;
+import com.example.tsinghuadaily.Activity.UserInfoActivity;
 import com.example.tsinghuadaily.Database.AppDatabase;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.ViewModel.ChatDigestVMFactory;
 import com.example.tsinghuadaily.ViewModel.ChatMesssageDigestViewModel;
 import com.example.tsinghuadaily.models.ChatMessage;
+import com.example.tsinghuadaily.models.UserInfo;
 import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
 
 import java.io.ByteArrayOutputStream;
@@ -76,7 +81,7 @@ public class MessageFragment extends QMUIFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(getContext(), "started by scheme", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "started by scheme", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -106,6 +111,50 @@ public class MessageFragment extends QMUIFragment {
                     case 1:
                         adapter.notifyDataSetChanged();
                         PullRefreshLayout.finishRefresh();
+                        break;
+                    case 2:
+                        String res = data.getString("requestRes");
+                        JSONObject obj = JSONObject.parseObject(res);
+                        if (obj == null || !obj.containsKey("code"))
+                        {
+                            Toast.makeText(getContext(), "请求失败，请重试", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (!obj.get("code").equals(200))
+                        {
+                            Toast.makeText(getContext(), obj.getString("msg"), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        JSONObject info = obj.getJSONObject("info");
+                        String avatar_getter = "";  //可能为空
+                        String username;
+                        String status = "";  //可能为空
+                        String uid;
+                        String dept_name;
+                        String id;
+                        String type;
+                        if (info.containsKey("avatar"))
+                            avatar_getter = info.getString("avatar");
+                        if (info.containsKey("status"))
+                            status = info.getString("status");
+                        dept_name = info.getString("dept_name");
+                        username = info.getString("username");
+                        uid = info.getString("user_id");
+                        id = info.getString("id_num");
+                        if (info.getString("type").equals("Staff"))
+                            type = "教职工";
+                        else
+                            type = "学生";
+                        Intent intent = new Intent(getContext(), UserInfoActivity.class);
+                        intent.putExtra("avatar_getter", avatar_getter);
+                        intent.putExtra("status", status);
+                        intent.putExtra("dept_name", dept_name);
+                        intent.putExtra("username", username);
+                        intent.putExtra("uid", uid);
+                        intent.putExtra("id", id);
+                        intent.putExtra("type", type);
+                        startActivity(intent);
                         break;
                     default:
                         break;
@@ -139,7 +188,26 @@ public class MessageFragment extends QMUIFragment {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        final QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(getActivity());
+                        builder.setTitle("按学号查找用户")
+                                .setPlaceholder("请输入用户的学号")
+                                .setInputType(InputType.TYPE_CLASS_NUMBER)
+                                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                                    @Override
+                                    public void onClick(QMUIDialog dialog, int index) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .addAction("确定", new QMUIDialogAction.ActionListener() {
 
+                            @Override
+                            public void onClick(QMUIDialog dialog, int index) {
+                                String id = builder.getEditText().getText().toString();
+                                new SearchInfoByIDTask(id).execute();
+                                dialog.dismiss();
+                            }
+                        })
+                                .show();
                     }
                 });
     }
@@ -189,6 +257,29 @@ public class MessageFragment extends QMUIFragment {
             return null;
         }
     }
+
+    private class SearchInfoByIDTask extends AsyncTask<Void, Void, Void> {
+
+        private String ID;
+        public SearchInfoByIDTask(String ID) {
+            this.ID = ID;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            String baseurl = "http://175.24.61.249:8080/user/get-info?id_num=";
+            String res = OkHttpUtil.get(baseurl + ID);
+            Message msg2 = new Message();
+            Bundle data2 = new Bundle();
+            data2.putInt("code", 2);
+            data2.putString("requestRes", res);
+            msg2.setData(data2);
+            handler.sendMessage(msg2);
+            return null;
+        }
+    }
+
 
 
     class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

@@ -113,9 +113,12 @@ public class AuthFragment extends QMUIFragment {
                         JSONObject obj = JSONObject.parseObject(res);
                         if (obj == null || !obj.containsKey("code")) {
                             Toast.makeText(getContext(), "请求失败，请重试", Toast.LENGTH_SHORT).show();
+                            return;
                         }
-                        if (!obj.get("code").equals(200))
+                        if (!obj.get("code").equals(200)) {
                             Toast.makeText(getContext(), obj.get("msg").toString(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         authList.remove(data.getInt("pos", 0));
                         Toast.makeText(getContext(), "接受请求成功", Toast.LENGTH_SHORT).show();
                         adapter.notifyDataSetChanged();
@@ -125,9 +128,12 @@ public class AuthFragment extends QMUIFragment {
                         JSONObject o = JSONObject.parseObject(r);
                         if (o == null || !o.containsKey("code")) {
                             Toast.makeText(getContext(), "请求失败，请重试", Toast.LENGTH_SHORT).show();
+                            return;
                         }
-                        if (!o.get("code").equals(200))
+                        if (!o.get("code").equals(200)) {
                             Toast.makeText(getContext(), o.get("msg").toString(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         authList.remove(data.getInt("pos", 0));
                         Toast.makeText(getContext(), "拒绝请求成功", Toast.LENGTH_SHORT).show();
                         adapter.notifyDataSetChanged();

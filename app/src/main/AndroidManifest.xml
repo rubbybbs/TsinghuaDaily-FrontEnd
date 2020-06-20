@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".Activity.SubmitAuthActivity"></activity>
+        <activity android:name=".Activity.UserInfoActivity"></activity>
+        <activity android:name=".Activity.SubmitAuthActivity" />
 
         <service
             android:name=".services.WebSocketService"
