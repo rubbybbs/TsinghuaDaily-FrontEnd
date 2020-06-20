@@ -15,17 +15,22 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.tsinghuadaily.R;
+import com.example.tsinghuadaily.models.ChatMessage;
 import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -33,7 +38,9 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -44,8 +51,11 @@ public class SubmitAuthActivity extends AppCompatActivity implements View.OnClic
     QMUIRoundButton uploadImageBtn;
     QMUIRoundButton submitBtn;
     ImageView idCardPreview;
-    EditText et_department, et_ID;
+    EditText et_ID;
     RadioButton studentBtn, teacherBtn;
+    Spinner spinner_department;
+
+    ArrayAdapter<String> adpter;
 
     private Handler handler;
 
@@ -56,6 +66,7 @@ public class SubmitAuthActivity extends AppCompatActivity implements View.OnClic
 
     private byte[] tempIDCard;
     private String idCardGetter;
+    private List<String> secNameList;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -67,7 +78,7 @@ public class SubmitAuthActivity extends AppCompatActivity implements View.OnClic
         uploadImageBtn = (QMUIRoundButton)findViewById(R.id.button_uploadIDCard);
         submitBtn = (QMUIRoundButton)findViewById(R.id.button_submit_auth);
         idCardPreview = (ImageView) findViewById(R.id.idCard);
-        et_department = (EditText)findViewById(R.id.edittext_department);
+        spinner_department = (Spinner)findViewById(R.id.spinner_department);
         et_ID = (EditText)findViewById(R.id.edittext_ID);
         studentBtn = (RadioButton)findViewById(R.id.studentRB);
         teacherBtn = (RadioButton)findViewById(R.id.teacherRB);
@@ -77,6 +88,9 @@ public class SubmitAuthActivity extends AppCompatActivity implements View.OnClic
         submitBtn.setOnClickListener(this);
         initTopBar();
 
+        secNameList = new ArrayList<>();
+        idCardGetter = "";
+
         int permission = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
@@ -85,6 +99,8 @@ public class SubmitAuthActivity extends AppCompatActivity implements View.OnClic
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     EXTERNAL_STORAGE_REQ_CODE);
         }
+
+
 
         handler = new Handler() {
             @Override
@@ -126,6 +142,17 @@ public class SubmitAuthActivity extends AppCompatActivity implements View.OnClic
                             finish();
                         }
                         break;
+                    case 3:
+                        String sectionInfo = data.getString("requestRes");
+                        JSONObject si = JSONObject.parseObject(sectionInfo);
+                        JSONArray secs = si.getJSONArray("sections");
+                        for (int i = 0; i < secs.size(); i++) {
+                            secNameList.add(secs.getJSONObject(i).get("section_name").toString());
+                        }
+                        adpter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, secNameList);
+                        spinner_department.setAdapter(adpter);
+                        spinner_department.setSelection(0);
+
                     default:
                         break;
                 }
@@ -133,6 +160,8 @@ public class SubmitAuthActivity extends AppCompatActivity implements View.OnClic
             }
 
         };
+
+        new GetSecListTask().execute();
     }
 
     @Override
@@ -146,17 +175,21 @@ public class SubmitAuthActivity extends AppCompatActivity implements View.OnClic
         }
         else if (v.getId() == R.id.button_submit_auth) {
 
-            if (StringUtils.isBlank(et_department.getText().toString()) || StringUtils.isBlank(et_ID.getText().toString())) {
-                Toast.makeText(this, "请填写学号和单位", Toast.LENGTH_SHORT).show();
+            if (StringUtils.isBlank(et_ID.getText().toString())) {
+                Toast.makeText(this, "请填写证件号", Toast.LENGTH_SHORT).show();
                 return;
             }
             Map<String, String> params = new HashMap<>();
             params.put("id_num", et_ID.getText().toString());
-            params.put("dept_name", et_department.getText().toString());
+            params.put("dept_name", spinner_department.getSelectedItem().toString());
             if (studentBtn.isChecked())
                 params.put("user_type", "Undergraduate");
             else
                 params.put("user_type", "Staff");
+            if (StringUtils.isBlank(idCardGetter)){
+                Toast.makeText(this, "请上传证件图片", Toast.LENGTH_SHORT).show();
+                return;
+            }
             params.put("id_card", idCardGetter);
 
             new Thread(new Runnable() {
@@ -219,6 +252,22 @@ public class SubmitAuthActivity extends AppCompatActivity implements View.OnClic
             }
             cursor.close();
 
+        }
+    }
+
+    private class GetSecListTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String baseurl = "http://175.24.61.249:8080/section/get-sections";
+            String res = OkHttpUtil.get(baseurl);
+            Message msg = new Message();
+            Bundle data = new Bundle();
+            data.putInt("eventType", 3);
+            data.putString("requestRes", res);
+            msg.setData(data);
+            handler.sendMessage(msg);
+            return null;
         }
     }
 

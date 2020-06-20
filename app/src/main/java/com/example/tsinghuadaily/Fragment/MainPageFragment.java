@@ -64,7 +64,7 @@ public class MainPageFragment extends BaseFragment {
                         case 1:
                             return new GridVarietyFragment();
                         case 2:
-                            return new MessageFragment();
+                            return new AuthFragment();
                         case 3:
                             return new MessageFragment();
                         case 4:

@@ -17,7 +17,7 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/icon_avata"
+            android:id="@+id/icon_idCard"
             android:layout_width="66dp"
             android:layout_height="115dp"
             android:layout_margin="10dp"
@@ -45,56 +45,131 @@
                     android:orientation="vertical"
                     android:divider="@drawable/qmui_divider"
                     android:dividerPadding="2dp">
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/qmui_s_list_item_bg_1"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        android:layout_marginTop="5dp"
-                        android:maxLines="1"
-                        android:paddingLeft="@dimen/inner_components_spacing"
-                        android:paddingRight="@dimen/inner_components_spacing"
-                        android:text="用户名："
-                        android:textColor="?attr/qmui_config_color_gray_1"
-                        android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/qmui_s_list_item_bg_1"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:paddingLeft="@dimen/inner_components_spacing"
-                        android:paddingRight="@dimen/inner_components_spacing"
-                        android:text="证件号："
-                        android:textColor="?attr/qmui_config_color_gray_1"
-                        android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/qmui_s_list_item_bg_1"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:paddingLeft="@dimen/inner_components_spacing"
-                        android:paddingRight="@dimen/inner_components_spacing"
-                        android:text="单位：计算机科学与计数系"
-                        android:textColor="?attr/qmui_config_color_gray_1"
-                        android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:background="@drawable/qmui_s_list_item_bg_1"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:layout_marginTop="5dp"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/inner_components_spacing"
+                            android:paddingRight="@dimen/inner_components_spacing"
+                            android:text="用户名:"
+                            android:textColor="?attr/qmui_config_color_gray_1"
+                            android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:id="@+id/tv_username"
+                            android:background="@drawable/qmui_s_list_item_bg_1"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:layout_marginTop="5dp"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/inner_components_spacing"
+                            android:paddingRight="@dimen/inner_components_spacing"
+                            android:text=""
+                            android:textColor="?attr/qmui_config_color_gray_1"
+                            android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                    </LinearLayout>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:background="@drawable/qmui_s_list_item_bg_1"
-                        android:gravity="center_vertical"
-                        android:singleLine="true"
-                        android:maxLines="1"
-                        android:paddingLeft="@dimen/inner_components_spacing"
-                        android:paddingRight="@dimen/inner_components_spacing"
-                        android:text="身份："
-                        android:textColor="?attr/qmui_config_color_gray_1"
-                        android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:background="@drawable/qmui_s_list_item_bg_1"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/inner_components_spacing"
+                            android:paddingRight="@dimen/inner_components_spacing"
+                            android:singleLine="true"
+                            android:text="证件号:"
+                            android:textColor="?attr/qmui_config_color_gray_1"
+                            android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:id="@+id/tv_id"
+                            android:background="@drawable/qmui_s_list_item_bg_1"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/inner_components_spacing"
+                            android:paddingRight="@dimen/inner_components_spacing"
+                            android:text=""
+                            android:textColor="?attr/qmui_config_color_gray_1"
+                            android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:background="@drawable/qmui_s_list_item_bg_1"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/inner_components_spacing"
+                            android:paddingRight="@dimen/inner_components_spacing"
+                            android:singleLine="true"
+                            android:text="单位:"
+                            android:textColor="?attr/qmui_config_color_gray_1"
+                            android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:id="@+id/tv_department"
+                            android:background="@drawable/qmui_s_list_item_bg_1"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/inner_components_spacing"
+                            android:paddingRight="@dimen/inner_components_spacing"
+                            android:text=""
+                            android:textColor="?attr/qmui_config_color_gray_1"
+                            android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:background="@drawable/qmui_s_list_item_bg_1"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/inner_components_spacing"
+                            android:paddingRight="@dimen/inner_components_spacing"
+                            android:singleLine="true"
+                            android:text="身份:"
+                            android:textColor="?attr/qmui_config_color_gray_1"
+                            android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:id="@+id/tv_identity"
+                            android:background="@drawable/qmui_s_list_item_bg_1"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/inner_components_spacing"
+                            android:paddingRight="@dimen/inner_components_spacing"
+                            android:text=""
+                            android:textColor="?attr/qmui_config_color_gray_1"
+                            android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
                 <LinearLayout

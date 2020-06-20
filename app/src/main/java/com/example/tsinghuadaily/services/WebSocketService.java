@@ -90,7 +90,7 @@ public class WebSocketService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //初始化websocket
-        uid = intent.getStringExtra("uid");
+        uid = String.valueOf(getSharedPreferences("userdata", MODE_PRIVATE).getInt("UID", 0));
         initSocketClient(uid);
         mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);//开启心跳检测
 

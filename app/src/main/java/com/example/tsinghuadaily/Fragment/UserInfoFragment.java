@@ -79,6 +79,9 @@ public class UserInfoFragment extends QMUIFragment {
     private String username;
     private int isVerified;
     private String status;
+    private String id;
+    private String dept_name;
+    private String type;
 
     Handler handler;
 
@@ -106,6 +109,9 @@ public class UserInfoFragment extends QMUIFragment {
         username = preferences.getString("username", "");
         isVerified = -1;
         status = "";
+        id = "";
+        dept_name = "";
+        type = "";
         userInfoList = new ArrayList<>();
         initInfoList();
         initAvatar();
@@ -149,6 +155,16 @@ public class UserInfoFragment extends QMUIFragment {
                             else
                                 tvStatus.setText("未设置个性签名");
                             isVerified = (int)info.get("verified");
+                            if (info.containsKey("id_num"))
+                                id = info.getString("id_num");
+                            if (info.containsKey("dept_name"))
+                                dept_name = info.getString("dept_name");
+                            if (info.containsKey("type")) {
+                                if (info.getString("type").equals("Staff"))
+                                    type = "教职工";
+                                else
+                                    type = "学生";
+                            }
                             initInfoList();
                             adapter.notifyDataSetChanged();
                         }
@@ -245,7 +261,7 @@ public class UserInfoFragment extends QMUIFragment {
         if (isVerified == 0)
         {
 
-            UserConfiguration auth = new UserConfiguration("账号认证", "", R.drawable.ic_baseline_account_circle_24);
+            UserConfiguration auth = new UserConfiguration("账号认证", "点击进行账号认证", R.drawable.ic_baseline_account_circle_24);
             userInfoList.add(auth);
             UserConfiguration resetPwd = new UserConfiguration("修改个人信息", "", R.drawable.ic_baseline_settings_24);
             userInfoList.add(resetPwd);
@@ -255,6 +271,28 @@ public class UserInfoFragment extends QMUIFragment {
         }
         else if (isVerified == 1) {
             UserConfiguration auth = new UserConfiguration("账号认证", "请等待管理员审核认证", R.drawable.ic_baseline_account_circle_24);
+            userInfoList.add(auth);
+            UserConfiguration resetPwd = new UserConfiguration("修改个人信息", "", R.drawable.ic_baseline_settings_24);
+            userInfoList.add(resetPwd);
+            UserConfiguration logout = new UserConfiguration("退出登录", "", R.drawable.ic_baseline_settings_power_24);
+            userInfoList.add(logout);
+        }
+        else if (isVerified == 2) {
+            UserConfiguration auth = new UserConfiguration("账号认证", "用户已认证", R.drawable.ic_baseline_account_circle_24);
+            userInfoList.add(auth);
+            UserConfiguration idC = new UserConfiguration("证件号", id, R.drawable.ic_baseline_credit_card_24);
+            userInfoList.add(idC);
+            UserConfiguration dept = new UserConfiguration("单位/院系", dept_name, R.drawable.ic_baseline_apartment_24);
+            userInfoList.add(dept);
+            UserConfiguration identity = new UserConfiguration("身份", type, R.drawable.ic_baseline_assignment_ind_24);
+            userInfoList.add(identity);
+            UserConfiguration resetPwd = new UserConfiguration("修改个人信息", "", R.drawable.ic_baseline_settings_24);
+            userInfoList.add(resetPwd);
+            UserConfiguration logout = new UserConfiguration("退出登录", "", R.drawable.ic_baseline_settings_power_24);
+            userInfoList.add(logout);
+        }
+        else if (isVerified == 3) {
+            UserConfiguration auth = new UserConfiguration("账号认证", "认证被拒绝！请重新申请认证", R.drawable.ic_baseline_account_circle_24);
             userInfoList.add(auth);
             UserConfiguration resetPwd = new UserConfiguration("修改个人信息", "", R.drawable.ic_baseline_settings_24);
             userInfoList.add(resetPwd);

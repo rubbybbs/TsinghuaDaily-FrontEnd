@@ -107,6 +107,7 @@
                     android:layout_gravity="fill"
                     android:hint="请输入校内证件号"
                     android:maxLength="20"
+                    android:inputType="number"
                     android:maxLines="1"
                     android:singleLine="true" android:cursorVisible="true"
                     android:textColor="?attr/qmui_config_color_gray_5"
@@ -124,18 +125,24 @@
                     android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
                 <!--账号输入框-->
 
-                <EditText
-                    android:id="@+id/edittext_department"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+<!--                <EditText-->
+<!--                    android:id="@+id/edittext_department"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="fill"-->
+<!--                    android:hint="请输入你所在的单位/院系"-->
+<!--                    android:maxLength="20"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:singleLine="true" android:cursorVisible="true"-->
+<!--                    android:textColor="?attr/qmui_config_color_gray_5"-->
+<!--                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />-->
+                <Spinner
+                    android:id="@+id/spinner_department"
                     android:layout_gravity="fill"
-                    android:hint="请输入你所在的单位/院系"
-                    android:maxLength="20"
-                    android:maxLines="1"
-                    android:singleLine="true" android:cursorVisible="true"
-                    android:textColor="?attr/qmui_config_color_gray_5"
-                    android:textSize="?attr/qmui_common_list_item_detail_h_text_size" />
+                    android:layout_marginRight="50dp"
+                    android:spinnerMode="dialog">
 
+                </Spinner>
 
                 <TextView
                     android:layout_width="90dp"

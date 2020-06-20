@@ -24,7 +24,7 @@
             android:background="@color/qmui_config_color_background">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycleListAuth"
+                android:id="@+id/authReqList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp" />

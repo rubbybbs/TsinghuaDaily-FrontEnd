@@ -1985,6 +1985,7 @@ drawable ic_baseline_apartment_24
 drawable ic_baseline_assignment_ind_24
 drawable ic_baseline_chat_24
 drawable ic_baseline_create_24
+drawable ic_baseline_credit_card_24
 drawable ic_baseline_lock_24
 drawable ic_baseline_restore_24
 drawable ic_baseline_settings_24
@@ -2258,6 +2259,7 @@ id are_view_at_item_name
 id are_view_at_listview
 id articleListView
 id async
+id authReqList
 id auto
 id avatarPreview
 id barrier
@@ -2267,6 +2269,8 @@ id bottom
 id bottom_sheet
 id btnSend
 id buttonPanel
+id button_authAccept
+id button_authRefuse
 id button_register
 id button_submit_auth
 id button_submit_modification
@@ -2319,7 +2323,6 @@ id dropdown_menu
 id editWriteMessage
 id edit_query
 id edittext_ID
-id edittext_department
 id edittext_name
 id edittext_password
 id edittext_password_ensure
@@ -2373,6 +2376,7 @@ id horizontal
 id icon
 id icon_avata
 id icon_group
+id icon_idCard
 id idCard
 id idEdit
 id ifRoom
@@ -2563,6 +2567,7 @@ id snap
 id snapMargins
 id spacer
 id special_effects_controller_view_tag
+id spinner_department
 id split_action_bar
 id spread
 id spread_inside
@@ -2611,6 +2616,7 @@ id title_template
 id top
 id topPanel
 id topbar
+id topbarAuthPage
 id topbarChatPage
 id topbarInfoPage
 id topbarMainPage
@@ -2621,7 +2627,10 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
+id tv_department
 id tv_detail
+id tv_id
+id tv_identity
 id tv_status
 id tv_title
 id tv_username
@@ -2745,11 +2754,13 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_article_detail
 layout fragment_article_list
+layout fragment_auth
 layout fragment_grid_variety
 layout fragment_main_page
 layout fragment_message
 layout fragment_tab_scrollable
 layout fragment_user_info
+layout item_auth
 layout item_layout
 layout item_message_digest
 layout item_message_friend
@@ -2919,6 +2930,7 @@ string qmui_tool_fixellipsize
 string registerBtn
 string save_to_local
 string search_menu_title
+string spinnerPromp
 string status_bar_notification_info_overflow
 string testButton1
 string testButton2
@@ -3156,6 +3168,7 @@ style DropDownListViewBase_Compat
 style EditText_Compat
 style EditTextBase_Compat
 style EmptyTheme
+style FullActivity
 style FullscreenActionBarStyle
 style FullscreenTheme
 style GridView_Compat

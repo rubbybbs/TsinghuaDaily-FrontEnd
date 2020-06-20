@@ -82,4 +82,9 @@
         <item name="android:visibility">gone</item>
     </style>
 
+    <style name="FullActivity">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>
