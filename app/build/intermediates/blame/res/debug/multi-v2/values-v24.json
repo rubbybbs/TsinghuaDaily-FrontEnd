@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
+            "outputFile": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\98280\\.gradle\\caches\\transforms-2\\files-2.1\\ffc4098914b91b7860907277c6a73623\\media-1.0.0\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\DELL\\.gradle\\caches\\transforms-2\\files-2.1\\ffc4098914b91b7860907277c6a73623\\media-1.0.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\98280\\.gradle\\caches\\transforms-2\\files-2.1\\4660d9a2e474d76e806779c69b4d6ef5\\appcompat-1.2.0-beta01\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\DELL\\.gradle\\caches\\transforms-2\\files-2.1\\4660d9a2e474d76e806779c69b4d6ef5\\appcompat-1.2.0-beta01\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

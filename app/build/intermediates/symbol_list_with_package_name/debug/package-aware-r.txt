@@ -2169,6 +2169,7 @@ id BOTTOM
 id BOTTOM_END
 id BOTTOM_START
 id CTRL
+id CommentRecyclerView
 id FULL
 id FUNCTION
 id LoginBtn
@@ -2757,11 +2758,13 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_article_detail
-layout fragment_article_list
 layout fragment_auth
+layout fragment_corporation_article
+layout fragment_department_article
 layout fragment_grid_variety
 layout fragment_main_page
 layout fragment_message
+layout fragment_school_article_list
 layout fragment_tab_scrollable
 layout fragment_user_info
 layout item_auth

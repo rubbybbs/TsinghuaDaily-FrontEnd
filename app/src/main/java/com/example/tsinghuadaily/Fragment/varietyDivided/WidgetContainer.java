@@ -1,6 +1,8 @@
 package com.example.tsinghuadaily.Fragment.varietyDivided;
 
-import com.example.tsinghuadaily.Fragment.SchoolArticleListFragment;
+import com.example.tsinghuadaily.Fragment.Variety.CorporationArticleFragment;
+import com.example.tsinghuadaily.Fragment.Variety.DepartmentArticleFragment;
+import com.example.tsinghuadaily.Fragment.Variety.SchoolArticleListFragment;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.base.BaseFragment;
 
@@ -15,6 +17,9 @@ class WidgetContainer {
     private WidgetContainer() {
         mWidgets = new HashMap<>();
         mWidgets.put(SchoolArticleListFragment.class, new ItemDescription(SchoolArticleListFragment.class, "清华大学", R.mipmap.ic_launcher, ""));
+        mWidgets.put(DepartmentArticleFragment.class, new ItemDescription(DepartmentArticleFragment.class, "软件学院", R.mipmap.ic_launcher, ""));
+        mWidgets.put(CorporationArticleFragment.class, new ItemDescription(CorporationArticleFragment.class, "学生会", R.mipmap.ic_launcher, ""));
+
     }
 
     public static WidgetContainer getInstance() {
