@@ -2240,6 +2240,7 @@ id alertTitle
 id all
 id always
 id arEditText
+id areTextView
 id areToolbar
 id are_btn_attach_video
 id are_fontsize_preview
@@ -2648,6 +2649,7 @@ id userAvatar
 id userAvatarInfo
 id userMessageItem
 id vertical
+id videoView
 id view_offset_helper
 id view_tree_lifecycle_owner
 id visible
@@ -2717,6 +2719,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_are__video_player
+layout activity_article_detail
 layout activity_article_edit
 layout activity_chat
 layout activity_default_image_preview
@@ -2727,6 +2730,7 @@ layout activity_main_page
 layout activity_modify_user_info
 layout activity_register
 layout activity_submit_auth
+layout activity_video_preview
 layout are_activity_at_picker
 layout are_adapter_at_item_view
 layout are_color_picker
