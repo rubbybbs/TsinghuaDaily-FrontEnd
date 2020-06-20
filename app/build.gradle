@@ -73,7 +73,7 @@ dependencies {
     implementation 'org.java-websocket:Java-WebSocket:1.5.1'
 
     //Import videoPlayer
-    implementation 'com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.5'
+
 
     //Import Room
     def room_version = "2.2.5"

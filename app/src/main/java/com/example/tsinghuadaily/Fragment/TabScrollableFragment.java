@@ -128,12 +128,12 @@ public class TabScrollableFragment extends QMUIFragment {
     }
 
     private void initTopBar() {
-        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popBackStack();
-            }
-        });
+//        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                popBackStack();
+//            }
+//        });
 
         mTopBar.setTitle("主页");
         mTopBar.addRightTextButton("+", QMUIViewHelper.generateViewId())
