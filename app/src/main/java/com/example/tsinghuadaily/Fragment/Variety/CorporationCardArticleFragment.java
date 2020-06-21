@@ -371,7 +371,7 @@ public class CorporationCardArticleFragment extends BaseFragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            String baseurl = "http://175.24.61.249:8080/article/section-articles?section_id=9&page_num=" + mCurrentPageNum + "&page_size=4";
+            String baseurl = "http://175.24.61.249:8080/article/section-articles?section_id=9&page_num=" + mCurrentPageNum + "&page_size=10";
             String res = OkHttpUtil.get(baseurl);
             Message msg = new Message();
             Bundle data = new Bundle();

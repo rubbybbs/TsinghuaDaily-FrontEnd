@@ -51,7 +51,6 @@ import java.util.List;
         value = {
                 MainPageFragment.class,
                 MessageFragment.class,
-                ArticleDetailFragment.class
         })
 @DefaultFirstFragment(MainPageFragment.class)
 @LatestVisitRecord

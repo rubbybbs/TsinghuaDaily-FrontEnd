@@ -1,9 +1,11 @@
 package com.example.tsinghuadaily.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chinalwb.are.Util;
 import com.chinalwb.are.render.AreTextView;
 import com.chinalwb.are.spans.AreAtSpan;
@@ -15,12 +17,16 @@ import com.chinalwb.are.strategies.defaults.DefaultProfileActivity;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.base.BaseRecyclerAdapter;
 import com.example.tsinghuadaily.base.RecyclerViewHolder;
+import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.style.URLSpan;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +36,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class DClickStrategy implements AreClickStrategy {
     @Override
@@ -102,41 +110,153 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
     private Button mButtonCollection;
 
+    String articleID;
+
+    boolean isFavour = false;
+
+    boolean isLike = false;
+
+    List<String> mData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
+        Intent intent = getIntent();
+        String s = intent.getStringExtra(HTML_TEXT);
+        String title = intent.getStringExtra("title");
+        articleID = intent.getStringExtra("id");
+        String like = intent.getStringExtra("like");
+        String favour = intent.getStringExtra("favour");
+        isLike = like != null && like.compareTo("true") == 0;
+        isFavour = favour != null && favour.compareTo("true") == 0;
+
         areTextView = findViewById(R.id.areTextView);
         mTopBar = findViewById(R.id.topbar);
         mButtonLike = findViewById(R.id.button_like);
-        mButtonLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         mButtonComment = findViewById(R.id.button_comment);
-        mButtonComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         mButtonCollection = findViewById(R.id.button_collection);
-        mButtonCollection.setOnClickListener(new View.OnClickListener() {
+
+        @SuppressLint("HandlerLeak") Handler handler = new Handler() {
             @Override
-            public void onClick(View v) {
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                String val = data.getString("requestRes");
+                JSONObject obj = JSONObject.parseObject(val);
+                if (obj == null){
+                    Toast.makeText(getApplicationContext(), "失败，请检查网络连接", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (obj.get("code").equals(200))
+                {
+                    int type = data.getInt("type");
+                    switch (type) {
+                        case 0:{
+                            if (isLike) {
+                                isLike = false;
+                                Toast.makeText(getApplicationContext(), "取消点赞", Toast.LENGTH_SHORT).show();
+                                mButtonLike.setText("点赞");
+                            } else {
+                                isLike = true;
+                                Toast.makeText(getApplicationContext(), "点赞成功", Toast.LENGTH_SHORT).show();
+                                mButtonLike.setText("已点赞");
+                            }
+                            break;
+                        }
+                        case 1:{
+
+                            break;
+                        }
+                        case 2:{
+                            if (isFavour) {
+                                isFavour = false;
+                                Toast.makeText(getApplicationContext(), "取消收藏", Toast.LENGTH_SHORT).show();
+                                mButtonCollection.setText("收藏");
+                            } else {
+                                isFavour = true;
+                                Toast.makeText(getApplicationContext(), "收藏成功", Toast.LENGTH_SHORT).show();
+                                mButtonCollection.setText("已收藏");
+                            }
+                            break;
+                        }
+                        case 3:
+                        default:{
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    String errorMsg = obj.get("msg").toString();
+                    Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_SHORT).show();
+                }
 
             }
-        });
+        };
+
+        if (articleID.compareTo("-1")!=0) {
+            Map<String, String> params = new HashMap<>();
+            mButtonLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String res;
+                            if (isLike) {
+                                res = OkHttpUtil.postForm("http://175.24.61.249:8080/article/dislike?article_id=" + articleID, params);
+                            } else {
+                                res = OkHttpUtil.postForm("http://175.24.61.249:8080/article/like?article_id=" + articleID, params);
+                            }
+                            Message msg = new Message();
+                            Bundle data = new Bundle();
+                            data.putString("requestRes", res);
+                            data.putInt("type", 0);
+                            msg.setData(data);
+                            handler.sendMessage(msg);
+                        }
+                    }).start();
+                }
+            });
+
+            mButtonComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+            mButtonCollection.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String res;
+                            if (isFavour) {
+                                res = OkHttpUtil.postForm("http://175.24.61.249:8080/article/disfavour?article_id=" + articleID, params);
+                            } else {
+                                res = OkHttpUtil.postForm("http://175.24.61.249:8080/article/favour?article_id=" + articleID, params);
+                            }
+                            Message msg = new Message();
+                            Bundle data = new Bundle();
+                            data.putString("requestRes", res);
+                            data.putInt("type", 2);
+                            msg.setData(data);
+                            handler.sendMessage(msg);
+                        }
+                    }).start();
+                }
+            });
+        }
+
 
         mClickStrategy = new DClickStrategy();
         areTextView.setClickStrategy(mClickStrategy);
 
-        Intent intent = getIntent();
-        String s = intent.getStringExtra(HTML_TEXT);
-        String title = intent.getStringExtra("title");
+
         initTopBar(title);
         if (s == null) {
             s = "<p style=\"text-align: center;\"><strong>无内容</strong></p>";
@@ -175,9 +295,13 @@ public class ArticleDetailActivity extends AppCompatActivity {
     }
 
     private void onDataLoaded() {
-        List<String> data = new ArrayList<>(Arrays.asList("评论1", "评论2", "评论3", "评论4", "评论5"));
-        Collections.shuffle(data);  //置换，非必需
-        mAdapter.setData(data);
+        if (articleID.compareTo("-1")!=0) {
+
+        } else {
+            mData = new ArrayList<>(Arrays.asList("评论1", "评论2", "评论3", "评论4", "评论5"));
+            Collections.shuffle(mData);  //置换，非必需
+            mAdapter.setData(mData);
+        }
     }
 
     private void initTopBar(String title) {

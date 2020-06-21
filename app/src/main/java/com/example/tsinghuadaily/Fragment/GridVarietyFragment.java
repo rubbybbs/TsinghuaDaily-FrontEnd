@@ -1,5 +1,6 @@
 package com.example.tsinghuadaily.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.tsinghuadaily.Activity.ArticleEditActivity;
+import com.example.tsinghuadaily.Activity.ArticleSearchActivity;
 import com.example.tsinghuadaily.Fragment.varietyDivided.HomeController;
 import com.example.tsinghuadaily.Fragment.varietyDivided.HomeCorporationController;
 import com.example.tsinghuadaily.Fragment.varietyDivided.HomeDepartmentController;
@@ -125,6 +128,18 @@ public class GridVarietyFragment extends QMUIFragment {
 
     private void initTopBar() {
         mTopBar.setTitle("分类");
+        mTopBar.addRightTextButton("S", QMUIViewHelper.generateViewId())
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        search();
+                    }
+                });
+    }
+
+    private void search() {
+        Intent intent = new Intent(getActivity(), ArticleSearchActivity.class);
+        startActivity(intent);
     }
 
     private void initTabs() {

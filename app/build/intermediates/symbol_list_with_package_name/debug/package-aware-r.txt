@@ -2271,6 +2271,7 @@ id beginning
 id blocking
 id bottom
 id bottom_sheet
+id btnSearch
 id btnSend
 id buttonPanel
 id button_authAccept
@@ -2406,6 +2407,7 @@ id left_center
 id line
 id line1
 id line3
+id linearlayout1
 id listMode
 id list_item
 id masked
@@ -2548,6 +2550,9 @@ id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
 id scrollable
+id searchArticleListView
+id searchKey
+id searchScrollView
 id search_badge
 id search_bar
 id search_button
@@ -2729,6 +2734,7 @@ layout abc_tooltip
 layout activity_are__video_player
 layout activity_article_detail
 layout activity_article_edit
+layout activity_article_search
 layout activity_chat
 layout activity_default_image_preview
 layout activity_default_profile
@@ -2766,6 +2772,7 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_article_detail
+layout fragment_article_research
 layout fragment_auth
 layout fragment_corporation_article
 layout fragment_corporation_card_article

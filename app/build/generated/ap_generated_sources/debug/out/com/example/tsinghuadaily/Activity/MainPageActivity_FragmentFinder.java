@@ -1,6 +1,5 @@
 package com.example.tsinghuadaily.Activity;
 
-import com.example.tsinghuadaily.Fragment.ArticleDetailFragment;
 import com.example.tsinghuadaily.Fragment.MainPageFragment;
 import com.example.tsinghuadaily.Fragment.MessageFragment;
 import com.qmuiteam.qmui.arch.QMUIFragment;
@@ -23,8 +22,6 @@ public class MainPageActivity_FragmentFinder implements FirstFragmentFinder {
     mIdToClassMap.put(100, MainPageFragment.class);
     mClassToIdMap.put(MessageFragment.class, 101);
     mIdToClassMap.put(101, MessageFragment.class);
-    mClassToIdMap.put(ArticleDetailFragment.class, 102);
-    mIdToClassMap.put(102, ArticleDetailFragment.class);
   }
 
   @Override

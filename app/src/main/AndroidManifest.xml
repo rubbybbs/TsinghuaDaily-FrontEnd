@@ -23,15 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".Activity.UserInfoActivity"></activity>
-        <activity android:name=".Activity.VideoPreviewActivity">
-
-
-        </activity>
-        <activity android:name=".Activity.ArticleDetailActivity">
-
-
-        </activity>
+        <activity android:name=".Activity.ArticleSearchActivity"></activity>
+        <activity android:name=".Activity.UserInfoActivity" />
+        <activity android:name=".Activity.VideoPreviewActivity"></activity>
+        <activity android:name=".Activity.ArticleDetailActivity"></activity>
         <activity android:name=".Activity.SubmitAuthActivity" />
 
         <service
