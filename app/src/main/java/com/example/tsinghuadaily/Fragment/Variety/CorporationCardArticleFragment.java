@@ -147,9 +147,15 @@ public class CorporationCardArticleFragment extends BaseFragment {
                                         if (code == 200) {
                                             JSONObject info = JSONObject.parseObject(obj.get("info").toString());
                                             String html = info.get("content").toString();
+                                            String id = info.get("article_id").toString();
+                                            String like = info.get("liked").toString();
+                                            String favour = info.get("favoured").toString();
                                             Intent intent = new Intent();
+                                            intent.putExtra("id", id);
                                             intent.putExtra("html_text", html);
                                             intent.putExtra("title", text);
+                                            intent.putExtra("like", like);
+                                            intent.putExtra("favour", favour);
                                             intent.setClass(getContext(), ArticleDetailActivity.class);
                                             getContext().startActivity(intent);
                                         }

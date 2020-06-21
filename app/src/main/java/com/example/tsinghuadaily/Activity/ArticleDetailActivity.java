@@ -2,9 +2,11 @@ package com.example.tsinghuadaily.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chinalwb.are.Util;
 import com.chinalwb.are.render.AreTextView;
@@ -18,8 +20,18 @@ import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.base.BaseRecyclerAdapter;
 import com.example.tsinghuadaily.base.RecyclerViewHolder;
 import com.example.tsinghuadaily.utils.OkHttpUtil;
+import com.qmuiteam.qmui.layout.QMUIFrameLayout;
+import com.qmuiteam.qmui.skin.QMUISkinHelper;
+import com.qmuiteam.qmui.skin.QMUISkinManager;
+import com.qmuiteam.qmui.skin.QMUISkinValueBuilder;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
+import com.qmuiteam.qmui.widget.popup.QMUIFullScreenPopup;
+import com.qmuiteam.qmui.widget.popup.QMUIPopup;
+import com.qmuiteam.qmui.widget.popup.QMUIPopups;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -28,9 +40,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.style.URLSpan;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -108,6 +125,8 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
     private Button mButtonComment;
 
+    private QMUIPopup mNormalPopup;
+
     private Button mButtonCollection;
 
     String articleID;
@@ -116,8 +135,11 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
     boolean isLike = false;
 
+    Handler handler;
+
     List<String> mData;
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +160,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         mButtonComment = findViewById(R.id.button_comment);
         mButtonCollection = findViewById(R.id.button_collection);
 
-        @SuppressLint("HandlerLeak") Handler handler = new Handler() {
+        handler = new Handler() {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
@@ -166,7 +188,9 @@ public class ArticleDetailActivity extends AppCompatActivity {
                             break;
                         }
                         case 1:{
-
+                            Toast.makeText(getApplicationContext(), "评论成功", Toast.LENGTH_SHORT).show();
+                            mData.add(data.getString("comment_content"));
+                            mAdapter.setData(mData);
                             break;
                         }
                         case 2:{
@@ -181,10 +205,17 @@ public class ArticleDetailActivity extends AppCompatActivity {
                             }
                             break;
                         }
-                        case 3:
-                        default:{
+                        case 3: {
+                            JSONArray comments = JSONArray.parseArray(obj.get("comments").toString());
+                            for (int i = 0; i<comments.size(); i++){
+                                JSONObject comment = JSONObject.parseObject(comments.get(i).toString());
+                                mData.add(comment.getString("content"));
+                            }
+                            mAdapter.setData(mData);
                             break;
                         }
+                        default:
+                            break;
                     }
                 }
                 else
@@ -224,7 +255,68 @@ public class ArticleDetailActivity extends AppCompatActivity {
             mButtonComment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    QMUISkinValueBuilder builder = QMUISkinValueBuilder.acquire();
+                    QMUIFrameLayout frameLayout = new QMUIFrameLayout(getApplicationContext());
+                    frameLayout.setBackground(
+                            QMUIResHelper.getAttrDrawable(getApplicationContext(), R.color.qmui_config_color_50_white));
+                    builder.background(R.color.qmui_config_color_50_white);
+                    QMUISkinHelper.setSkinValue(frameLayout, builder);
+                    frameLayout.setRadius(QMUIDisplayHelper.dp2px(getApplicationContext(), 12));
+                    int padding = QMUIDisplayHelper.dp2px(getApplicationContext(), 20);
+                    frameLayout.setPadding(padding, padding, padding, padding);
 
+                    EditText textView = new EditText(getApplicationContext());
+                    textView.setLineSpacing(QMUIDisplayHelper.dp2px(getApplicationContext(), 4), 1.0f);
+                    textView.setPadding(padding, padding, padding, padding);
+                    textView.setHint("输入评论...点击旁边区域发送");
+                    textView.setBackgroundColor(getResources().getColor(R.color.qmui_config_color_white));
+                    int paddingHor = QMUIDisplayHelper.dp2px(getApplicationContext(), 20);
+                    int paddingVer = QMUIDisplayHelper.dp2px(getApplicationContext(), 10);
+                    textView.setPadding(paddingHor, paddingVer, paddingHor, paddingVer);
+                    textView.setMaxHeight(QMUIDisplayHelper.dp2px(getApplicationContext(), 200));
+                    builder.clear();
+                    builder.textColor(R.color.black_overlay);
+                    QMUISkinHelper.setSkinValue(textView, builder);
+                    textView.setGravity(Gravity.CENTER);
+                    int size = QMUIDisplayHelper.dp2px(getApplicationContext(), 200);
+                    FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(size, size);
+                    frameLayout.addView(textView, lp);
+
+                    QMUIPopups.fullScreenPopup(getApplicationContext())
+                            .addView(frameLayout, QMUIFullScreenPopup.getOffsetHalfKeyboardHeightListener())
+                            .skinManager(QMUISkinManager.defaultInstance(getApplicationContext()))
+                            .onBlankClick(new QMUIFullScreenPopup.OnBlankClickListener() {
+                                @Override
+                                public void onBlankClick(QMUIFullScreenPopup popup) {
+                                    //popup.dismiss();
+                                    Toast.makeText(getApplicationContext(), "正在发送评论", Toast.LENGTH_SHORT).show();
+                                    Map<String, String> mparams = new HashMap<>();
+                                    String commmentContent = textView.getText().toString();
+                                    mparams.put("content", commmentContent);
+                                    mparams.put("article_id", articleID);
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            String res = OkHttpUtil.postForm("http://175.24.61.249:8080/comment/add", mparams);
+                                            Message msg = new Message();
+                                            Bundle data = new Bundle();
+                                            data.putString("requestRes", res);
+                                            data.putInt("type", 1);
+                                            data.putString("comment_content", commmentContent);
+                                            msg.setData(data);
+                                            handler.sendMessage(msg);
+                                        }
+                                    }).start();
+                                    popup.dismiss();
+                                }
+                            })
+                            .onDismiss(new PopupWindow.OnDismissListener() {
+                                @Override
+                                public void onDismiss() {
+                                    //Toast.makeText(getApplicationContext(), "取消发送", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .show(v);
                 }
             });
 
@@ -286,7 +378,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int pos) {
-                Toast.makeText(getApplicationContext(), "click position=" + pos, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "click position=" + pos, Toast.LENGTH_SHORT).show();
             }
         });
         mRecyclerView.setAdapter(mAdapter);
@@ -296,10 +388,22 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
     private void onDataLoaded() {
         if (articleID.compareTo("-1")!=0) {
-
+            mData = new ArrayList<>();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String res = OkHttpUtil.get("http://175.24.61.249:8080/comment/get-comments?article_id=" + articleID);
+                    Message msg = new Message();
+                    Bundle data = new Bundle();
+                    data.putString("requestRes", res);
+                    data.putInt("type", 3);
+                    msg.setData(data);
+                    handler.sendMessage(msg);
+                }
+            }).start();
         } else {
-            mData = new ArrayList<>(Arrays.asList("评论1", "评论2", "评论3", "评论4", "评论5"));
-            Collections.shuffle(mData);  //置换，非必需
+            mData = new ArrayList<>(Arrays.asList("预览评论1", "预览评论2", "预览评论3", "预览评论4", "预览评论5"));
+            //Collections.shuffle(mData);  //置换，非必需
             mAdapter.setData(mData);
         }
     }
