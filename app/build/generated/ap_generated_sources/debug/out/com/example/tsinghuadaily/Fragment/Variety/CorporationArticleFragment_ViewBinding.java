@@ -2,6 +2,7 @@
 package com.example.tsinghuadaily.Fragment.Variety;
 
 import android.view.View;
+import android.widget.ScrollView;
 import androidx.annotation.CallSuper;
 import androidx.annotation.UiThread;
 import butterknife.Unbinder;
@@ -21,6 +22,7 @@ public class CorporationArticleFragment_ViewBinding implements Unbinder {
 
     target.mGroupListView = Utils.findRequiredViewAsType(source, R.id.articleListView, "field 'mGroupListView'", QMUIGroupListView.class);
     target.mTopBar = Utils.findRequiredViewAsType(source, R.id.topbar, "field 'mTopBar'", QMUITopBarLayout.class);
+    target.scrollView = Utils.findRequiredViewAsType(source, R.id.scrollView, "field 'scrollView'", ScrollView.class);
   }
 
   @Override
@@ -32,5 +34,6 @@ public class CorporationArticleFragment_ViewBinding implements Unbinder {
 
     target.mGroupListView = null;
     target.mTopBar = null;
+    target.scrollView = null;
   }
 }
