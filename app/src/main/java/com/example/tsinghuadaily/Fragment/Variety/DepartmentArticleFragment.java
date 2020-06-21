@@ -16,6 +16,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -29,9 +30,13 @@ import com.example.tsinghuadaily.base.BaseFragment;
 import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.example.tsinghuadaily.utils.Widget;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +56,8 @@ public class DepartmentArticleFragment extends BaseFragment {
     @BindView(R.id.scrollView)
     ScrollView scrollView;
 
+    int section_id = 1;
+    boolean isFollow;
     //标识是否滑动到顶部
     private boolean isScrollToStart = false;
     //标识是否滑动到底部
@@ -212,6 +219,119 @@ public class DepartmentArticleFragment extends BaseFragment {
             }
         });
         mTopBar.setTitle("软件学院文章列表");
+
+        isFollow = false;
+        Button followButton = mTopBar.addRightTextButton("关注", QMUIViewHelper.generateViewId());
+
+        @SuppressLint("HandlerLeak") Handler secHandler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+
+                String val = data.getString("requestRes");
+                JSONObject obj = JSONObject.parseObject(val);
+                if (obj == null){
+                    Toast.makeText(getContext(), "获取关注情况失败，请检查网络连接", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                int code = Integer.parseInt(obj.get("code").toString());
+
+                if (code == 200) {
+                    String follow = obj.get("followed").toString();
+                    if (follow == "false") {
+                        isFollow = false;
+                        followButton.setText("关注");
+                        followButton.setTextColor(getResources().getColor(R.color.black_overlay));
+                    } else {
+                        isFollow = true;
+                        followButton.setText("已关注");
+                        followButton.setTextColor(getResources().getColor(R.color.qmui_config_color_white));
+                    }
+                } else {
+                    Toast.makeText(getContext(), "获取关注情况失败，请检查网络连接", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        };
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Map<String, String> params = new HashMap<>();
+                String res;
+                res = OkHttpUtil.get("http://175.24.61.249:8080/section/section-info?section_id=" + section_id);
+                Message msg = new Message();
+                Bundle data = new Bundle();
+                data.putString("requestRes", res);
+                msg.setData(data);
+                secHandler.sendMessage(msg);
+            }
+        }).start();
+
+        @SuppressLint("HandlerLeak") Handler xHandler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+
+                String val = data.getString("requestRes");
+                JSONObject obj = JSONObject.parseObject(val);
+                if (obj == null){
+                    Toast.makeText(getContext(), "更改关注状态失败，请检查网络连接", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                int code = Integer.parseInt(obj.get("code").toString());
+
+                if (code == 200) {
+                    String message = obj.get("msg").toString();
+                    if (isFollow) {
+                        isFollow = false;
+                        followButton.setText("关注");
+                        followButton.setTextColor(getResources().getColor(R.color.black_overlay));
+                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                    } else {
+                        isFollow = true;
+                        followButton.setText("已关注");
+                        followButton.setTextColor(getResources().getColor(R.color.qmui_config_color_white));
+                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(getContext(), "获取关注情况失败，请检查网络连接", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        };
+
+        followButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Map<String, String> params = new HashMap<>();
+                        String res;
+                        if (isFollow) {
+                            res = OkHttpUtil.postForm("http://175.24.61.249:8080/section/unfollow?section_id=" + section_id, params);
+                        } else {
+                            res = OkHttpUtil.postForm("http://175.24.61.249:8080/section/follow?section_id=" + section_id, params);
+                        }
+                        Message msg = new Message();
+                        Bundle data = new Bundle();
+                        data.putString("requestRes", res);
+                        msg.setData(data);
+                        xHandler.sendMessage(msg);
+                    }
+                }).start();
+
+
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

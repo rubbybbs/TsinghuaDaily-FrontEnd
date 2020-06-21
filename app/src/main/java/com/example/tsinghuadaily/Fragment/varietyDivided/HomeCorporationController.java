@@ -14,7 +14,7 @@ public class HomeCorporationController extends HomeController {
     }
 
     @Override
-    protected HomeController.ItemAdapter getItemAdapter() {
-        return new HomeController.ItemAdapter(getContext(), VarietyDataManager.getInstance().getCorporationsDescriptions());
+    protected ItemAdapter getItemAdapter() {
+        return new ItemAdapter(getContext(), VarietyDataManager.getInstance().getCorporationsDescriptions());
     }
 }

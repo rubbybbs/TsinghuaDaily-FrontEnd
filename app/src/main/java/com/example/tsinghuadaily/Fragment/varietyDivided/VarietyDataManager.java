@@ -85,7 +85,7 @@ public class VarietyDataManager {
 
     public List<ItemDescription> getDepartmentsDescriptions() {
         List<ItemDescription> list = new ArrayList<>();
-        for (int i = 0; i < mSchoolsNames.size(); i++) {
+        for (int i = 0; i < mDepartmentsNames.size(); i++) {
             list.add(mWidgetContainer.get(mDepartmentsNames.get(i)));
         }
         return list;
@@ -93,7 +93,7 @@ public class VarietyDataManager {
 
     public List<ItemDescription> getCorporationsDescriptions() {
         List<ItemDescription> list = new ArrayList<>();
-        for (int i = 0; i < mSchoolsNames.size(); i++) {
+        for (int i = 0; i < mCorporationsNames.size(); i++) {
             list.add(mWidgetContainer.get(mCorporationsNames.get(i)));
         }
         return list;

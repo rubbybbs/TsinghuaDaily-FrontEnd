@@ -38,8 +38,6 @@ import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link GridVarietyFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class GridVarietyFragment extends QMUIFragment {
     @SuppressWarnings("FieldCanBeLocal") private final int TAB_COUNT = 3;
@@ -126,12 +124,6 @@ public class GridVarietyFragment extends QMUIFragment {
     }
 
     private void initTopBar() {
-        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popBackStack();
-            }
-        });
         mTopBar.setTitle("分类");
     }
 
@@ -188,11 +180,11 @@ public class GridVarietyFragment extends QMUIFragment {
         mPages.put(ContentPage.Item1, homeSchoolsController);
 
         HomeController homeDepartmentsController = new HomeDepartmentController(getActivity());
-        homeSchoolsController.setHomeControlListener(listener);
+        homeDepartmentsController.setHomeControlListener(listener);
         mPages.put(ContentPage.Item2, homeDepartmentsController);
 
         HomeController homeCorporationsController = new HomeCorporationController(getActivity());
-        homeSchoolsController.setHomeControlListener(listener);
+        homeCorporationsController.setHomeControlListener(listener);
         mPages.put(ContentPage.Item3, homeCorporationsController);
 
         mContentViewPager.setAdapter(mPagerAdapter);
@@ -204,8 +196,7 @@ public class GridVarietyFragment extends QMUIFragment {
     public enum ContentPage {
         Item1(0),
         Item2(1),
-        Item3(2),
-        Item4(3);
+        Item3(2);
         private final int position;
 
         ContentPage(int pos) {
@@ -219,10 +210,8 @@ public class GridVarietyFragment extends QMUIFragment {
                 case 1:
                     return Item2;
                 case 2:
-                    return Item3;
-                case 3:
                 default:
-                    return Item4;
+                    return Item3;
             }
         }
 
