@@ -18,7 +18,7 @@ class WidgetContainer {
         mWidgets = new HashMap<>();
         mWidgets.put(SchoolArticleListFragment.class, new ItemDescription(SchoolArticleListFragment.class, "清华大学", R.mipmap.ic_launcher, ""));
         mWidgets.put(DepartmentArticleFragment.class, new ItemDescription(DepartmentArticleFragment.class, "软件学院", R.mipmap.ic_launcher, ""));
-        mWidgets.put(CorporationArticleFragment.class, new ItemDescription(CorporationArticleFragment.class, "学生会", R.mipmap.ic_launcher, ""));
+        mWidgets.put(CorporationArticleFragment.class, new ItemDescription(CorporationArticleFragment.class, "军乐团", R.mipmap.ic_launcher, ""));
 
     }
 

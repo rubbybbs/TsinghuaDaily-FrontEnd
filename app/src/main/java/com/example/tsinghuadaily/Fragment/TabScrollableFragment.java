@@ -1,14 +1,21 @@
 package com.example.tsinghuadaily.Fragment;
 
+import android.annotation.SuppressLint;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
+import android.os.Message;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,14 +24,20 @@ import android.view.ViewGroup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.chinalwb.are.strategies.defaults.DefaultProfileActivity;
 import com.example.tsinghuadaily.Activity.ArticleDetailActivity;
 import com.example.tsinghuadaily.Activity.ArticleEditActivity;
 import com.example.tsinghuadaily.R;
+import com.example.tsinghuadaily.base.CustomScrollView;
+import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.qmuiteam.qmui.arch.QMUIFragment;
 import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter;
 import com.qmuiteam.qmui.arch.SwipeBackLayout;
@@ -58,7 +71,37 @@ public class TabScrollableFragment extends QMUIFragment {
     @BindView(R.id.tabSegment) QMUITabSegment mTabSegment;
     @BindView(R.id.contentViewPager) ViewPager mContentViewPager;
 
+    private Handler handler;
+
+    //标识是否滑动到顶部
+    private boolean isScrollToStart = false;
+    //标识是否滑动到底部
+    private boolean isScrollToEnd = false;
+    private static final int CODE_TO_START = 0x001;
+    private static final int CODE_TO_END = 0x002;
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case CODE_TO_START:
+                    //重置标志“滑动到顶部”时的标志位
+                    isScrollToStart = false;
+                    break;
+                case CODE_TO_END:
+                    //重置标志“滑动到底部”时的标志位
+                    isScrollToEnd = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
     private Map<ContentPage, View> mPageMap = new HashMap<>();
+    private int[] mCurrentPageNum = {1, 1, 1, 1};
     private ContentPage mDestPage = ContentPage.Item1;
     private int mCurrentItemCount = TAB_COUNT;
     private PagerAdapter mPagerAdapter = new PagerAdapter() {
@@ -72,6 +115,7 @@ public class TabScrollableFragment extends QMUIFragment {
             return mCurrentItemCount;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public Object instantiateItem(final ViewGroup container, int position) {
             ContentPage page = ContentPage.getPage(position);
@@ -103,17 +147,131 @@ public class TabScrollableFragment extends QMUIFragment {
         }
     };
 
+    @SuppressLint("HandlerLeak")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toast.makeText(getContext(), "started by scheme", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "started by scheme", Toast.LENGTH_SHORT).show();
+//
+//        Bundle args = getArguments();
+//        if(args != null){
+//            int mode = args.getInt("mode");
+//            Toast.makeText(getContext(), "mode = " + mode, Toast.LENGTH_SHORT).show();
+//        }
 
-        Bundle args = getArguments();
-        if(args != null){
-            int mode = args.getInt("mode");
-            Toast.makeText(getContext(), "mode = " + mode, Toast.LENGTH_SHORT).show();
-        }
+        handler = new Handler() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                Bundle data = msg.getData();
+                int pos = data.getInt("position", 0);
+
+                String val = data.getString("requestRes");
+                JSONObject obj = JSONObject.parseObject(val);
+                if (obj == null){
+                    Toast.makeText(getContext(), "获取文章列表失败，请检查认证或登录情况", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                int code = Integer.parseInt(obj.get("code").toString());
+
+                if (code == 200) {
+                    JSONArray articlesRaw = JSONArray.parseArray(obj.get("articles").toString());
+                    ScrollView mScrollView = (ScrollView)getPageView(ContentPage.getPage(pos));
+                    QMUIGroupListView mGroupListView = (QMUIGroupListView)mScrollView.getChildAt(0);
+
+                    View.OnClickListener onClickListener = new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (v instanceof QMUICommonListItemView) {
+                                CharSequence text = ((QMUICommonListItemView) v).getText();
+                                int articleID = Integer.parseInt(((QMUICommonListItemView) v).getDetailText().toString().split(" ")[0]);
+                                //Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
+                                if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
+                                    ((QMUICommonListItemView) v).getSwitch().toggle();
+                                }
+
+                                Handler articleHandler= new Handler(){
+                                    @Override
+                                    public void handleMessage(@NonNull Message msg) {
+                                        super.handleMessage(msg);
+                                        Bundle data = msg.getData();
+                                        String val = data.getString("requestRes");
+                                        JSONObject obj = JSONObject.parseObject(val);
+                                        if (obj == null){
+                                            Toast.makeText(getContext(), "获取文章信息失败，请重试", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+
+                                        int code = Integer.parseInt(obj.get("code").toString());
+
+                                        if (code == 200) {
+                                            JSONObject info = JSONObject.parseObject(obj.get("info").toString());
+                                            String html = info.get("content").toString();
+                                            Intent intent = new Intent();
+                                            intent.putExtra("html_text", html);
+                                            intent.putExtra("title", text);
+                                            intent.setClass(getContext(), ArticleDetailActivity.class);
+                                            getContext().startActivity(intent);
+                                        }
+
+
+                                    }
+                                };
+
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String res = OkHttpUtil.get("http://175.24.61.249:8080/article/article?article_id="+articleID);
+                                        Message msg = new Message();
+                                        Bundle data = new Bundle();
+                                        data.putString("requestRes", res);
+                                        msg.setData(data);
+                                        articleHandler.sendMessage(msg);
+                                    }
+                                }).start();
+
+                            }
+                        }
+                    };
+
+                    int size = QMUIDisplayHelper.dp2px(getContext(), 20);
+                    int height = QMUIDisplayHelper.dp2px(getContext(), 56);
+                    QMUIGroupListView.Section section = QMUIGroupListView.newSection(getContext());
+//                    section.setTitle("Section 1: 关注")
+//                            .setDescription("Section 1 的描述")
+//                            .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
+//                            .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0);
+//
+                    for (int i = 0; i<articlesRaw.size(); i++){
+                        JSONObject article = JSONObject.parseObject(articlesRaw.get(i).toString());
+
+                        QMUICommonListItemView item = mGroupListView.createItemView(article.get("title").toString());
+                        item.setOrientation(QMUICommonListItemView.VERTICAL);
+                        item.setDetailText(article.get("article_id").toString() + " " +article.get("publish_time"));
+
+                        section.addItemView(item, onClickListener);
+                    }
+
+                    section.addTo(mGroupListView);
+
+                    if (articlesRaw.size()!=0) {
+                        mCurrentPageNum[pos]++;
+                    } else {
+                        Toast.makeText(getContext(), "没有更多了", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else if (code == 404){
+                    Toast.makeText(getContext(), "获取文章列表失败，" + obj.get("msg").toString(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "获取文章列表失败", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        };
 
     }
 
@@ -142,7 +300,7 @@ public class TabScrollableFragment extends QMUIFragment {
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        research();
+                        editNewArticle();
                     }
                 });
     }
@@ -165,285 +323,80 @@ public class TabScrollableFragment extends QMUIFragment {
         mTabSegment.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int index) {
-                Toast.makeText(getContext(), "select index " + index, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "select index " + index, Toast.LENGTH_SHORT).show();
+                //new GetArticleListTask().execute(ContentPage.getPage(index));
             }
 
             @Override
             public void onTabUnselected(int index) {
-                Toast.makeText(getContext(), "unSelect index " + index, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "unSelect index " + index, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onTabReselected(int index) {
-                Toast.makeText(getContext(), "reSelect index " + index, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "reSelect index " + index, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDoubleTap(int index) {
-                Toast.makeText(getContext(), "double tap index " + index, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "double tap index " + index, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void research() {
+    private void editNewArticle() {
         Intent intent = new Intent(getActivity(), ArticleEditActivity.class);
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private View getPageView(ContentPage page) {
         View view = mPageMap.get(page);
         if (view == null) {
+            ScrollView scrollView = new ScrollView(getContext());
+            scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener(){
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if(scrollY == 0){
+                        //过滤操作，优化为一次调用
+                        if (!isScrollToStart) {
+                            isScrollToStart = true;
+                            mHandler.sendEmptyMessageDelayed(CODE_TO_START, 200);
+                            Toast.makeText(getContext(), "到顶了", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    // 判断scrollview 滑动到底部
+                    // scrollY 的值和子view的高度一样，这人物滑动到了底部
+                    else if (scrollView.getChildAt(0)!=null && scrollView.getChildAt(0).getHeight()
+                            - scrollView.getHeight() == scrollView.getScrollY()){
+                        //优化，只过滤第一次
+                        if (!isScrollToEnd) {
+                            isScrollToEnd = true;
+                            mHandler.sendEmptyMessageDelayed(CODE_TO_END, 200);
+
+                            Toast.makeText(getContext(), "已滑动至底部，正在加载", Toast.LENGTH_SHORT).show();
+                            new GetArticleListTask().execute(ContentPage.getPage(mTabSegment.getSelectedIndex()));
+                        }
+
+
+                    }
+                }
+            });
             QMUIGroupListView listView = new QMUIGroupListView(getContext());
+            scrollView.addView(listView);
             initGroupListView(listView, page);
-            view = listView;
+            view = scrollView;
             mPageMap.put(page, view);
         }
         return view;
     }
 
     private void initGroupListView(QMUIGroupListView mGroupListView, ContentPage page) {
-        //todo: 接入接口对不同page进行初始化
-
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v instanceof QMUICommonListItemView) {
-                    CharSequence text = ((QMUICommonListItemView) v).getText();
-                    Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
-                    if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
-                        ((QMUICommonListItemView) v).getSwitch().toggle();
-                    }
-
-                    Intent intent = new Intent();
-                    intent.setClass(getContext(), ArticleDetailActivity.class);
-                    getContext().startActivity(intent);
-                }
-            }
-        };
-        int size = QMUIDisplayHelper.dp2px(getContext(), 20);
-        int height = QMUIDisplayHelper.dp2px(getContext(), 56);
-
-        switch (page) {
-            case Item1:
-                QMUICommonListItemView item1 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "学校 1",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUICommonListItemView item2 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "院系 2",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUICommonListItemView item3 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "社团 3",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUIGroupListView.newSection(getContext())
-                        .setTitle("Section 1: 关注")
-                        .setDescription("Section 1 的描述")
-                        .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
-                        .addItemView(item1, onClickListener)
-                        .addItemView(item2, onClickListener)
-                        .addItemView(item3, onClickListener)
-                        .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
-                        .addTo(mGroupListView);
-                break;
-            case Item2:
-                QMUICommonListItemView item4 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "学校 1",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUICommonListItemView item5 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "学校 2",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUICommonListItemView item6 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "学校 3",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUIGroupListView.newSection(getContext())
-                        .setTitle("Section 2: 学校")
-                        .setDescription("Section 2 的描述")
-                        .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
-                        .addItemView(item4, onClickListener)
-                        .addItemView(item5, onClickListener)
-                        .addItemView(item6, onClickListener)
-                        .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
-                        .addTo(mGroupListView);
-
-
-                break;
-            case Item3:
-                QMUICommonListItemView item7 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "院系 1",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUICommonListItemView item8 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "院系 2",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUICommonListItemView item9 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "院系 3",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUIGroupListView.newSection(getContext())
-                        .setTitle("Section 3: 院系")
-                        .setDescription("Section 3 的描述")
-                        .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
-                        .addItemView(item7, onClickListener)
-                        .addItemView(item8, onClickListener)
-                        .addItemView(item9, onClickListener)
-                        .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
-                        .addTo(mGroupListView);
-                break;
-            case Item4:
-            default:
-                QMUICommonListItemView item10 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "社团 1",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUICommonListItemView item20 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "社团 2",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUICommonListItemView item30 = mGroupListView.createItemView(
-                        ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-                        "社团 3",
-                        "在标题下方的详细信息",
-                        QMUICommonListItemView.VERTICAL,
-                        QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-                        height);
-
-                QMUIGroupListView.newSection(getContext())
-                        .setTitle("Section 4: 社团")
-                        .setDescription("Section 4 的描述")
-                        .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
-                        .addItemView(item10, onClickListener)
-                        .addItemView(item20, onClickListener)
-                        .addItemView(item30, onClickListener)
-                        .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
-                        .addTo(mGroupListView);
-        }
-
-//        int height = QMUIDisplayHelper.dp2px(getContext(), 56);
-//
-//        QMUICommonListItemView itemWithDetailBelowWithChevronWithIcon = mGroupListView.createItemView(
-//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-//                "学校 1",
-//                "在标题下方的详细信息",
-//                QMUICommonListItemView.VERTICAL,
-//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-//                height);
-//
-//        QMUICommonListItemView item2 = mGroupListView.createItemView(
-//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-//                "学校 2",
-//                "在标题下方的详细信息",
-//                QMUICommonListItemView.VERTICAL,
-//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-//                height);
-//
-//        QMUICommonListItemView item3 = mGroupListView.createItemView(
-//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-//                "学校 3",
-//                "在标题下方的详细信息",
-//                QMUICommonListItemView.VERTICAL,
-//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-//                height);
-//
-//        QMUICommonListItemView itemRedPoint = mGroupListView.createItemView(
-//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-//                "院系 1",
-//                "在标题下方的详细信息",
-//                QMUICommonListItemView.VERTICAL,
-//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-//                height);
-//        itemRedPoint.setTipPosition(QMUICommonListItemView.TIP_POSITION_RIGHT);
-//        itemRedPoint.showRedDot(true);
-//
-//        QMUICommonListItemView item5 = mGroupListView.createItemView(
-//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-//                "院系 2",
-//                "在标题下方的详细信息",
-//                QMUICommonListItemView.VERTICAL,
-//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-//                height);
-//
-//        QMUICommonListItemView item6 = mGroupListView.createItemView(
-//                ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round),
-//                "院系 3",
-//                "在标题下方的很长很长很长很长很长很长很长很长很长很长很长很长很长的详细信息",
-//                QMUICommonListItemView.VERTICAL,
-//                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
-//                ViewGroup.LayoutParams.WRAP_CONTENT);
-//        int paddingVer = QMUIDisplayHelper.dp2px(getContext(), 12);
-//        item6.setPadding(item6.getPaddingLeft(), paddingVer,
-//                item6.getPaddingRight(), paddingVer);
-//
-//
-//        int size = QMUIDisplayHelper.dp2px(getContext(), 20);
-//        QMUIGroupListView.newSection(getContext())
-//                .setTitle("Section 1: 默认样式")
-//                .setDescription("Section 1 的描述")
-//                .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
-//                .addItemView(itemWithDetailBelowWithChevronWithIcon, onClickListener)
-//                .addItemView(item2, onClickListener)
-//                .addItemView(item3, onClickListener)
-//                .setMiddleSeparatorInset(QMUIDisplayHelper.dp2px(getContext(), 16), 0)
-//                .addTo(mGroupListView);
-//
-//        QMUIGroupListView.newSection(getContext())
-//                .setTitle("Section 2: 红点/new 提示")
-//                .setLeftIconSize(size, ViewGroup.LayoutParams.WRAP_CONTENT)
-//                .addItemView(itemRedPoint, onClickListener)
-//                .addItemView(item5, onClickListener)
-//                .addItemView(item6, onClickListener)
-//                .setOnlyShowStartEndSeparator(true)
-//                .addTo(mGroupListView);
+        new GetArticleListTask().execute(page);
     }
+
+
 
     public enum ContentPage {
         Item1(0),
@@ -472,6 +425,63 @@ public class TabScrollableFragment extends QMUIFragment {
 
         public int getPosition() {
             return position;
+        }
+    }
+
+    private class GetArticleListTask extends AsyncTask<ContentPage, Void, Void> {
+
+        @Override
+        protected Void doInBackground(ContentPage... page) {
+
+            switch (page[0]) {
+                case Item1: {
+                    String baseurl = "http://175.24.61.249:8080/article/cateory-articles?category=Follow&page_num="+ mCurrentPageNum[0] +"&page_size=10";
+                    String res = OkHttpUtil.get(baseurl);
+                    Message msg = new Message();
+                    Bundle data = new Bundle();
+                    data.putInt("position", 0);
+                    data.putString("requestRes", res);
+                    msg.setData(data);
+                    handler.sendMessage(msg);
+                    break;
+                }
+                case Item2: {
+                    String baseurl = "http://175.24.61.249:8080/article/cateory-articles?category=Campus&page_num="+ mCurrentPageNum[1] +"&page_size=10";
+                    String res = OkHttpUtil.get(baseurl);
+                    Message msg = new Message();
+                    Bundle data = new Bundle();
+                    data.putInt("position", 1);
+                    data.putString("requestRes", res);
+                    msg.setData(data);
+                    handler.sendMessage(msg);
+                    break;
+                }
+                case Item3: {
+                    String baseurl = "http://175.24.61.249:8080/article/cateory-articles?category=Faculty&page_num="+ mCurrentPageNum[2] +"&page_size=10";
+                    String res = OkHttpUtil.get(baseurl);
+                    Message msg = new Message();
+                    Bundle data = new Bundle();
+                    data.putInt("position", 2);
+                    data.putString("requestRes", res);
+                    msg.setData(data);
+                    handler.sendMessage(msg);
+                    break;
+                }
+                case Item4:
+                default: {
+                    String baseurl = "http://175.24.61.249:8080/article/cateory-articles?category=Club&page_num="+ mCurrentPageNum[3] +"&page_size=10";
+                    String res = OkHttpUtil.get(baseurl);
+                    Message msg = new Message();
+                    Bundle data = new Bundle();
+                    data.putInt("position", 3);
+                    data.putString("requestRes", res);
+                    msg.setData(data);
+                    handler.sendMessage(msg);
+                    break;
+                }
+            }
+
+            return null;
         }
     }
 }

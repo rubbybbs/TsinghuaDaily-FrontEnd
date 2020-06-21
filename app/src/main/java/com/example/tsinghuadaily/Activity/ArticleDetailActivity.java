@@ -109,8 +109,6 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
         areTextView = findViewById(R.id.areTextView);
         mTopBar = findViewById(R.id.topbar);
-        initTopBar();
-
         mButtonLike = findViewById(R.id.button_like);
         mButtonLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +134,10 @@ public class ArticleDetailActivity extends AppCompatActivity {
         mClickStrategy = new DClickStrategy();
         areTextView.setClickStrategy(mClickStrategy);
 
-        String s = getIntent().getStringExtra(HTML_TEXT);
+        Intent intent = getIntent();
+        String s = intent.getStringExtra(HTML_TEXT);
+        String title = intent.getStringExtra("title");
+        initTopBar(title);
         if (s == null) {
             s = "<p style=\"text-align: center;\"><strong>无内容</strong></p>";
         }
@@ -179,7 +180,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         mAdapter.setData(data);
     }
 
-    private void initTopBar() {
+    private void initTopBar(String title) {
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +188,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
             }
         });
 
-        mTopBar.setTitle("详情");
+        mTopBar.setTitle(title);
     }
 
 }

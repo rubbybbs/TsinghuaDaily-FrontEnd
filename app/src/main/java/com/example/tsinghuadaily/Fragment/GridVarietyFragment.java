@@ -102,13 +102,13 @@ public class GridVarietyFragment extends QMUIFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toast.makeText(getContext(), "started by scheme", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "started by scheme", Toast.LENGTH_SHORT).show();
 
-        Bundle args = getArguments();
-        if(args != null){
-            int mode = args.getInt("mode");
-            Toast.makeText(getContext(), "mode = " + mode, Toast.LENGTH_SHORT).show();
-        }
+//        Bundle args = getArguments();
+//        if(args != null){
+//            int mode = args.getInt("mode");
+//            Toast.makeText(getContext(), "mode = " + mode, Toast.LENGTH_SHORT).show();
+//        }
 
     }
 
@@ -153,22 +153,22 @@ public class GridVarietyFragment extends QMUIFragment {
         mTabSegment.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int index) {
-                Toast.makeText(getContext(), "select index " + index, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "select index " + index, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onTabUnselected(int index) {
-                Toast.makeText(getContext(), "unSelect index " + index, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "unSelect index " + index, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onTabReselected(int index) {
-                Toast.makeText(getContext(), "reSelect index " + index, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "reSelect index " + index, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDoubleTap(int index) {
-                Toast.makeText(getContext(), "double tap index " + index, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "double tap index " + index, Toast.LENGTH_SHORT).show();
             }
         });
     }
