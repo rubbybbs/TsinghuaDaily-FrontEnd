@@ -48,12 +48,12 @@
         "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\activity_chat.xml"
     },
     {
-        "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_launcher_background.xml.flat",
-        "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_launcher_background.xml"
-    },
-    {
         "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_temp_logo.png.flat",
         "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\drawable-v24\\temp_logo.png"
+    },
+    {
+        "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_launcher_background.xml.flat",
+        "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_launcher_background.xml"
     },
     {
         "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_baseline_settings_24.png.flat",
@@ -72,12 +72,12 @@
         "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_baseline_chat_24.png"
     },
     {
-        "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_message.xml.flat",
-        "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\fragment_message.xml"
-    },
-    {
         "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_user_info.xml.flat",
         "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\fragment_user_info.xml"
+    },
+    {
+        "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_message.xml.flat",
+        "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\fragment_message.xml"
     },
     {
         "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_baseline_lock_24.png.flat",
@@ -326,6 +326,10 @@
     {
         "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_baseline_restore_24.png.flat",
         "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_baseline_restore_24.png"
+    },
+    {
+        "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_user_info.xml.flat",
+        "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\activity_user_info.xml"
     },
     {
         "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable_icon_reset.png.flat",

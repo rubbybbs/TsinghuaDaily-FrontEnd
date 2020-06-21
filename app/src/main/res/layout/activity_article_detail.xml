@@ -23,22 +23,73 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="300">
+            android:layout_weight="80">
 
-            <com.chinalwb.are.render.AreTextView
-                android:id="@+id/areTextView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <com.chinalwb.are.render.AreTextView
+                    android:id="@+id/areTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_padding_top"/>
+
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="评论区"
+                    android:textSize="20dp"
+                    android:layout_marginTop="@dimen/default_padding_top"
+                    android:layout_marginBottom="@dimen/default_padding_bottom"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/CommentRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/qmui_config_color_gray_9"/>
+            </LinearLayout>
         </ScrollView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/CommentRecyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="700"
-            android:background="@color/qmui_config_color_gray_9"/>
+            android:orientation="horizontal"
+            android:layout_weight="920">
 
+            <Button
+                android:id="@+id/button_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:text="点赞" />
 
+            <Button
+                android:id="@+id/button_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:text="评论" />
+
+            <Button
+                android:id="@+id/button_collection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:text="收藏" />
+        </LinearLayout>
     </LinearLayout>
 
 
