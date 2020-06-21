@@ -286,7 +286,7 @@ public class ArticleEditActivity extends AppCompatActivity {
                 JSONObject obj = JSONObject.parseObject(val);
                 if (obj.get("code").equals(200))
                 {
-                    Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else
@@ -314,7 +314,7 @@ public class ArticleEditActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         String html = mEditText.getHtml();
-                        Toast.makeText(getApplicationContext(), html, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), html, Toast.LENGTH_LONG).show();
                         Map<String, String> params = new HashMap<>();
                         params.put("title", mTopicText.getText().toString());
                         params.put("author", String.valueOf(UID));
@@ -342,6 +342,7 @@ public class ArticleEditActivity extends AppCompatActivity {
                         String html = mEditText.getHtml();
                         Intent intent = new Intent(getApplication(), ArticleDetailActivity.class);
                         intent.putExtra("html_text", html);
+                        intent.putExtra("title", "文章预览");
                         startActivity(intent);
                     }
                 }

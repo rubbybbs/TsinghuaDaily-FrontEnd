@@ -2273,6 +2273,9 @@ id btnSend
 id buttonPanel
 id button_authAccept
 id button_authRefuse
+id button_collection
+id button_comment
+id button_like
 id button_register
 id button_submit_auth
 id button_submit_modification
@@ -2606,6 +2609,7 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textView
+id textView2
 id text_input_end_icon
 id text_input_start_icon
 id textinput_counter

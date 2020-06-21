@@ -48,8 +48,10 @@ public class LoginOrRegisterActivity extends AppCompatActivity implements View.O
         idEdit = (MaterialEditText)findViewById(R.id.idEdit);
         pwdEdit = (MaterialEditText)findViewById(R.id.passwordEdit);
         // TODO: 移除测试账号！！
-        idEdit.setText("chatbot001");
-        pwdEdit.setText("123456");
+//        idEdit.setText("chatbot001");
+//        pwdEdit.setText("123456");
+        idEdit.setText("se");
+        pwdEdit.setText("se");
         LoginBtn.setChangeAlphaWhenPress(true);
         RegisterBtn.setChangeAlphaWhenPress(true);
         // 设置按钮监听函数

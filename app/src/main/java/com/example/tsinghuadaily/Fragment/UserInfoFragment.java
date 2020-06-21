@@ -94,7 +94,7 @@ public class UserInfoFragment extends QMUIFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(getContext(), "started by scheme", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "started by scheme", Toast.LENGTH_SHORT).show();
     }
 
 

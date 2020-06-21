@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.text.style.URLSpan;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -95,6 +96,12 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
     private BaseRecyclerAdapter<String> mAdapter;
 
+    private Button mButtonLike;
+
+    private Button mButtonComment;
+
+    private Button mButtonCollection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,12 +109,35 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
         areTextView = findViewById(R.id.areTextView);
         mTopBar = findViewById(R.id.topbar);
-        initTopBar();
+        mButtonLike = findViewById(R.id.button_like);
+        mButtonLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mButtonComment = findViewById(R.id.button_comment);
+        mButtonComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mButtonCollection = findViewById(R.id.button_collection);
+        mButtonCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         mClickStrategy = new DClickStrategy();
         areTextView.setClickStrategy(mClickStrategy);
 
-        String s = getIntent().getStringExtra(HTML_TEXT);
+        Intent intent = getIntent();
+        String s = intent.getStringExtra(HTML_TEXT);
+        String title = intent.getStringExtra("title");
+        initTopBar(title);
         if (s == null) {
             s = "<p style=\"text-align: center;\"><strong>无内容</strong></p>";
         }
@@ -150,7 +180,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         mAdapter.setData(data);
     }
 
-    private void initTopBar() {
+    private void initTopBar(String title) {
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +188,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
             }
         });
 
-        mTopBar.setTitle("详情");
+        mTopBar.setTitle(title);
     }
 
 }
