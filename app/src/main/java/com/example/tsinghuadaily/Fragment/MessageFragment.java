@@ -314,7 +314,12 @@ public class MessageFragment extends QMUIFragment {
                 ((MessageDigestViewHolder) holder).avata.setImageResource(R.drawable.default_avata);
             else
                 ((MessageDigestViewHolder) holder).avata.setImageBitmap(BitmapFactory.decodeByteArray(abyte, 0, abyte.length));
-            ((MessageDigestViewHolder) holder).txtMessage.setText(msgD.content);
+            String content = msgD.content;
+            if (content.startsWith("ShareArticle0226:::")) {
+                ((MessageDigestViewHolder) holder).txtMessage.setText("分享文章");
+            }
+            else
+                ((MessageDigestViewHolder) holder).txtMessage.setText(msgD.content);
             ((MessageDigestViewHolder) holder).txtName.setText(uidUsernameMap.get(msgD.uid));
             ((MessageDigestViewHolder) holder).txtTime.setText(sdf.format(stmp));
             ((MessageDigestViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
@@ -322,6 +327,7 @@ public class MessageFragment extends QMUIFragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ChatActivity.class);
                     //intent.putExtra("CONTACT_NAME", ((MessageDigestViewHolder) holder).txtName.getText().toString().trim());
+                    intent.putExtra("MODE", 0);
                     intent.putExtra("CONTACT_NAME", ((MessageDigestViewHolder) holder).txtName.getText().toString().trim());
                     intent.putExtra("CONTACT_UID", msgDigest.get(position).uid);
                     intent.putExtra("CONTACT_AVATAR", abyte);

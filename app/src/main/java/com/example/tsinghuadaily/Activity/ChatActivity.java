@@ -57,6 +57,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
     public static final int VIEW_TYPE_USER_MSG = 1;
     public static final int VIEW_TYPE_FRIEND_MSG = 0;
+    public static final int VIEW_TYPE_USER_ARTICLE_MSG = 2;
+    public static final int VIEW_TYPE_FRIEND_ARTICLE_MSG = 3;
 
 
     private QMUITopBar mTopBar;
@@ -79,6 +81,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     private boolean startFlag;
 
+    private String shareMsg;
+    private int mode;
+
     Handler handler;
 
     // WebSocket使用
@@ -98,6 +103,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = getIntent();
         contact = intent.getStringExtra("CONTACT_NAME");
         contact_uid = intent.getIntExtra("CONTACT_UID", 0);
+        mode = 0;
+        if (intent.getIntExtra("MODE", 0) == 1)
+        {
+            mode = 1;
+            shareMsg = intent.getStringExtra("SHARE_MSG");
+        }
         UID = getSharedPreferences("userdata", MODE_PRIVATE).getInt("uid", 0);
         startFlag = true;
         msgList = new ArrayList<>();
@@ -122,6 +133,25 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         adapter.notifyDataSetChanged();
                         messageRecylerView.smoothScrollToPosition(msgList.size());
                         break;
+                    case 2:
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                if (mode == 1) {
+                                    JSONObject obj = new JSONObject();
+                                    obj.put("content", shareMsg);
+                                    obj.put("to", contact_uid);
+                                    String sendMsg = obj.toJSONString();
+                                    if (client != null && client.isOpen())
+                                        WSService.sendMsg(sendMsg);
+                                }
+                            }
+                        }).start();
                     default:
                         break;
                 }
@@ -160,6 +190,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -210,6 +246,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 //
 //    }
 
+
+
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnSend)
@@ -238,7 +276,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             binder = (WebSocketService.JWebSocketClientBinder) iBinder;
             WSService = binder.getService();
             client = WSService.client;
+            Message msg = new Message();
+            Bundle data = new Bundle();
+            data.putInt("code", 2);
+            msg.setData(data);
+            handler.sendMessage(msg);
         }
+
+
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
@@ -296,7 +341,16 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 View view = LayoutInflater.from(context).inflate(R.layout.item_message_friend, parent, false);
                 return new FriendMessageItemHolder(view);
             }
-            return null;
+            else if (viewType == ChatActivity.VIEW_TYPE_USER_ARTICLE_MSG)
+            {
+                View view = LayoutInflater.from(context).inflate(R.layout.item_self_message_article, parent, false);
+                return new UserArticleMessageItemHolder(view);
+            }
+            else
+            {
+                View view = LayoutInflater.from(context).inflate(R.layout.item_contact_message_article, parent, false);
+                return new FriendArticleMessageItemHolder(view);
+            }
         }
 
         @Override
@@ -312,6 +366,18 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 ((FriendMessageItemHolder) holder).msg.setText(list.get(position).content);
                 ((FriendMessageItemHolder) holder).time.setText(sdf.format(stmp));
             }
+            else if (holder instanceof UserArticleMessageItemHolder) {
+                String json = list.get(position).content.substring(19);
+                JSONObject obj = JSONObject.parseObject(json);
+                ((UserArticleMessageItemHolder) holder).avatar.setImageBitmap(selfAvatar);
+                ((UserArticleMessageItemHolder) holder).title.setText(obj.getString("a_title"));
+            }
+            else if (holder instanceof FriendArticleMessageItemHolder) {
+                String json = list.get(position).content.substring(19);
+                JSONObject obj = JSONObject.parseObject(json);
+                ((FriendArticleMessageItemHolder) holder).avatar.setImageBitmap(contactAvatar);
+                ((FriendArticleMessageItemHolder) holder).title.setText(obj.getString("a_title"));
+            }
         }
 
         @Override
@@ -321,7 +387,18 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public int getItemViewType(int position) {
-            return list.get(position).isMeSend == ChatActivity.VIEW_TYPE_USER_MSG ? ChatActivity.VIEW_TYPE_USER_MSG : ChatActivity.VIEW_TYPE_FRIEND_MSG;
+            if (list.get(position).isMeSend == ChatActivity.VIEW_TYPE_USER_MSG) {
+                if (list.get(position).content.startsWith("ShareArticle0226:::"))
+                    return ChatActivity.VIEW_TYPE_USER_ARTICLE_MSG;
+                else
+                    return ChatActivity.VIEW_TYPE_USER_MSG;
+            }
+            else {
+                if (list.get(position).content.startsWith("ShareArticle0226:::"))
+                    return ChatActivity.VIEW_TYPE_FRIEND_ARTICLE_MSG;
+                else
+                    return ChatActivity.VIEW_TYPE_FRIEND_MSG;
+            }
         }
     }
 
@@ -342,6 +419,19 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    class UserArticleMessageItemHolder extends RecyclerView.ViewHolder {
+
+        public TextView title;
+        public CircleImageView avatar;
+
+        public UserArticleMessageItemHolder(@NonNull View itemView) {
+            super(itemView);
+            avatar = (CircleImageView) itemView.findViewById(R.id.userAvatar);
+            title = (TextView) itemView.findViewById(R.id.articleTitle);
+
+        }
+    }
+
     class FriendMessageItemHolder extends RecyclerView.ViewHolder {
         public TextView msg;
         public CircleImageView avatar;
@@ -352,6 +442,19 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             msg = (TextView) itemView.findViewById(R.id.msgContentFriend);
             avatar = (CircleImageView) itemView.findViewById(R.id.friendAvatar);
             time = (TextView) itemView.findViewById(R.id.textSendTime);
+        }
+    }
+
+    class FriendArticleMessageItemHolder extends RecyclerView.ViewHolder {
+
+        public TextView title;
+        public CircleImageView avatar;
+
+        public FriendArticleMessageItemHolder(@NonNull View itemView) {
+            super(itemView);
+            avatar = (CircleImageView) itemView.findViewById(R.id.friendAvatar);
+            title = (TextView) itemView.findViewById(R.id.articleTitle);
+
         }
     }
 

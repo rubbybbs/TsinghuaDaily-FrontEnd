@@ -21,6 +21,9 @@ public interface ChatMessageDao {
             "select * from T natural join ChatMessage order by time desc")
     LiveData<List<ChatMessage>> getChatDigest();
 
+    @Query("select uid from ChatMessage group by uid")
+    List<Integer> getContact();
+
     @Insert
     void insert(ChatMessage msg);
 

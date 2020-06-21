@@ -10,6 +10,7 @@ import androidx.room.util.DBUtil;
 import androidx.sqlite.db.SupportSQLiteStatement;
 import com.example.tsinghuadaily.models.ChatMessage;
 import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -177,5 +178,29 @@ public final class ChatMessageDao_Impl implements ChatMessageDao {
         _statement.release();
       }
     });
+  }
+
+  @Override
+  public List<Integer> getContact() {
+    final String _sql = "select uid from ChatMessage group by uid";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    __db.assertNotSuspendingTransaction();
+    final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+    try {
+      final List<Integer> _result = new ArrayList<Integer>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final Integer _item;
+        if (_cursor.isNull(0)) {
+          _item = null;
+        } else {
+          _item = _cursor.getInt(0);
+        }
+        _result.add(_item);
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
   }
 }

@@ -210,7 +210,9 @@ public class TabScrollableFragment extends QMUIFragment {
                                         if (code == 200) {
                                             JSONObject info = JSONObject.parseObject(obj.get("info").toString());
                                             String html = info.get("content").toString();
+                                            String id = info.get("article_id").toString();
                                             Intent intent = new Intent();
+                                            intent.putExtra("id", id);
                                             intent.putExtra("html_text", html);
                                             intent.putExtra("title", text);
                                             intent.setClass(getContext(), ArticleDetailActivity.class);

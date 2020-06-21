@@ -12,15 +12,19 @@ import com.chinalwb.are.spans.AreVideoSpan;
 import com.chinalwb.are.strategies.AreClickStrategy;
 import com.chinalwb.are.strategies.defaults.DefaultImagePreviewActivity;
 import com.chinalwb.are.strategies.defaults.DefaultProfileActivity;
+import com.example.tsinghuadaily.Fragment.MessageFragment;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.base.BaseRecyclerAdapter;
 import com.example.tsinghuadaily.base.RecyclerViewHolder;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.style.URLSpan;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +74,7 @@ class DClickStrategy implements AreClickStrategy {
             Toast.makeText(context, "暂不支持本地视频", Toast.LENGTH_SHORT);
         } else if (videoType == AreVideoSpan.VideoType.SERVER) {
             intent.putExtra("url", videoSpan.getVideoUrl());
-            intent.setClass(context, VideoPreviewActivity.class);
+            intent.setClass(context, ExoVideoPreviewActivity.class);
             context.startActivity(intent);
         }
         return true;
@@ -102,6 +106,11 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
     private Button mButtonCollection;
 
+    private Context mContext;
+
+    String title;
+    String article_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +119,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         areTextView = findViewById(R.id.areTextView);
         mTopBar = findViewById(R.id.topbar);
         mButtonLike = findViewById(R.id.button_like);
+        mContext = this;
         mButtonLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +146,9 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String s = intent.getStringExtra(HTML_TEXT);
-        String title = intent.getStringExtra("title");
+        title = intent.getStringExtra("title");
+        article_id = intent.getStringExtra("id");
+
         initTopBar(title);
         if (s == null) {
             s = "<p style=\"text-align: center;\"><strong>无内容</strong></p>";
@@ -189,6 +201,18 @@ public class ArticleDetailActivity extends AppCompatActivity {
         });
 
         mTopBar.setTitle(title);
+        mTopBar.addRightTextButton("分享", QMUIViewHelper.generateViewId())
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, SelectContactActivity.class);
+                        intent.putExtra("article_title", title);
+                        intent.putExtra("article_id", article_id);
+                        startActivity(intent);
+                    }
+                });
+
+
     }
 
 }

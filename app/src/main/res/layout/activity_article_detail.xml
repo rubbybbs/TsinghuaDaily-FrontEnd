@@ -13,6 +13,7 @@
         android:layout_height="60dp"
         android:background="@color/colorTsinghuaPurple"
         app:qmui_topbar_title_color="@color/qmui_config_color_white"
+        app:qmui_topbar_text_btn_color_state_list="@color/qmui_config_color_white"
         app:qmui_topbar_image_btn_height="24dp"/>
 
     <LinearLayout

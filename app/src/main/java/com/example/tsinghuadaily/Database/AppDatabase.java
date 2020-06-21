@@ -14,7 +14,7 @@ import com.example.tsinghuadaily.models.ChatMessage;
 
 import java.util.List;
 
-@Database(entities = {ChatMessage.class}, version = 5)
+@Database(entities = {ChatMessage.class}, version = 9)
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase sInstance;
 
@@ -32,6 +32,12 @@ public abstract class AppDatabase extends RoomDatabase {
             }
         }
         return sInstance;
+    }
+
+    public static void deleteInstance() {
+        if (sInstance != null) {
+            sInstance = null;
+        }
     }
 
     private static AppDatabase buildDatabase(final Context appContext, int uid) {

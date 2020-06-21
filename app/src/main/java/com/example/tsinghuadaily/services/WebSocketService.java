@@ -90,18 +90,21 @@ public class WebSocketService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //初始化websocket
+        closeConnect();
         uid = String.valueOf(getSharedPreferences("userdata", MODE_PRIVATE).getInt("uid", 0));
         initSocketClient(uid);
         mHandler.postDelayed(heartBeatRunnable, HEART_BEAT_RATE);//开启心跳检测
-
-        acquireWakeLock();
+        //acquireWakeLock();
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        closeConnect();
         super.onDestroy();
+        mHandler.removeCallbacks(heartBeatRunnable);
+        closeConnect();
+
+
     }
 
     public WebSocketService() {

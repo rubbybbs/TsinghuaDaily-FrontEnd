@@ -35,6 +35,7 @@ import com.example.tsinghuadaily.Activity.MainPageActivity;
 import com.example.tsinghuadaily.Activity.ModifyUserInfoActivity;
 import com.example.tsinghuadaily.Activity.RegisterActivity;
 import com.example.tsinghuadaily.Activity.SubmitAuthActivity;
+import com.example.tsinghuadaily.Database.AppDatabase;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.models.UserConfiguration;
 import com.example.tsinghuadaily.models.UserInfo;
@@ -342,6 +343,15 @@ public class UserInfoFragment extends QMUIFragment {
                             intent.setClass(context, SubmitAuthActivity.class);
                             context.startActivity(intent);
                         }
+                    }
+                    else if (config.getLabel().equals("退出登录")) {
+                        Intent intent = new Intent();
+                        intent.setClass(context, LoginOrRegisterActivity.class);
+                        context.startActivity(intent);
+                        popBackStack();
+                        getActivity().finish();
+                        AppDatabase.deleteInstance();
+                        System.gc();
                     }
                 }
             });

@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="2020春艺术团军乐队招新"
+                android:text=""
                 android:clickable="true"
                 android:textColor="@color/qmui_btn_blue_text"
                 android:focusable="true" />
