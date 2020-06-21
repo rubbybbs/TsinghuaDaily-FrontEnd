@@ -65,7 +65,7 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class TabScrollableFragment extends QMUIFragment {
-    @SuppressWarnings("FieldCanBeLocal") private final int TAB_COUNT = 4;
+    @SuppressWarnings("FieldCanBeLocal") private final int TAB_COUNT = 5;
 
     @BindView(R.id.topbarMainPage) QMUITopBarLayout mTopBar;
     @BindView(R.id.tabSegment) QMUITabSegment mTabSegment;
@@ -101,7 +101,7 @@ public class TabScrollableFragment extends QMUIFragment {
     };
 
     private Map<ContentPage, View> mPageMap = new HashMap<>();
-    private int[] mCurrentPageNum = {1, 1, 1, 1};
+    private int[] mCurrentPageNum = {1, 1, 1, 1, 1};
     private ContentPage mDestPage = ContentPage.Item1;
     private int mCurrentItemCount = TAB_COUNT;
     private PagerAdapter mPagerAdapter = new PagerAdapter() {
@@ -187,7 +187,7 @@ public class TabScrollableFragment extends QMUIFragment {
                         public void onClick(View v) {
                             if (v instanceof QMUICommonListItemView) {
                                 CharSequence text = ((QMUICommonListItemView) v).getText();
-                                int articleID = Integer.parseInt(((QMUICommonListItemView) v).getDetailText().toString().split(" ")[0]);
+                                int articleID = Integer.parseInt(((QMUICommonListItemView) v).getDetailText().toString().split(" ")[1]);
                                 //Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
                                 if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
                                     ((QMUICommonListItemView) v).getSwitch().toggle();
@@ -211,10 +211,14 @@ public class TabScrollableFragment extends QMUIFragment {
                                             JSONObject info = JSONObject.parseObject(obj.get("info").toString());
                                             String html = info.get("content").toString();
                                             String id = info.get("article_id").toString();
+                                            String like = info.get("liked").toString();
+                                            String favour = info.get("favoured").toString();
                                             Intent intent = new Intent();
                                             intent.putExtra("id", id);
                                             intent.putExtra("html_text", html);
                                             intent.putExtra("title", text);
+                                            intent.putExtra("like", like);
+                                            intent.putExtra("favour", favour);
                                             intent.setClass(getContext(), ArticleDetailActivity.class);
                                             getContext().startActivity(intent);
                                         }
@@ -252,7 +256,7 @@ public class TabScrollableFragment extends QMUIFragment {
 
                         QMUICommonListItemView item = mGroupListView.createItemView(article.get("title").toString());
                         item.setOrientation(QMUICommonListItemView.VERTICAL);
-                        item.setDetailText(article.get("article_id").toString() + " " +article.get("publish_time"));
+                        item.setDetailText(article.get("author_name").toString() + " " + article.get("article_id").toString() + " " + article.get("publish_time"));
 
                         section.addItemView(item, onClickListener);
                     }
@@ -311,7 +315,7 @@ public class TabScrollableFragment extends QMUIFragment {
         mContentViewPager.setAdapter(mPagerAdapter);
         mContentViewPager.setCurrentItem(mDestPage.getPosition(), false);
         QMUITabBuilder tabBuilder = mTabSegment.tabBuilder();
-        String title[]={"      关注      ","      学校      ","      院系      ","      社团      "};
+        String title[]={"    关注    ","    学校    ","    院系    ","    社团    ", "    收藏    "};
         for (int i = 0; i < mCurrentItemCount; i++) {
             mTabSegment.addTab(tabBuilder.setText(title[i]).build(getContext()));
         }
@@ -404,7 +408,8 @@ public class TabScrollableFragment extends QMUIFragment {
         Item1(0),
         Item2(1),
         Item3(2),
-        Item4(3);
+        Item4(3),
+        Item5(4);
         private final int position;
 
         ContentPage(int pos) {
@@ -420,8 +425,10 @@ public class TabScrollableFragment extends QMUIFragment {
                 case 2:
                     return Item3;
                 case 3:
-                default:
                     return Item4;
+                case 4:
+                default:
+                    return Item5;
             }
         }
 
@@ -469,13 +476,24 @@ public class TabScrollableFragment extends QMUIFragment {
                     handler.sendMessage(msg);
                     break;
                 }
-                case Item4:
-                default: {
+                case Item4: {
                     String baseurl = "http://175.24.61.249:8080/article/cateory-articles?category=Club&page_num="+ mCurrentPageNum[3] +"&page_size=10";
                     String res = OkHttpUtil.get(baseurl);
                     Message msg = new Message();
                     Bundle data = new Bundle();
                     data.putInt("position", 3);
+                    data.putString("requestRes", res);
+                    msg.setData(data);
+                    handler.sendMessage(msg);
+                    break;
+                }
+                case Item5:
+                default: {
+                    String baseurl = "http://175.24.61.249:8080/article/cateory-articles?category=Favourite&page_num="+ mCurrentPageNum[4] +"&page_size=10";
+                    String res = OkHttpUtil.get(baseurl);
+                    Message msg = new Message();
+                    Bundle data = new Bundle();
+                    data.putInt("position", 4);
                     data.putString("requestRes", res);
                     msg.setData(data);
                     handler.sendMessage(msg);

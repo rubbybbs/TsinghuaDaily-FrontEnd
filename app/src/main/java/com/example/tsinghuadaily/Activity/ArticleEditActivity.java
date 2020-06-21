@@ -343,6 +343,7 @@ public class ArticleEditActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplication(), ArticleDetailActivity.class);
                         intent.putExtra("html_text", html);
                         intent.putExtra("title", "文章预览");
+                        intent.putExtra("id", "-1");
                         startActivity(intent);
                     }
                 }

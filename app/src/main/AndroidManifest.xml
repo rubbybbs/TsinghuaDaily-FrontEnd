@@ -23,12 +23,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
+
+        <activity android:name=".Activity.ArticleSearchActivity"></activity>
+        <activity android:name=".Activity.UserInfoActivity" />
+        <activity android:name=".Activity.VideoPreviewActivity"></activity>
+        <activity android:name=".Activity.ArticleDetailActivity"></activity>
+
         <activity android:name=".Activity.SelectContactActivity"></activity>
         <activity android:name=".Activity.ExoVideoPreviewActivity" />
-        <activity android:name=".Activity.UserInfoActivity" />
-        <activity android:name=".Activity.VideoPreviewActivity" />
-        <activity android:name=".Activity.ArticleDetailActivity" />
-        <activity android:name=".Activity.SubmitAuthActivity" />
 
         <service
             android:name=".services.WebSocketService"

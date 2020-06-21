@@ -1369,6 +1369,7 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color ic_avatar_background
 color material_blue_grey_800
 color material_blue_grey_900
 color material_blue_grey_950
@@ -1984,6 +1985,7 @@ drawable at_6
 drawable at_7
 drawable at_8
 drawable at_9
+drawable avatar
 drawable avd_hide_password
 drawable avd_show_password
 drawable background
@@ -2346,6 +2348,7 @@ id beginning
 id blocking
 id bottom
 id bottom_sheet
+id btnSearch
 id btnSend
 id btn_cut
 id btn_cut2
@@ -2510,6 +2513,7 @@ id left_center
 id line
 id line1
 id line3
+id linearlayout1
 id listMode
 id list_item
 id llBtn
@@ -2656,6 +2660,9 @@ id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
 id scrollable
+id searchArticleListView
+id searchKey
+id searchScrollView
 id search_badge
 id search_bar
 id search_button
@@ -2846,6 +2853,7 @@ layout abc_tooltip
 layout activity_are__video_player
 layout activity_article_detail
 layout activity_article_edit
+layout activity_article_search
 layout activity_chat
 layout activity_default_image_preview
 layout activity_default_profile
@@ -2891,13 +2899,18 @@ layout exo_player_view
 layout exo_simple_player_view
 layout exo_track_selection_dialog
 layout fragment_article_detail
+layout fragment_article_research
 layout fragment_auth
 layout fragment_corporation_article
+layout fragment_corporation_card_article
 layout fragment_department_article
+layout fragment_department_economics
+layout fragment_department_engineer
 layout fragment_grid_variety
 layout fragment_main_page
 layout fragment_message
 layout fragment_school_article_list
+layout fragment_school_department
 layout fragment_tab_scrollable
 layout fragment_user_info
 layout item_auth
@@ -2974,6 +2987,9 @@ layout text_view_with_theme_line_height
 layout text_view_without_line_height
 layout variety_layout
 menu main
+mipmap ic_avatar
+mipmap ic_avatar_foreground
+mipmap ic_avatar_round
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description

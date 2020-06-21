@@ -1,8 +1,12 @@
 package com.example.tsinghuadaily.Fragment.varietyDivided;
 
 import com.example.tsinghuadaily.Fragment.Variety.CorporationArticleFragment;
+import com.example.tsinghuadaily.Fragment.Variety.CorporationCardArticleFragment;
 import com.example.tsinghuadaily.Fragment.Variety.DepartmentArticleFragment;
+import com.example.tsinghuadaily.Fragment.Variety.DepartmentEconomicsFragment;
+import com.example.tsinghuadaily.Fragment.Variety.DepartmentEngineerFragment;
 import com.example.tsinghuadaily.Fragment.Variety.SchoolArticleListFragment;
+import com.example.tsinghuadaily.Fragment.Variety.SchoolDepartmentFragment;
 import com.example.tsinghuadaily.base.BaseFragment;
 
 import java.util.ArrayList;
@@ -35,16 +39,20 @@ public class VarietyDataManager {
     private void initSchoolsDesc() {
         mSchoolsNames = new ArrayList<>();
         mSchoolsNames.add(SchoolArticleListFragment.class);
+        mSchoolsNames.add(SchoolDepartmentFragment.class);
     }
 
     private void initDepartmentsDesc() {
         mDepartmentsNames = new ArrayList<>();
         mDepartmentsNames.add(DepartmentArticleFragment.class);
+        mDepartmentsNames.add(DepartmentEconomicsFragment.class);
+        mDepartmentsNames.add(DepartmentEngineerFragment.class);
     }
 
     private void initCorporationsDesc() {
         mCorporationsNames = new ArrayList<>();
         mCorporationsNames.add(CorporationArticleFragment.class);
+        mCorporationsNames.add(CorporationCardArticleFragment.class);
     }
 
     public ItemDescription getDescription(Class<? extends BaseFragment> cls) {
@@ -77,7 +85,7 @@ public class VarietyDataManager {
 
     public List<ItemDescription> getDepartmentsDescriptions() {
         List<ItemDescription> list = new ArrayList<>();
-        for (int i = 0; i < mSchoolsNames.size(); i++) {
+        for (int i = 0; i < mDepartmentsNames.size(); i++) {
             list.add(mWidgetContainer.get(mDepartmentsNames.get(i)));
         }
         return list;
@@ -85,7 +93,7 @@ public class VarietyDataManager {
 
     public List<ItemDescription> getCorporationsDescriptions() {
         List<ItemDescription> list = new ArrayList<>();
-        for (int i = 0; i < mSchoolsNames.size(); i++) {
+        for (int i = 0; i < mCorporationsNames.size(); i++) {
             list.add(mWidgetContainer.get(mCorporationsNames.get(i)));
         }
         return list;

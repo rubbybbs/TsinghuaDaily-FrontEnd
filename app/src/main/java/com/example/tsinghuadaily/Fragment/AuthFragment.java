@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -176,11 +177,15 @@ public class AuthFragment extends QMUIFragment {
             String res = OkHttpUtil.get(url);
             JSONObject obj = JSONObject.parseObject(res);
             if (obj == null || !obj.containsKey("code")) {
+                Looper.prepare();
                 Toast.makeText(getContext(), "请求失败，请重试", Toast.LENGTH_SHORT).show();
+                Looper.loop();
                 return null;
             }
             if (!obj.get("code").equals(200)) {
+                Looper.prepare();
                 Toast.makeText(getContext(), obj.get("msg").toString(), Toast.LENGTH_SHORT).show();
+                Looper.loop();
                 return null;
             }
             JSONArray reqList = obj.getJSONArray("requests");

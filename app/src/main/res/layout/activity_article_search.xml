@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ArticleSearchActivity"
+    android:orientation="vertical">
+
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTsinghuaPurple"
+        app:qmui_topbar_title_color="@color/qmui_config_color_white"
+        android:fitsSystemWindows="true"/>
+
+    <ScrollView
+        android:id="@+id/searchScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="150"
+        android:fitsSystemWindows="true">
+        <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+            android:id="@+id/searchArticleListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/qmui_config_color_gray_5"
+        android:layout_above="@+id/linearlayout1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/linearlayout1"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/searchKey"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="150"
+            android:background="@drawable/border_edittext"
+            android:drawablePadding="20dp"
+            android:inputType="textLongMessage"
+            android:maxLines="1"
+            android:autofillHints="输入关键字"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:textColorHint="#aeafaf"
+            android:textSize="15sp"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45dp"
+            android:background="@color/qmui_config_color_gray_5"/>
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="850"
+            android:background="#00000000"
+            android:text="搜索"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_send" />
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>
