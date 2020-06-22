@@ -3,6 +3,7 @@ package com.example.tsinghuadaily.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -190,10 +191,12 @@ public class ArticleDetailActivity extends AppCompatActivity {
                                 isLike = false;
                                 Toast.makeText(getApplicationContext(), "取消点赞", Toast.LENGTH_SHORT).show();
                                 mButtonLike.setText("点赞");
+                                mButtonLike.setTextColor(getResources().getColor(R.color.qmui_config_color_black));
                             } else {
                                 isLike = true;
                                 Toast.makeText(getApplicationContext(), "点赞成功", Toast.LENGTH_SHORT).show();
                                 mButtonLike.setText("已点赞");
+                                mButtonLike.setTextColor(getResources().getColor(R.color.qmui_config_color_red));
                             }
                             break;
                         }
@@ -208,10 +211,12 @@ public class ArticleDetailActivity extends AppCompatActivity {
                                 isFavour = false;
                                 Toast.makeText(getApplicationContext(), "取消收藏", Toast.LENGTH_SHORT).show();
                                 mButtonCollection.setText("收藏");
+                                mButtonCollection.setTextColor(getResources().getColor(R.color.qmui_config_color_black));
                             } else {
                                 isFavour = true;
                                 Toast.makeText(getApplicationContext(), "收藏成功", Toast.LENGTH_SHORT).show();
                                 mButtonCollection.setText("已收藏");
+                                mButtonCollection.setTextColor(getResources().getColor(R.color.qmui_config_color_red));
                             }
                             break;
                         }
@@ -219,7 +224,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
                             JSONArray comments = JSONArray.parseArray(obj.get("comments").toString());
                             for (int i = 0; i<comments.size(); i++){
                                 JSONObject comment = JSONObject.parseObject(comments.get(i).toString());
-                                mData.add(comment.getString("content"));
+                                mData.add(comment.getString("username") + ": \n         " + comment.getString("content"));
                             }
                             mAdapter.setData(mData);
                             break;
@@ -238,6 +243,22 @@ public class ArticleDetailActivity extends AppCompatActivity {
         };
 
         if (articleID.compareTo("-1")!=0) {
+            if (isLike) {
+                mButtonLike.setText("已点赞");
+                mButtonLike.setTextColor(getResources().getColor(R.color.qmui_config_color_red));
+            } else {
+                mButtonLike.setText("点赞");
+
+            }
+
+            if (isFavour) {
+                mButtonCollection.setText("已收藏");
+                mButtonCollection.setTextColor(getResources().getColor(R.color.qmui_config_color_red));
+            } else {
+                mButtonCollection.setText("收藏");
+                mButtonCollection.setTextColor(getResources().getColor(R.color.qmui_config_color_black));
+            }
+
             Map<String, String> params = new HashMap<>();
             mButtonLike.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -393,6 +414,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
             }
         });
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         onDataLoaded();
 
     }

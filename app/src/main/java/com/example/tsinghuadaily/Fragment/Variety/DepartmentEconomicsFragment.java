@@ -183,10 +183,19 @@ public class DepartmentEconomicsFragment extends BaseFragment {
                     for (int i = 0; i<articlesRaw.size(); i++){
                         JSONObject article = JSONObject.parseObject(articlesRaw.get(i).toString());
 
-                        QMUICommonListItemView item = mGroupListView.createItemView(article.get("title").toString());
-                        item.setOrientation(QMUICommonListItemView.VERTICAL);
-                        item.setDetailText(article.get("article_id").toString() + " " +article.get("publish_time"));
-
+//                        QMUICommonListItemView item = mGroupListView.createItemView(article.get("title").toString());
+//                        item.setOrientation(QMUICommonListItemView.VERTICAL);
+//                        item.setDetailText(article.get("article_id").toString() + " " +article.get("publish_time"));
+                        QMUICommonListItemView item = mGroupListView.createItemView(null,
+                                article.get("title").toString(),
+                                article.get("author_name").toString() + " " + article.get("article_id").toString() + " " + article.get("publish_time") + "\n" +
+                                        article.getString("view_num") + "浏览，" + article.getString("like_num") + "点赞，" + article.getString("fav_num") + "收藏",
+                                QMUICommonListItemView.VERTICAL,
+                                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        int paddingVer = QMUIDisplayHelper.dp2px(getContext(), 12);
+                        item.setPadding(item.getPaddingLeft(), paddingVer,
+                                item.getPaddingRight(), paddingVer);
                         section.addItemView(item, onClickListener);
                     }
 
