@@ -180,10 +180,12 @@ public class ArticleDetailActivity extends AppCompatActivity {
                                 isLike = false;
                                 Toast.makeText(getApplicationContext(), "取消点赞", Toast.LENGTH_SHORT).show();
                                 mButtonLike.setText("点赞");
+                                mButtonLike.setTextColor(getResources().getColor(R.color.qmui_config_color_black));
                             } else {
                                 isLike = true;
                                 Toast.makeText(getApplicationContext(), "点赞成功", Toast.LENGTH_SHORT).show();
                                 mButtonLike.setText("已点赞");
+                                mButtonLike.setTextColor(getResources().getColor(R.color.qmui_config_color_red));
                             }
                             break;
                         }
@@ -198,10 +200,12 @@ public class ArticleDetailActivity extends AppCompatActivity {
                                 isFavour = false;
                                 Toast.makeText(getApplicationContext(), "取消收藏", Toast.LENGTH_SHORT).show();
                                 mButtonCollection.setText("收藏");
+                                mButtonCollection.setTextColor(getResources().getColor(R.color.qmui_config_color_black));
                             } else {
                                 isFavour = true;
                                 Toast.makeText(getApplicationContext(), "收藏成功", Toast.LENGTH_SHORT).show();
                                 mButtonCollection.setText("已收藏");
+                                mButtonCollection.setTextColor(getResources().getColor(R.color.qmui_config_color_red));
                             }
                             break;
                         }
@@ -228,6 +232,22 @@ public class ArticleDetailActivity extends AppCompatActivity {
         };
 
         if (articleID.compareTo("-1")!=0) {
+            if (isLike) {
+                mButtonLike.setText("已点赞");
+                mButtonLike.setTextColor(getResources().getColor(R.color.qmui_config_color_red));
+            } else {
+                mButtonLike.setText("点赞");
+
+            }
+
+            if (isFavour) {
+                mButtonCollection.setText("已收藏");
+                mButtonCollection.setTextColor(getResources().getColor(R.color.qmui_config_color_red));
+            } else {
+                mButtonCollection.setText("收藏");
+                mButtonCollection.setTextColor(getResources().getColor(R.color.qmui_config_color_black));
+            }
+
             Map<String, String> params = new HashMap<>();
             mButtonLike.setOnClickListener(new View.OnClickListener() {
                 @Override

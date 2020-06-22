@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -254,9 +255,19 @@ public class TabScrollableFragment extends QMUIFragment {
                     for (int i = 0; i<articlesRaw.size(); i++){
                         JSONObject article = JSONObject.parseObject(articlesRaw.get(i).toString());
 
-                        QMUICommonListItemView item = mGroupListView.createItemView(article.get("title").toString());
-                        item.setOrientation(QMUICommonListItemView.VERTICAL);
-                        item.setDetailText(article.get("author_name").toString() + " " + article.get("article_id").toString() + " " + article.get("publish_time"));
+                        //QMUICommonListItemView item = mGroupListView.createItemView(article.get("title").toString());
+                        QMUICommonListItemView item = mGroupListView.createItemView(null,
+                                article.get("title").toString(),
+                                article.get("author_name").toString() + " " + article.get("article_id").toString() + " " + article.get("publish_time") + "\n" +
+                                        article.getString("view_num") + "浏览，" + article.getString("like_num") + "点赞，" + article.getString("fav_num") + "收藏",
+                                QMUICommonListItemView.VERTICAL,
+                                QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        int paddingVer = QMUIDisplayHelper.dp2px(getContext(), 12);
+                        item.setPadding(item.getPaddingLeft(), paddingVer,
+                                item.getPaddingRight(), paddingVer);
+//                        item.setOrientation(QMUICommonListItemView.VERTICAL);
+//                        item.setDetailText(article.get("author_name").toString() + " " + article.get("article_id").toString() + " " + article.get("publish_time"));
 
                         section.addItemView(item, onClickListener);
                     }
@@ -302,13 +313,17 @@ public class TabScrollableFragment extends QMUIFragment {
 //        });
 
         mTopBar.setTitle("主页");
-        mTopBar.addRightTextButton("+", QMUIViewHelper.generateViewId())
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        editNewArticle();
-                    }
-                });
+        boolean isAdmin = getActivity().getSharedPreferences("userdata", Context.MODE_PRIVATE).getBoolean("authority", false);;
+        if (isAdmin) {
+            Button button = mTopBar.addRightTextButton("+", QMUIViewHelper.generateViewId());
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                            editNewArticle();
+                        }
+            });
+            button.setTextColor(getResources().getColor(R.color.qmui_config_color_75_white));
+        }
     }
 
     private void initTabAndPager() {
