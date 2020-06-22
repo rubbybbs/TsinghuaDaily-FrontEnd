@@ -381,10 +381,10 @@ public class TabScrollableFragment extends QMUIFragment {
         View view = mPageMap.get(page);
         if (view == null) {
             ScrollView scrollView = new ScrollView(getContext());
-            scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener(){
+            scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    if(scrollY == 0){
+                    if (scrollY == 0) {
                         //过滤操作，优化为一次调用
                         if (!isScrollToStart) {
                             isScrollToStart = true;
@@ -395,8 +395,8 @@ public class TabScrollableFragment extends QMUIFragment {
                     }
                     // 判断scrollview 滑动到底部
                     // scrollY 的值和子view的高度一样，这人物滑动到了底部
-                    else if (scrollView.getChildAt(0)!=null && scrollView.getChildAt(0).getHeight()
-                            - scrollView.getHeight() == scrollView.getScrollY()){
+                    else if (scrollView.getChildAt(0) != null && scrollView.getChildAt(0).getHeight()
+                            - scrollView.getHeight() == scrollView.getScrollY()) {
                         //优化，只过滤第一次
                         if (!isScrollToEnd) {
                             isScrollToEnd = true;
@@ -416,6 +416,11 @@ public class TabScrollableFragment extends QMUIFragment {
             view = scrollView;
             mPageMap.put(page, view);
         }
+//        else {
+//            ScrollView scrollView = (ScrollView)view;
+//            QMUIGroupListView listView = (QMUIGroupListView)scrollView.getChildAt(0);
+//            listView.removeAllViews();
+//        }
         return view;
     }
 

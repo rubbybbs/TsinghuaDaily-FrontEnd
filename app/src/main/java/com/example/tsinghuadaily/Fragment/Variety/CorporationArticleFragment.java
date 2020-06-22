@@ -124,7 +124,7 @@ public class CorporationArticleFragment extends BaseFragment {
                         public void onClick(View v) {
                             if (v instanceof QMUICommonListItemView) {
                                 CharSequence text = ((QMUICommonListItemView) v).getText();
-                                int articleID = Integer.parseInt(((QMUICommonListItemView) v).getDetailText().toString().split(" ")[0]);
+                                int articleID = Integer.parseInt(((QMUICommonListItemView) v).getDetailText().toString().split(" ")[1]);
                                 //Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
                                 if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
                                     ((QMUICommonListItemView) v).getSwitch().toggle();
