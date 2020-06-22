@@ -3,6 +3,7 @@ package com.example.tsinghuadaily.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -213,7 +214,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
                             JSONArray comments = JSONArray.parseArray(obj.get("comments").toString());
                             for (int i = 0; i<comments.size(); i++){
                                 JSONObject comment = JSONObject.parseObject(comments.get(i).toString());
-                                mData.add(comment.getString("content"));
+                                mData.add(comment.getString("username") + ": \n         " + comment.getString("content"));
                             }
                             mAdapter.setData(mData);
                             break;
@@ -402,6 +403,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
             }
         });
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         onDataLoaded();
 
     }
