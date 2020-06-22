@@ -239,15 +239,6 @@ public class Are_VideoPlayerActivity extends AppCompatActivity {
             if (mActivity == null || mActivity.isFinishing()) {
                 return;
             }
-            if (mDialog == null) {
-                mDialog = ProgressDialog.show(
-                        mActivity,
-                        "",
-                        "Uploading video. Please wait...",
-                        true);
-            } else {
-                mDialog.show();
-            }
 
             super.onPreExecute();
         }
@@ -261,7 +252,6 @@ public class Are_VideoPlayerActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            mDialog.dismiss();
             mCallback.uploadFinish(mVideoUri, s);
         }
     }

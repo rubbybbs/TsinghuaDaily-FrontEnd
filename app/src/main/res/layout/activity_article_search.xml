@@ -7,13 +7,12 @@
     tools:context=".Activity.ArticleSearchActivity"
     android:orientation="vertical">
 
-    <com.qmuiteam.qmui.widget.QMUITopBar
-        android:id="@+id/topbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorTsinghuaPurple"
-        app:qmui_topbar_title_color="@color/qmui_config_color_white"
-        android:fitsSystemWindows="true"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/searchScrollView"
@@ -73,8 +72,15 @@
             android:src="@drawable/icon_send" />
 
     </LinearLayout>
+    </LinearLayout>
 
-
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTsinghuaPurple"
+        app:qmui_topbar_title_color="@color/qmui_config_color_white"
+        android:fitsSystemWindows="true"/>
 
 
 

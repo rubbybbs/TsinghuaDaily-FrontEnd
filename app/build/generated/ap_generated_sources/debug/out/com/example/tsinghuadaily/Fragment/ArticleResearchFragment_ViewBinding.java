@@ -10,7 +10,7 @@ import androidx.annotation.UiThread;
 import butterknife.Unbinder;
 import butterknife.internal.Utils;
 import com.example.tsinghuadaily.R;
-import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import java.lang.IllegalStateException;
 import java.lang.Override;
@@ -22,7 +22,7 @@ public class ArticleResearchFragment_ViewBinding implements Unbinder {
   public ArticleResearchFragment_ViewBinding(ArticleResearchFragment target, View source) {
     this.target = target;
 
-    target.mTopBar = Utils.findRequiredViewAsType(source, R.id.topbar, "field 'mTopBar'", QMUITopBar.class);
+    target.mTopBar = Utils.findRequiredViewAsType(source, R.id.topbar, "field 'mTopBar'", QMUITopBarLayout.class);
     target.sendBtn = Utils.findRequiredViewAsType(source, R.id.btnSearch, "field 'sendBtn'", Button.class);
     target.messageEdit = Utils.findRequiredViewAsType(source, R.id.searchKey, "field 'messageEdit'", EditText.class);
     target.mGroupListView = Utils.findRequiredViewAsType(source, R.id.searchArticleListView, "field 'mGroupListView'", QMUIGroupListView.class);

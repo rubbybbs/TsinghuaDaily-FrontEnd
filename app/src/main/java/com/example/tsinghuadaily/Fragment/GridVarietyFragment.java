@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.tsinghuadaily.Activity.ArticleEditActivity;
@@ -128,13 +129,14 @@ public class GridVarietyFragment extends QMUIFragment {
 
     private void initTopBar() {
         mTopBar.setTitle("分类");
-        mTopBar.addRightTextButton("S", QMUIViewHelper.generateViewId())
-                .setOnClickListener(new View.OnClickListener() {
+        Button mButton = mTopBar.addRightTextButton("搜索", QMUIViewHelper.generateViewId());
+        mButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         search();
                     }
                 });
+        mButton.setTextColor(getResources().getColor(R.color.qmui_config_color_75_white));
     }
 
     private void search() {

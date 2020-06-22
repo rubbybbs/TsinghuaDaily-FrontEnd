@@ -30,6 +30,7 @@ import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.qmuiteam.qmui.arch.annotation.DefaultFirstFragment;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 
@@ -45,7 +46,7 @@ import butterknife.ButterKnife;
 public class ArticleResearchFragment extends BaseFragment {
 
     @BindView(R.id.topbar)
-    QMUITopBar mTopBar;
+    QMUITopBarLayout mTopBar;
     @BindView(R.id.btnSearch)
     Button sendBtn;
     @BindView(R.id.searchKey)
@@ -57,6 +58,7 @@ public class ArticleResearchFragment extends BaseFragment {
 
     private int mCurrentPageNum = 1;
     Handler handler;
+    String msg;
 
     //标识是否滑动到顶部
     private boolean isScrollToStart = false;
@@ -105,7 +107,9 @@ public class ArticleResearchFragment extends BaseFragment {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = messageEdit.getText().toString();
+                mGroupListView.removeAllViews();
+                mCurrentPageNum = 1;
+                msg = messageEdit.getText().toString();
                 new GetArticleListTask().execute(msg);
             }
         });
@@ -254,7 +258,7 @@ public class ArticleResearchFragment extends BaseFragment {
                         mHandler.sendEmptyMessageDelayed(CODE_TO_END, 200);
 
                         Toast.makeText(getContext(), "已滑动至底部，正在加载", Toast.LENGTH_SHORT).show();
-                        new GetArticleListTask().execute();
+                        new GetArticleListTask().execute(msg);
                     }
 
 
