@@ -28,7 +28,7 @@
         <activity android:name=".Activity.UserInfoActivity" />
         <activity android:name=".Activity.VideoPreviewActivity"></activity>
         <activity android:name=".Activity.ArticleDetailActivity"></activity>
-
+        <activity android:name=".Activity.SubmitAuthActivity"/>
         <activity android:name=".Activity.SelectContactActivity"></activity>
         <activity android:name=".Activity.ExoVideoPreviewActivity" />
 

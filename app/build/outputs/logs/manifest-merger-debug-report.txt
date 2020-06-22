@@ -173,6 +173,10 @@ activity#com.example.tsinghuadaily.Activity.ArticleDetailActivity
 ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:30:9-77
 	android:name
 		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:30:19-65
+activity#com.example.tsinghuadaily.Activity.SubmitAuthActivity
+ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:31:9-64
+	android:name
+		ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:31:19-62
 activity#com.example.tsinghuadaily.Activity.SelectContactActivity
 ADDED from C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:32:9-77
 	android:name

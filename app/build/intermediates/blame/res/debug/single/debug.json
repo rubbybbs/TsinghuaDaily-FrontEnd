@@ -8,16 +8,16 @@
         "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_baseline_create_24.png"
     },
     {
-        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_baseline_apartment_24.png.flat",
-        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_baseline_apartment_24.png"
+        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable_icon_send.png.flat",
+        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\drawable\\icon_send.png"
     },
     {
         "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_baseline_create_24.png.flat",
         "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_baseline_create_24.png"
     },
     {
-        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable_icon_send.png.flat",
-        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\drawable\\icon_send.png"
+        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_baseline_apartment_24.png.flat",
+        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_baseline_apartment_24.png"
     },
     {
         "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_baseline_apartment_24.png.flat",
@@ -44,28 +44,28 @@
         "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_baseline_apartment_24.xml"
     },
     {
-        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
+        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\activity_main.xml"
     },
     {
         "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_avatar.xml.flat",
         "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_avatar.xml"
     },
     {
-        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
-        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\activity_main.xml"
+        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
     },
     {
         "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_avatar.png.flat",
         "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_avatar.png"
     },
     {
-        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_auth.xml.flat",
-        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\item_auth.xml"
-    },
-    {
         "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_article_detail.xml.flat",
         "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\activity_article_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_auth.xml.flat",
+        "source": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\item_auth.xml"
     },
     {
         "merged": "C:\\Users\\98280\\Desktop\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_baseline_credit_card_24.xml.flat",

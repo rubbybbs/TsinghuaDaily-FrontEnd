@@ -35,6 +35,7 @@
         <activity android:name="com.example.tsinghuadaily.Activity.UserInfoActivity" />
         <activity android:name="com.example.tsinghuadaily.Activity.VideoPreviewActivity" />
         <activity android:name="com.example.tsinghuadaily.Activity.ArticleDetailActivity" />
+        <activity android:name="com.example.tsinghuadaily.Activity.SubmitAuthActivity" />
         <activity android:name="com.example.tsinghuadaily.Activity.SelectContactActivity" />
         <activity android:name="com.example.tsinghuadaily.Activity.ExoVideoPreviewActivity" />
 
