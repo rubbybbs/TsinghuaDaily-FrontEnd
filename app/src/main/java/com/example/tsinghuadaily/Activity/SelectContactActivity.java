@@ -60,7 +60,7 @@ public class SelectContactActivity extends AppCompatActivity {
     private int UID;
     private String article_title;
     private String article_id;
-    private static String SHARE_HEADER = "ShareArticle0226:::";
+    private static String SHARE_HEADER = "ShareArticle0226://";
 
     Context mContext;
 

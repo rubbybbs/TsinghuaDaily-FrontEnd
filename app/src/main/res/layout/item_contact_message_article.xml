@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:id="@+id/textSendTime"
+        android:id="@+id/txtSendTime"
         style="@style/chat_text_date_style"
         android:text="2020-01-01 01:00"/>
 

@@ -28,6 +28,10 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.popup.QMUIFullScreenPopup;
 import com.qmuiteam.qmui.widget.popup.QMUIPopup;
@@ -95,7 +99,7 @@ class DClickStrategy implements AreClickStrategy {
             Toast.makeText(context, "暂不支持本地视频", Toast.LENGTH_SHORT);
         } else if (videoType == AreVideoSpan.VideoType.SERVER) {
             intent.putExtra("url", videoSpan.getVideoUrl());
-            intent.setClass(context, VideoPreviewActivity.class);
+            intent.setClass(context, ExoVideoPreviewActivity.class);
             context.startActivity(intent);
         }
         return true;
@@ -129,6 +133,11 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
     private Button mButtonCollection;
 
+
+    private Context mContext;
+
+    String title;
+
     String articleID;
 
     boolean isFavour = false;
@@ -147,13 +156,14 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String s = intent.getStringExtra(HTML_TEXT);
-        String title = intent.getStringExtra("title");
+        title = intent.getStringExtra("title");
         articleID = intent.getStringExtra("id");
         String like = intent.getStringExtra("like");
         String favour = intent.getStringExtra("favour");
         isLike = like != null && like.compareTo("true") == 0;
         isFavour = favour != null && favour.compareTo("true") == 0;
 
+        mContext = this;
         areTextView = findViewById(R.id.areTextView);
         mTopBar = findViewById(R.id.topbar);
         mButtonLike = findViewById(R.id.button_like);
@@ -349,6 +359,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         areTextView.setClickStrategy(mClickStrategy);
 
 
+
         initTopBar(title);
         if (s == null) {
             s = "<p style=\"text-align: center;\"><strong>无内容</strong></p>";
@@ -417,6 +428,18 @@ public class ArticleDetailActivity extends AppCompatActivity {
         });
 
         mTopBar.setTitle(title);
+        mTopBar.addRightTextButton("分享", QMUIViewHelper.generateViewId())
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, SelectContactActivity.class);
+                        intent.putExtra("article_title", title);
+                        intent.putExtra("article_id", articleID);
+                        startActivity(intent);
+                    }
+                });
+
+
     }
 
 }

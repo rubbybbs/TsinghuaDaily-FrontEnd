@@ -37,6 +37,7 @@ import com.example.tsinghuadaily.models.ChatMessage;
 import com.example.tsinghuadaily.models.messageTest;
 import com.example.tsinghuadaily.services.WebSocketService;
 import com.example.tsinghuadaily.utils.JWebSocketClient;
+import com.example.tsinghuadaily.utils.OkHttpUtil;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
@@ -138,7 +139,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void run() {
                                 try {
-                                    Thread.sleep(200);
+                                    Thread.sleep(70);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -152,6 +153,34 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                                 }
                             }
                         }).start();
+                        break;
+                    case 3:
+                        String val = data.getString("requestRes");
+                        JSONObject obj = JSONObject.parseObject(val);
+                        if (obj == null){
+                            Toast.makeText(mContext, "获取文章信息失败，请重试", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        int c = Integer.parseInt(obj.get("code").toString());
+
+                        if (c == 200) {
+                            JSONObject info = JSONObject.parseObject(obj.get("info").toString());
+                            String html = info.get("content").toString();
+                            String id = info.get("article_id").toString();
+                            String like = info.get("liked").toString();
+                            String text = info.get("title").toString();
+                            String favour = info.get("favoured").toString();
+                            Intent intent = new Intent();
+                            intent.putExtra("id", id);
+                            intent.putExtra("html_text", html);
+                            intent.putExtra("title", text);
+                            intent.putExtra("like", like);
+                            intent.putExtra("favour", favour);
+                            intent.setClass(mContext, ArticleDetailActivity.class);
+                            startActivity(intent);
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -371,12 +400,49 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 JSONObject obj = JSONObject.parseObject(json);
                 ((UserArticleMessageItemHolder) holder).avatar.setImageBitmap(selfAvatar);
                 ((UserArticleMessageItemHolder) holder).title.setText(obj.getString("a_title"));
+                ((UserArticleMessageItemHolder) holder).time.setText(sdf.format(stmp));
+                ((UserArticleMessageItemHolder) holder).title.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String res = OkHttpUtil.get("http://175.24.61.249:8080/article/article?article_id="+obj.getString("a_id"));
+                                Message msg = new Message();
+                                Bundle data = new Bundle();
+                                data.putInt("code", 3);
+                                data.putString("requestRes", res);
+                                msg.setData(data);
+                                handler.sendMessage(msg);
+                            }
+                        }).start();
+                    }
+                });
+
             }
             else if (holder instanceof FriendArticleMessageItemHolder) {
                 String json = list.get(position).content.substring(19);
                 JSONObject obj = JSONObject.parseObject(json);
                 ((FriendArticleMessageItemHolder) holder).avatar.setImageBitmap(contactAvatar);
                 ((FriendArticleMessageItemHolder) holder).title.setText(obj.getString("a_title"));
+                ((FriendArticleMessageItemHolder) holder).time.setText(sdf.format(stmp));
+                ((FriendArticleMessageItemHolder) holder).title.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String res = OkHttpUtil.get("http://175.24.61.249:8080/article/article?article_id="+obj.getString("a_id"));
+                                Message msg = new Message();
+                                Bundle data = new Bundle();
+                                data.putInt("code", 3);
+                                data.putString("requestRes", res);
+                                msg.setData(data);
+                                handler.sendMessage(msg);
+                            }
+                        }).start();
+                    }
+                });
             }
         }
 
@@ -388,13 +454,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public int getItemViewType(int position) {
             if (list.get(position).isMeSend == ChatActivity.VIEW_TYPE_USER_MSG) {
-                if (list.get(position).content.startsWith("ShareArticle0226:::"))
+                if (list.get(position).content.startsWith("ShareArticle0226://"))
                     return ChatActivity.VIEW_TYPE_USER_ARTICLE_MSG;
                 else
                     return ChatActivity.VIEW_TYPE_USER_MSG;
             }
             else {
-                if (list.get(position).content.startsWith("ShareArticle0226:::"))
+                if (list.get(position).content.startsWith("ShareArticle0226://"))
                     return ChatActivity.VIEW_TYPE_FRIEND_ARTICLE_MSG;
                 else
                     return ChatActivity.VIEW_TYPE_FRIEND_MSG;
@@ -423,11 +489,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         public TextView title;
         public CircleImageView avatar;
+        public TextView time;
 
         public UserArticleMessageItemHolder(@NonNull View itemView) {
             super(itemView);
             avatar = (CircleImageView) itemView.findViewById(R.id.userAvatar);
             title = (TextView) itemView.findViewById(R.id.articleTitle);
+            time = (TextView) itemView.findViewById(R.id.txtSendTime);
 
         }
     }
@@ -449,11 +517,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         public TextView title;
         public CircleImageView avatar;
+        public TextView time;
 
         public FriendArticleMessageItemHolder(@NonNull View itemView) {
             super(itemView);
             avatar = (CircleImageView) itemView.findViewById(R.id.friendAvatar);
             title = (TextView) itemView.findViewById(R.id.articleTitle);
+            time = (TextView) itemView.findViewById(R.id.txtSendTime);
 
         }
     }

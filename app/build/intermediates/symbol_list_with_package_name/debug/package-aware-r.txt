@@ -2764,6 +2764,7 @@ id tv_title
 id tv_username
 id txtMessage
 id txtName
+id txtSendTime
 id txtTime
 id type_circle
 id type_rect

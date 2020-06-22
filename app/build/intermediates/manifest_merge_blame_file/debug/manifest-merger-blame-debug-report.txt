@@ -6,216 +6,219 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="19"
-8-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml
+8-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml
+9-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml
 10    <!-- 网络权限 -->
 11    <uses-permission android:name="android.permission.INTERNET" /> <!-- 解锁屏幕所需权限 -->
-11-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:6:5-67
-11-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:6:22-64
+11-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:6:5-67
+11-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:6:22-64
 12    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- 申请电源锁所需权限 -->
-12-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:7:5-75
-12-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:7:22-72
+12-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:7:5-75
+12-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:7:22-72
 13    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 振动权限 -->
-13-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:8:5-68
-13-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:8:22-65
+13-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:8:5-68
+13-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:8:22-65
 14    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 使用前台服务权限 -->
-14-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:9:5-66
-14-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:9:22-63
+14-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:9:5-66
+14-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:9:22-63
 15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-15-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:10:5-77
-15-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:10:22-74
+15-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:10:5-77
+15-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:10:22-74
 16    <uses-permission android:name="android.permission.INTERNET" />
-16-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:6:5-67
-16-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:6:22-64
+16-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:6:5-67
+16-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:6:22-64
 17    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-17-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:12:5-80
-17-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:12:22-77
+17-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:12:5-80
+17-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:12:22-77
 18    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-18-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:13:5-81
-18-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:13:22-78
+18-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:13:5-81
+18-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:13:22-78
 19    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-19-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:14:5-79
-19-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:14:22-76
+19-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:14:5-79
+19-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:14:22-76
 20
 21    <application
-21-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:16:5-103:19
+21-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:16:5-106:19
 22        android:name="androidx.multidex.MultiDexApplication"
 23        android:allowBackup="true"
-23-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:17:9-35
+23-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:17:9-35
 24        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-24-->[androidx.core:core:1.3.0-beta01] C:\Users\DELL\.gradle\caches\transforms-2\files-2.1\cad20a8357491a34555b082812ab3470\core-1.3.0-beta01\AndroidManifest.xml:24:18-86
+24-->[androidx.core:core:1.3.0-beta01] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\cad20a8357491a34555b082812ab3470\core-1.3.0-beta01\AndroidManifest.xml:24:18-86
 25        android:debuggable="true"
 26        android:icon="@mipmap/ic_launcher"
-26-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:18:9-43
+26-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:18:9-43
 27        android:label="@string/app_name"
-27-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:19:9-41
+27-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:19:9-41
 28        android:networkSecurityConfig="@xml/network_security_config"
-28-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:20:9-69
+28-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:20:9-69
 29        android:requestLegacyExternalStorage="true"
-29-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:21:9-52
+29-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:21:9-52
 30        android:roundIcon="@mipmap/ic_launcher_round"
-30-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:22:9-54
+30-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:22:9-54
 31        android:supportsRtl="true"
-31-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:23:9-35
+31-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:23:9-35
 32        android:testOnly="true"
 33        android:theme="@style/AppTheme" >
-33-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:24:9-40
+33-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:24:9-40
 34        <activity android:name="com.example.tsinghuadaily.Activity.ArticleSearchActivity" />
-34-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:26:9-77
-34-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:26:19-65
+34-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:27:9-77
+34-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:27:19-65
 35        <activity android:name="com.example.tsinghuadaily.Activity.UserInfoActivity" />
-35-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:27:9-63
-35-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:27:19-60
+35-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:28:9-63
+35-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:28:19-60
 36        <activity android:name="com.example.tsinghuadaily.Activity.VideoPreviewActivity" />
-36-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:28:9-76
-36-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:28:19-64
+36-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:29:9-76
+36-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:29:19-64
 37        <activity android:name="com.example.tsinghuadaily.Activity.ArticleDetailActivity" />
-37-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:29:9-77
-37-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:29:19-65
-38        <activity android:name="com.example.tsinghuadaily.Activity.SubmitAuthActivity" />
-38-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:30:9-65
-38-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:30:19-62
-39
-40        <service
-40-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:32:9-35:39
-41            android:name="com.example.tsinghuadaily.services.WebSocketService"
-41-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:33:13-54
-42            android:enabled="true"
-42-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:34:13-35
-43            android:exported="true" />
-43-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:35:13-36
-44        <service
-44-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:36:9-40:39
-45            android:name="com.example.tsinghuadaily.services.WebSocketService$GrayInnerService"
-45-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:37:13-71
-46            android:enabled="true"
-46-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:38:13-35
-47            android:exported="false"
-47-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:39:13-37
-48            android:process=":gray" />
-48-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:40:13-36
-49
-50        <activity android:name="com.example.tsinghuadaily.Activity.ChatActivity" >
-50-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:42:9-50:20
-50-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:42:19-56
-51
-52            <!-- <intent-filter> -->
-53            <!-- <action android:name="android.intent.action.MAIN" /> -->
-54
+37-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:30:9-77
+37-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:30:19-65
+38        <activity android:name="com.example.tsinghuadaily.Activity.SelectContactActivity" />
+38-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:32:9-77
+38-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:32:19-65
+39        <activity android:name="com.example.tsinghuadaily.Activity.ExoVideoPreviewActivity" />
+39-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:33:9-70
+39-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:33:19-67
+40
+41        <service
+41-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:35:9-38:39
+42            android:name="com.example.tsinghuadaily.services.WebSocketService"
+42-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:36:13-54
+43            android:enabled="true"
+43-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:37:13-35
+44            android:exported="true" />
+44-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:38:13-36
+45        <service
+45-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:39:9-43:39
+46            android:name="com.example.tsinghuadaily.services.WebSocketService$GrayInnerService"
+46-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:40:13-71
+47            android:enabled="true"
+47-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:41:13-35
+48            android:exported="false"
+48-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:42:13-37
+49            android:process=":gray" />
+49-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:43:13-36
+50
+51        <activity android:name="com.example.tsinghuadaily.Activity.ChatActivity" >
+51-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:45:9-53:20
+51-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:45:19-56
+52
+53            <!-- <intent-filter> -->
+54            <!-- <action android:name="android.intent.action.MAIN" /> -->
 55
-56            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-57            <!-- </intent-filter> -->
-58        </activity>
-59        <activity android:name="com.example.tsinghuadaily.Activity.MainPageActivity" >
-59-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:51:9-59:20
-59-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:51:19-60
-60
-61            <!-- <intent-filter> -->
-62            <!-- <action android:name="android.intent.action.MAIN" /> -->
-63
+56
+57            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+58            <!-- </intent-filter> -->
+59        </activity>
+60        <activity android:name="com.example.tsinghuadaily.Activity.MainPageActivity" >
+60-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:54:9-62:20
+60-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:54:19-60
+61
+62            <!-- <intent-filter> -->
+63            <!-- <action android:name="android.intent.action.MAIN" /> -->
 64
-65            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-66            <!-- </intent-filter> -->
-67        </activity>
-68        <activity android:name="com.example.tsinghuadaily.Activity.RegisterActivity" >
-68-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:60:9-68:20
-68-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:60:19-60
-69
-70            <!-- <intent-filter> -->
-71            <!-- <action android:name="android.intent.action.MAIN" /> -->
-72
+65
+66            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+67            <!-- </intent-filter> -->
+68        </activity>
+69        <activity android:name="com.example.tsinghuadaily.Activity.RegisterActivity" >
+69-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:63:9-71:20
+69-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:63:19-60
+70
+71            <!-- <intent-filter> -->
+72            <!-- <action android:name="android.intent.action.MAIN" /> -->
 73
-74            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-75            <!-- </intent-filter> -->
-76        </activity>
-77        <activity android:name="com.example.tsinghuadaily.Activity.LoginOrRegisterActivity" >
-77-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:69:9-75:20
-77-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:69:19-67
-78            <intent-filter>
-78-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:70:13-74:29
-79                <action android:name="android.intent.action.MAIN" />
-79-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:71:17-69
-79-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:71:25-66
-80
-81                <category android:name="android.intent.category.LAUNCHER" />
-81-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:73:17-77
-81-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:73:27-74
-82            </intent-filter>
-83        </activity>
-84        <activity android:name="com.example.tsinghuadaily.Activity.MainActivity" >
-84-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:76:9-84:20
-84-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:76:19-56
-85
-86            <!-- <intent-filter> -->
-87            <!-- <action android:name="android.intent.action.MAIN" /> -->
-88
+74
+75            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+76            <!-- </intent-filter> -->
+77        </activity>
+78        <activity android:name="com.example.tsinghuadaily.Activity.LoginOrRegisterActivity" >
+78-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:72:9-78:20
+78-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:72:19-67
+79            <intent-filter>
+79-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:73:13-77:29
+80                <action android:name="android.intent.action.MAIN" />
+80-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:74:17-69
+80-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:74:25-66
+81
+82                <category android:name="android.intent.category.LAUNCHER" />
+82-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:76:17-77
+82-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:76:27-74
+83            </intent-filter>
+84        </activity>
+85        <activity android:name="com.example.tsinghuadaily.Activity.MainActivity" >
+85-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:79:9-87:20
+85-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:79:19-56
+86
+87            <!-- <intent-filter> -->
+88            <!-- <action android:name="android.intent.action.MAIN" /> -->
 89
-90            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-91            <!-- </intent-filter> -->
-92        </activity>
-93        <activity android:name="com.example.tsinghuadaily.Activity.ModifyUserInfoActivity" >
-93-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:85:9-93:20
-93-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:85:19-66
-94
-95            <!-- <intent-filter> -->
-96            <!-- <action android:name="android.intent.action.MAIN" /> -->
-97
+90
+91            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+92            <!-- </intent-filter> -->
+93        </activity>
+94        <activity android:name="com.example.tsinghuadaily.Activity.ModifyUserInfoActivity" >
+94-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:88:9-96:20
+94-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:88:19-66
+95
+96            <!-- <intent-filter> -->
+97            <!-- <action android:name="android.intent.action.MAIN" /> -->
 98
-99            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-100            <!-- </intent-filter> -->
-101        </activity>
-102        <activity android:name="com.example.tsinghuadaily.Activity.ArticleEditActivity" >
-102-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:94:9-102:20
-102-->D:\temp for app\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:94:19-63
-103
-104            <!-- <intent-filter> -->
-105            <!-- <action android:name="android.intent.action.MAIN" /> -->
-106
+99
+100            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+101            <!-- </intent-filter> -->
+102        </activity>
+103        <activity android:name="com.example.tsinghuadaily.Activity.ArticleEditActivity" >
+103-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:97:9-105:20
+103-->C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\app\src\main\AndroidManifest.xml:97:19-63
+104
+105            <!-- <intent-filter> -->
+106            <!-- <action android:name="android.intent.action.MAIN" /> -->
 107
-108            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-109            <!-- </intent-filter> -->
-110        </activity>
-111        <activity
-111-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-16:54
-112            android:name="com.chinalwb.are.activities.Are_VideoPlayerActivity"
-112-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-79
-113            android:configChanges="orientation|keyboardHidden|screenSize"
-113-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-74
-114            android:label="@string/title_activity_are__video_player"
-114-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-69
-115            android:theme="@style/FullscreenTheme" />
-115-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-51
-116        <activity
-116-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:17:9-20:47
-117            android:name="com.chinalwb.are.activities.Are_AtPickerActivity"
-117-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-76
-118            android:configChanges="orientation|keyboardHidden|screenSize"
-118-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:13-74
-119            android:theme="@style/AppTheme" />
-119-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:13-44
-120        <activity android:name="com.chinalwb.are.strategies.defaults.DefaultProfileActivity" />
-120-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:9-96
-120-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:19-93
-121        <activity
-121-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:9-26:54
-122            android:name="com.chinalwb.are.strategies.defaults.DefaultImagePreviewActivity"
-122-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:13-92
-123            android:configChanges="orientation|keyboardHidden|screenSize"
-123-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:13-74
-124            android:label="@string/title_activity_default_image_preview"
-124-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:13-73
-125            android:theme="@style/FullscreenTheme" />
-125-->[:are] D:\temp for app\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:26:13-51
-126
-127        <service
-127-->[androidx.room:room-runtime:2.2.5] C:\Users\DELL\.gradle\caches\transforms-2\files-2.1\717f65762e8c098ad71282db36fbc63c\room-runtime-2.2.5\AndroidManifest.xml:25:9-28:40
-128            android:name="androidx.room.MultiInstanceInvalidationService"
-128-->[androidx.room:room-runtime:2.2.5] C:\Users\DELL\.gradle\caches\transforms-2\files-2.1\717f65762e8c098ad71282db36fbc63c\room-runtime-2.2.5\AndroidManifest.xml:26:13-74
-129            android:directBootAware="true"
-129-->[androidx.room:room-runtime:2.2.5] C:\Users\DELL\.gradle\caches\transforms-2\files-2.1\717f65762e8c098ad71282db36fbc63c\room-runtime-2.2.5\AndroidManifest.xml:27:13-43
-130            android:exported="false" />
-130-->[androidx.room:room-runtime:2.2.5] C:\Users\DELL\.gradle\caches\transforms-2\files-2.1\717f65762e8c098ad71282db36fbc63c\room-runtime-2.2.5\AndroidManifest.xml:28:13-37
-131    </application>
-132
-133</manifest>
+108
+109            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+110            <!-- </intent-filter> -->
+111        </activity>
+112        <activity
+112-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-16:54
+113            android:name="com.chinalwb.are.activities.Are_VideoPlayerActivity"
+113-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-79
+114            android:configChanges="orientation|keyboardHidden|screenSize"
+114-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-74
+115            android:label="@string/title_activity_are__video_player"
+115-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-69
+116            android:theme="@style/FullscreenTheme" />
+116-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-51
+117        <activity
+117-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:17:9-20:47
+118            android:name="com.chinalwb.are.activities.Are_AtPickerActivity"
+118-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-76
+119            android:configChanges="orientation|keyboardHidden|screenSize"
+119-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:13-74
+120            android:theme="@style/AppTheme" />
+120-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:13-44
+121        <activity android:name="com.chinalwb.are.strategies.defaults.DefaultProfileActivity" />
+121-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:9-96
+121-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:19-93
+122        <activity
+122-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:9-26:54
+123            android:name="com.chinalwb.are.strategies.defaults.DefaultImagePreviewActivity"
+123-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:13-92
+124            android:configChanges="orientation|keyboardHidden|screenSize"
+124-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:13-74
+125            android:label="@string/title_activity_default_image_preview"
+125-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:13-73
+126            android:theme="@style/FullscreenTheme" />
+126-->[:are] C:\Users\98280\Desktop\TsinghuaDaily-FrontEnd\are\build\intermediates\library_manifest\debug\AndroidManifest.xml:26:13-51
+127
+128        <service
+128-->[androidx.room:room-runtime:2.2.5] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\717f65762e8c098ad71282db36fbc63c\room-runtime-2.2.5\AndroidManifest.xml:25:9-28:40
+129            android:name="androidx.room.MultiInstanceInvalidationService"
+129-->[androidx.room:room-runtime:2.2.5] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\717f65762e8c098ad71282db36fbc63c\room-runtime-2.2.5\AndroidManifest.xml:26:13-74
+130            android:directBootAware="true"
+130-->[androidx.room:room-runtime:2.2.5] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\717f65762e8c098ad71282db36fbc63c\room-runtime-2.2.5\AndroidManifest.xml:27:13-43
+131            android:exported="false" />
+131-->[androidx.room:room-runtime:2.2.5] C:\Users\98280\.gradle\caches\transforms-2\files-2.1\717f65762e8c098ad71282db36fbc63c\room-runtime-2.2.5\AndroidManifest.xml:28:13-37
+132    </application>
+133
+134</manifest>

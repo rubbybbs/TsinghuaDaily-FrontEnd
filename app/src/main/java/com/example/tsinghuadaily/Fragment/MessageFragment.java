@@ -315,7 +315,7 @@ public class MessageFragment extends QMUIFragment {
             else
                 ((MessageDigestViewHolder) holder).avata.setImageBitmap(BitmapFactory.decodeByteArray(abyte, 0, abyte.length));
             String content = msgD.content;
-            if (content.startsWith("ShareArticle0226:::")) {
+            if (content.startsWith("ShareArticle0226://")) {
                 ((MessageDigestViewHolder) holder).txtMessage.setText("分享文章");
             }
             else
