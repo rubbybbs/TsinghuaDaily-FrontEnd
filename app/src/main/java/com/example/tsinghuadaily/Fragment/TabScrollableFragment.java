@@ -342,16 +342,9 @@ public class TabScrollableFragment extends QMUIFragment {
         mTabSegment.setupWithViewPager(mContentViewPager, false);
         mTabSegment.setPadding(space, 0, space, 0);
         mTabSegment.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onTabSelected(int index) {
                 //Toast.makeText(getContext(), "select index " + index, Toast.LENGTH_SHORT).show();
-                ContentPage pos = ContentPage.getPage(index);
-                ScrollView mScrollView = (ScrollView)getPageView(pos);
-                QMUIGroupListView mGroupListView = (QMUIGroupListView)mScrollView.getChildAt(0);
-                mGroupListView.removeAllViews();
-                mCurrentPageNum[index] = 1;
-                new GetArticleListTask().execute(pos);
             }
 
             @Override
@@ -359,9 +352,16 @@ public class TabScrollableFragment extends QMUIFragment {
                 //Toast.makeText(getContext(), "unSelect index " + index, Toast.LENGTH_SHORT).show();
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onTabReselected(int index) {
                 //Toast.makeText(getContext(), "reSelect index " + index, Toast.LENGTH_SHORT).show();
+                ContentPage pos = ContentPage.getPage(index);
+                ScrollView mScrollView = (ScrollView)getPageView(pos);
+                QMUIGroupListView mGroupListView = (QMUIGroupListView)mScrollView.getChildAt(0);
+                mGroupListView.removeAllViews();
+                mCurrentPageNum[index] = 1;
+                new GetArticleListTask().execute(pos);
             }
 
             @Override
