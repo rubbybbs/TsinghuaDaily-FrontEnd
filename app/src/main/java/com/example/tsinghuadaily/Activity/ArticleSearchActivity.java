@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.tsinghuadaily.Database.AppDatabase;
-import com.example.tsinghuadaily.Fragment.ArticleResearchFragment;
+import com.example.tsinghuadaily.Fragment.ArticleSearchFragment;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.base.BaseFragmentActivity;
 import com.example.tsinghuadaily.services.WebSocketService;
@@ -50,7 +50,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 
-@DefaultFirstFragment(ArticleResearchFragment.class)
+@DefaultFirstFragment(ArticleSearchFragment.class)
 public class ArticleSearchActivity extends BaseFragmentActivity {
 
     @Override

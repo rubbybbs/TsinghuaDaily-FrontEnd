@@ -5,11 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -20,16 +15,17 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.tsinghuadaily.Activity.ArticleDetailActivity;
-import com.example.tsinghuadaily.Fragment.Variety.CorporationArticleFragment;
 import com.example.tsinghuadaily.R;
 import com.example.tsinghuadaily.base.BaseFragment;
 import com.example.tsinghuadaily.utils.OkHttpUtil;
-import com.qmuiteam.qmui.arch.annotation.DefaultFirstFragment;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
-import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.QMUITopBarLayout;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
@@ -43,7 +39,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArticleResearchFragment extends BaseFragment {
+public class ArticleSearchFragment extends BaseFragment {
 
     @BindView(R.id.topbar)
     QMUITopBarLayout mTopBar;
@@ -93,7 +89,7 @@ public class ArticleResearchFragment extends BaseFragment {
     @Override
     public View onCreateView() {
         // Inflate the layout for this fragment
-        View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_article_research, null);
+        View root = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_article_search, null);
         ButterKnife.bind(this, root);
 
         mTopBar.setTitle("文章搜索");
@@ -139,8 +135,8 @@ public class ArticleResearchFragment extends BaseFragment {
                             if (v instanceof QMUICommonListItemView) {
                                 CharSequence text = ((QMUICommonListItemView) v).getText();
                                 String[] parser = ((QMUICommonListItemView) v).getDetailText().toString().split(" ");
-                                int articleID = Integer.parseInt(parser[1]);
-                                String articleDetail = parser[0] + " " + parser[2];
+                                int articleID = Integer.parseInt(parser[0]);
+                                String articleDetail = parser[1] + " " + parser[2] + " " + parser[3];
                                 //Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
                                 if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
                                     ((QMUICommonListItemView) v).getSwitch().toggle();
@@ -211,7 +207,7 @@ public class ArticleResearchFragment extends BaseFragment {
 //                        item.setDetailText(article.get("article_id").toString() + " " +article.get("publish_time"));
                         QMUICommonListItemView item = mGroupListView.createItemView(null,
                                 article.get("title").toString(),
-                                article.get("author_name").toString() + " " + article.get("article_id").toString() + " " + article.get("publish_time") + "\n" +
+                                article.get("article_id").toString() + " " + article.get("author_name").toString() + " " + article.get("publish_time") + "\n" +
                                         article.getString("view_num") + "浏览，" + article.getString("like_num") + "点赞，" + article.getString("fav_num") + "收藏",
                                 QMUICommonListItemView.VERTICAL,
                                 QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,

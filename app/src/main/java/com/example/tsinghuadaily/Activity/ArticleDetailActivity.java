@@ -242,6 +242,9 @@ public class ArticleDetailActivity extends AppCompatActivity {
                         }
                         case 3: {
                             JSONArray comments = JSONArray.parseArray(obj.get("comments").toString());
+                            if(comments.size() == 0){
+                                mData.add("还没有一个人评论哦");
+                            }
                             for (int i = 0; i<comments.size(); i++){
                                 JSONObject comment = JSONObject.parseObject(comments.get(i).toString());
                                 mData.add(comment.getString("username") + ": \n         " + comment.getString("content"));

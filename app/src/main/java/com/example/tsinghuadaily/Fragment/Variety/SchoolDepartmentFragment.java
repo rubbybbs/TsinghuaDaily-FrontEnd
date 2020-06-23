@@ -124,8 +124,8 @@ public class SchoolDepartmentFragment extends BaseFragment {
                             if (v instanceof QMUICommonListItemView) {
                                 CharSequence text = ((QMUICommonListItemView) v).getText();
                                 String[] parser = ((QMUICommonListItemView) v).getDetailText().toString().split(" ");
-                                int articleID = Integer.parseInt(parser[1]);
-                                String articleDetail = parser[0] + " " + parser[2];
+                                int articleID = Integer.parseInt(parser[0]);
+                                String articleDetail = parser[1] + " " + parser[2] + " " + parser[3];
                                 //Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
                                 if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
                                     ((QMUICommonListItemView) v).getSwitch().toggle();
@@ -196,7 +196,7 @@ public class SchoolDepartmentFragment extends BaseFragment {
 //                        item.setDetailText(article.get("article_id").toString() + " " +article.get("publish_time"));
                         QMUICommonListItemView item = mGroupListView.createItemView(null,
                                 article.get("title").toString(),
-                                article.get("author_name").toString() + " " + article.get("article_id").toString() + " " + article.get("publish_time") + "\n" +
+                                article.get("article_id").toString() + " " + article.get("author_name").toString() + " " + article.get("publish_time") + "\n" +
                                         article.getString("view_num") + "浏览，" + article.getString("like_num") + "点赞，" + article.getString("fav_num") + "收藏",
                                 QMUICommonListItemView.VERTICAL,
                                 QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
