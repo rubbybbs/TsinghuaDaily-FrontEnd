@@ -125,7 +125,9 @@ public class DepartmentArticleFragment extends BaseFragment {
                         public void onClick(View v) {
                             if (v instanceof QMUICommonListItemView) {
                                 CharSequence text = ((QMUICommonListItemView) v).getText();
-                                int articleID = Integer.parseInt(((QMUICommonListItemView) v).getDetailText().toString().split(" ")[1]);
+                                String[] parser = ((QMUICommonListItemView) v).getDetailText().toString().split(" ");
+                                int articleID = Integer.parseInt(parser[1]);
+                                String articleDetail = parser[0] + " " + parser[2];
                                 //Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
                                 if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
                                     ((QMUICommonListItemView) v).getSwitch().toggle();
@@ -151,7 +153,10 @@ public class DepartmentArticleFragment extends BaseFragment {
                                             String id = info.get("article_id").toString();
                                             String like = info.get("liked").toString();
                                             String favour = info.get("favoured").toString();
+                                            String isAuthor = info.get("is_author").toString();
                                             Intent intent = new Intent();
+                                            intent.putExtra("author_name", articleDetail);
+                                            intent.putExtra("is_author", isAuthor);
                                             intent.putExtra("id", id);
                                             intent.putExtra("html_text", html);
                                             intent.putExtra("title", text);

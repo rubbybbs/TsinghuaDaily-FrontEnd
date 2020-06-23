@@ -68,6 +68,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -309,8 +310,8 @@ public class ArticleEditActivity extends AppCompatActivity {
             }
         });
         mTopBar.setTitle("分类");
-        mTopBar.addRightTextButton("C", QMUIViewHelper.generateViewId())
-                .setOnClickListener(new View.OnClickListener() {
+        Button tButton = mTopBar.addRightTextButton("提交", QMUIViewHelper.generateViewId());
+        tButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         String html = mEditText.getHtml();
@@ -335,20 +336,21 @@ public class ArticleEditActivity extends AppCompatActivity {
 
                     }
                 });
-        mTopBar.addRightTextButton("P", QMUIViewHelper.generateViewId())
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String html = mEditText.getHtml();
-                        Intent intent = new Intent(getApplication(), ArticleDetailActivity.class);
-                        intent.putExtra("html_text", html);
-                        intent.putExtra("title", "文章预览");
-                        intent.putExtra("id", "-1");
-                        startActivity(intent);
-                    }
-                }
-
+        tButton.setTextColor(getResources().getColor(R.color.qmui_config_color_75_white));
+        Button pButton = mTopBar.addRightTextButton("预览", QMUIViewHelper.generateViewId());
+        pButton.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           String html = mEditText.getHtml();
+                                           Intent intent = new Intent(getApplication(), ArticleDetailActivity.class);
+                                           intent.putExtra("html_text", html);
+                                           intent.putExtra("title", "文章预览");
+                                           intent.putExtra("id", "-1");
+                                           startActivity(intent);
+                                       }
+                                   }
         );
+        pButton.setTextColor(getResources().getColor(R.color.qmui_config_color_75_white));
     }
 
     private void initToolbar() {

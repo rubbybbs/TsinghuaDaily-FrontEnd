@@ -124,6 +124,10 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
 
+    private TextView mTextTile;
+
+    private TextView mTextAuthorTime;
+
     private BaseRecyclerAdapter<String> mAdapter;
 
     private Button mButtonLike;
@@ -141,9 +145,13 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
     String articleID;
 
+    String articleDetail;
+
     boolean isFavour = false;
 
     boolean isLike = false;
+
+    boolean isAuthor = false;
 
     Handler handler;
 
@@ -161,8 +169,12 @@ public class ArticleDetailActivity extends AppCompatActivity {
         articleID = intent.getStringExtra("id");
         String like = intent.getStringExtra("like");
         String favour = intent.getStringExtra("favour");
+        String author = intent.getStringExtra("is_author");
+        String author_name = intent.getStringExtra("author_name");
+
         isLike = like != null && like.compareTo("true") == 0;
         isFavour = favour != null && favour.compareTo("true") == 0;
+        isAuthor = author != null && author.compareTo("true") == 0;
 
         mContext = this;
         areTextView = findViewById(R.id.areTextView);
@@ -170,6 +182,14 @@ public class ArticleDetailActivity extends AppCompatActivity {
         mButtonLike = findViewById(R.id.button_like);
         mButtonComment = findViewById(R.id.button_comment);
         mButtonCollection = findViewById(R.id.button_collection);
+        mTextAuthorTime = findViewById(R.id.textViewAuthor);
+        mTextTile = findViewById(R.id.textViewTitle);
+
+        mTextTile.setText(title);
+        if (author_name!=null) {
+            articleDetail = author_name;
+            mTextAuthorTime.setText(author_name);
+        }
 
         handler = new Handler() {
             @Override
@@ -228,6 +248,11 @@ public class ArticleDetailActivity extends AppCompatActivity {
                             }
                             mAdapter.setData(mData);
                             break;
+                        }
+                        case 4: {
+                            String successMsg = obj.get("msg").toString();
+                            Toast.makeText(getApplicationContext(), successMsg, Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                         default:
                             break;
@@ -450,18 +475,45 @@ public class ArticleDetailActivity extends AppCompatActivity {
         });
 
         mTopBar.setTitle(title);
-        mTopBar.addRightTextButton("分享", QMUIViewHelper.generateViewId())
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext, SelectContactActivity.class);
-                        intent.putExtra("article_title", title);
-                        intent.putExtra("article_id", articleID);
-                        startActivity(intent);
-                    }
-                });
 
+        if (articleID.compareTo("-1")!=0) {
+            boolean isAdmin = this.getSharedPreferences("userdata", Context.MODE_PRIVATE).getBoolean("authority", false);
+            if (!isAdmin) {
+                mTopBar.addRightTextButton("分享", QMUIViewHelper.generateViewId())
+                        .setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(mContext, SelectContactActivity.class);
+                                intent.putExtra("article_title", title);
+                                intent.putExtra("article_id", articleID);
+                                intent.putExtra("article_detail", articleDetail);
+                                startActivity(intent);
+                            }
+                        });
+            }
+            if (isAuthor) {
+                mTopBar.addRightTextButton("删除", QMUIViewHelper.generateViewId())
+                        .setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Map<String, String> params = new HashMap<>();
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String res = OkHttpUtil.postForm("http://175.24.61.249:8080/article/delete?article_id=" + articleID, params);
+                                        Message msg = new Message();
+                                        Bundle data = new Bundle();
+                                        data.putString("requestRes", res);
+                                        data.putInt("type", 4);
+                                        msg.setData(data);
+                                        handler.sendMessage(msg);
+                                    }
+                                }).start();
 
+                            }
+                        });
+            }
+        }
     }
 
 }

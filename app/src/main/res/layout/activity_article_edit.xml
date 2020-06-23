@@ -49,7 +49,7 @@
                 android:hint="请输入你的标题"
                 android:paddingLeft="@dimen/inner_components_spacing"
                 android:paddingRight="@dimen/inner_components_spacing"
-                android:maxLength="20"
+                android:maxLength="30"
                 android:maxLines="1"
                 android:singleLine="true" android:cursorVisible="true"
                 android:textColor="?attr/qmui_config_color_gray_5"
@@ -91,7 +91,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/inner_components_spacing"
                 android:paddingRight="@dimen/inner_components_spacing"
-                android:text="分级"
+                android:text="可见"
                 android:textColor="?attr/qmui_config_color_gray_1"
                 android:textSize="?attr/qmui_common_list_item_title_h_text_size" />
 
@@ -104,29 +104,29 @@
                     android:id="@+id/rb_1"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/qmui_list_item_height"
-                    android:text="All"
-                    android:textSize="16sp"
+                    android:text="所有人"
+                    android:textSize="10sp"
                     />
                 <RadioButton
                     android:id="@+id/rb_2"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/qmui_list_item_height"
-                    android:text="Staff"
-                    android:textSize="16sp"
+                    android:text="教职工"
+                    android:textSize="10sp"
                     />
                 <RadioButton
                     android:id="@+id/rb_3"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/qmui_list_item_height"
-                    android:text="Member"
-                    android:textSize="16sp"
+                    android:text="本院系/部门"
+                    android:textSize="10sp"
                     />
                 <RadioButton
                     android:id="@+id/rb_4"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/qmui_list_item_height"
-                    android:text="MemberStaff"
-                    android:textSize="16sp"
+                    android:text="本院系/部门教职工"
+                    android:textSize="10sp"
                     />
             </RadioGroup>
 

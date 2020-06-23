@@ -176,12 +176,12 @@ public class MessageFragment extends QMUIFragment {
 
 
     private void initTopBar() {
-        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popBackStack();
-            }
-        });
+//        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                popBackStack();
+//            }
+//        });
 
         mTopBar.setTitle("消息列表");
         mTopBar.addRightTextButton("搜索", QMUIViewHelper.generateViewId())

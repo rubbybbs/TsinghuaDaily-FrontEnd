@@ -60,6 +60,7 @@ public class SelectContactActivity extends AppCompatActivity {
     private int UID;
     private String article_title;
     private String article_id;
+    private String article_detail;
     private static String SHARE_HEADER = "ShareArticle0226://";
 
     Context mContext;
@@ -71,6 +72,7 @@ public class SelectContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_contact);
         article_id = getIntent().getStringExtra("article_id");
         article_title = getIntent().getStringExtra("article_title");
+        article_detail = getIntent().getStringExtra("article_detail");
         ContactRecylerList = findViewById(R.id.recycleListContact);
         mTopBar = findViewById(R.id.topbarContactPage);
         mTopBar.setTitle("选择联系人");
@@ -165,6 +167,7 @@ public class SelectContactActivity extends AppCompatActivity {
                                     JSONObject obj = new JSONObject();
                                     obj.put("a_id", article_id);
                                     obj.put("a_title", article_title);
+                                    obj.put("a_detail", article_detail);
                                     String content = obj.toJSONString();
                                     intent.putExtra("SHARE_MSG", SHARE_HEADER + content);
                                     startActivity(intent);

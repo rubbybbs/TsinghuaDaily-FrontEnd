@@ -155,12 +155,12 @@ public class AuthFragment extends QMUIFragment {
     }
 
     private void initTopBar() {
-        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popBackStack();
-            }
-        });
+//        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                popBackStack();
+//            }
+//        });
         mTopBar.setTitle("认证列表");
     }
 

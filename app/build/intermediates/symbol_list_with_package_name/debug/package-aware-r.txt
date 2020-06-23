@@ -2729,6 +2729,8 @@ id textSpacerNoTitle
 id textStart
 id textView
 id textView2
+id textViewAuthor
+id textViewTitle
 id text_input_end_icon
 id text_input_start_icon
 id textinput_counter

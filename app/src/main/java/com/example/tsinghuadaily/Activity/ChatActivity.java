@@ -171,7 +171,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                             String like = info.get("liked").toString();
                             String text = info.get("title").toString();
                             String favour = info.get("favoured").toString();
+                            String isAuthor = info.get("is_author").toString();
+                            String articleDetail = data.getString("article_detail");
                             Intent intent = new Intent();
+                            intent.putExtra("is_author", isAuthor);
+                            intent.putExtra("author_name", articleDetail);
                             intent.putExtra("id", id);
                             intent.putExtra("html_text", html);
                             intent.putExtra("title", text);
@@ -412,6 +416,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                                 Bundle data = new Bundle();
                                 data.putInt("code", 3);
                                 data.putString("requestRes", res);
+                                data.putString("article_detail", obj.getString("a_detail"));
                                 msg.setData(data);
                                 handler.sendMessage(msg);
                             }
@@ -436,6 +441,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                                 Message msg = new Message();
                                 Bundle data = new Bundle();
                                 data.putInt("code", 3);
+                                data.putString("article_detail", obj.getString("a_detail"));
                                 data.putString("requestRes", res);
                                 msg.setData(data);
                                 handler.sendMessage(msg);
