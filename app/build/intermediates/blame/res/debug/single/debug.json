@@ -196,6 +196,10 @@
         "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\mipmap-hdpi\\ic_avatar_round.png"
     },
     {
+        "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_article_search.xml.flat",
+        "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\fragment_article_search.xml"
+    },
+    {
         "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_avatar.xml.flat",
         "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_avatar.xml"
     },
@@ -210,10 +214,6 @@
     {
         "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_department_article.xml.flat",
         "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\fragment_department_article.xml"
-    },
-    {
-        "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_article_research.xml.flat",
-        "source": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\src\\main\\res\\layout\\fragment_article_research.xml"
     },
     {
         "merged": "D:\\temp for app\\TsinghuaDaily-FrontEnd\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_avatar_round.png.flat",

@@ -229,11 +229,15 @@ public class ArticleEditActivity extends AppCompatActivity {
 
     EditText mDescribeText;
 
-    String readerText;
+    String readerText = "All";
 
     QMUITopBar mTopBar;
 
     RadioGroup mRadioGroup;
+    RadioButton mRadioButton1;
+    RadioButton mRadioButton2;
+    RadioButton mRadioButton3;
+    RadioButton mRadioButton4;
 
     private int UID;
 
@@ -264,13 +268,30 @@ public class ArticleEditActivity extends AppCompatActivity {
         }
 
         mTopicText = this.findViewById(R.id.edittext_topic);
+        mRadioButton1 = this.findViewById(R.id.rb_1);
+        mRadioButton2 = this.findViewById(R.id.rb_2);
+        mRadioButton3 = this.findViewById(R.id.rb_3);
+        mRadioButton4 = this.findViewById(R.id.rb_4);
         //mDescribeText = this.findViewById(R.id.edittext_describe);
         mRadioGroup = this.findViewById(R.id.rg_level);
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton radioButton = radioGroup.findViewById(i);
-                readerText = radioButton.getText().toString();
+                String text = radioButton.getText().toString();
+                if (text.compareTo(mRadioButton1.getText().toString()) == 0) {
+                    readerText = "All";
+                }
+                else if (text.compareTo(mRadioButton2.getText().toString()) == 0) {
+                    readerText = "Staff";
+                }
+                else if (text.compareTo(mRadioButton3.getText().toString()) == 0) {
+                    readerText = "Member";
+                }
+                else if (text.compareTo(mRadioButton4.getText().toString()) == 0) {
+                    readerText = "MemberStaff";
+                }
+
                 Toast.makeText(getApplicationContext(), readerText, Toast.LENGTH_SHORT).show();
             }
         });
@@ -287,7 +308,7 @@ public class ArticleEditActivity extends AppCompatActivity {
                 JSONObject obj = JSONObject.parseObject(val);
                 if (obj.get("code").equals(200))
                 {
-                    //Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 else

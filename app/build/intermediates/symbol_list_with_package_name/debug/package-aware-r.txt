@@ -2902,7 +2902,7 @@ layout exo_player_view
 layout exo_simple_player_view
 layout exo_track_selection_dialog
 layout fragment_article_detail
-layout fragment_article_research
+layout fragment_article_search
 layout fragment_auth
 layout fragment_corporation_article
 layout fragment_corporation_card_article

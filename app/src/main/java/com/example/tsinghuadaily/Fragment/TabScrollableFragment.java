@@ -74,8 +74,10 @@ public class TabScrollableFragment extends QMUIFragment {
 
     private Handler handler;
 
+    private Boolean firstResume = true;
     //标识是否滑动到顶部
     private boolean isScrollToStart = false;
+    private int tabIndex = 0;
     //标识是否滑动到底部
     private boolean isScrollToEnd = false;
     private static final int CODE_TO_START = 0x001;
@@ -309,6 +311,22 @@ public class TabScrollableFragment extends QMUIFragment {
         return rootView;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (firstResume) {
+            firstResume = false;
+            return;
+        }
+        ContentPage pos = ContentPage.getPage(tabIndex);
+        ScrollView mScrollView = (ScrollView)getPageView(pos);
+        QMUIGroupListView mGroupListView = (QMUIGroupListView)mScrollView.getChildAt(0);
+        mGroupListView.removeAllViews();
+        mCurrentPageNum[tabIndex] = 1;
+        new GetArticleListTask().execute(pos);
+    }
+
     private void initTopBar() {
 //        mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -350,6 +368,7 @@ public class TabScrollableFragment extends QMUIFragment {
             @Override
             public void onTabSelected(int index) {
                 //Toast.makeText(getContext(), "select index " + index, Toast.LENGTH_SHORT).show();
+                tabIndex = index;
             }
 
             @Override

@@ -229,6 +229,15 @@ public class CorporationCardArticleFragment extends BaseFragment {
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mGroupListView.removeAllViews();
+        mCurrentPageNum = 1;
+        //new GetArticleListTask().execute();
+    }
+
     private void initTopBar() {
         mTopBar.addLeftBackImageButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,7 +270,7 @@ public class CorporationCardArticleFragment extends BaseFragment {
                     if (follow == "false") {
                         isFollow = false;
                         followButton.setText("关注");
-                        followButton.setTextColor(getResources().getColor(R.color.black_overlay));
+                        followButton.setTextColor(getResources().getColor(R.color.qmui_config_color_75_white));
                     } else {
                         isFollow = true;
                         followButton.setText("已关注");
@@ -309,7 +318,7 @@ public class CorporationCardArticleFragment extends BaseFragment {
                     if (isFollow) {
                         isFollow = false;
                         followButton.setText("关注");
-                        followButton.setTextColor(getResources().getColor(R.color.black_overlay));
+                        followButton.setTextColor(getResources().getColor(R.color.qmui_config_color_75_white));
                         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                     } else {
                         isFollow = true;
